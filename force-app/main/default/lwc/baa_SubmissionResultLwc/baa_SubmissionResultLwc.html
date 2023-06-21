@@ -1,0 +1,213 @@
+<template>
+          <!-- <c:BAA_Resource ></c:BAA_Resource>    -->    
+    
+    
+         <c-baa-header-cmp  title="Submission Result"></c-baa-header-cmp>
+             <!--  <c:BAA_Header objOpp="{!BaseOpportunity}" title="Submission Result"></c:BAA_Header>   -->      
+    
+    <div class="container" style="font-size: 12px">
+        
+            
+        
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                         <c-baa-menu-cmp > </c-baa-menu-cmp>
+                         <!--  <c:BAA_Menu oppId="{!BaseOpportunity.Id}"  DirectorId="{!BaseOpportunity.ProductEventDirector__c}" />   -->  
+                    
+                </div>   
+                          
+                <div class="col-md-8 col-lg-9">
+                    <!--<apex:form >-->
+                        <form id="subresult"> 
+                        <template if:true={showError}>
+                        <div class="row" style="border-color: coral; border: 2px solid red; border-radius: 5px;background-color:#ffff99; margin-left:50px; margin-right:50px;margin-bottom:3px" >
+                            <div style="font-size: 20px; color: Red;padding-left:25px;padding-bottom:6px"> Errors</div>
+                            <template for:each={caseNoList} for:item="cno" for:index="cnoidx">
+                            <div class="col-xs-12" style="padding-left:25px;padding-bottom:6px" key={cno}>
+                               
+                                    Case {cno } is not accepted.
+                                
+                              <!--  <apex:pagemessages ></apex:pagemessages>-->
+                            </div>
+                            </template>
+                        </div>
+                         </template>
+                    <template for:each={detailWrap} for:item="dW" for:index="index">
+                       
+                   
+                    <!--<apex:repeat value="{!Accounts}" var="accs">-->
+                        <div class="panel panel-primary" key={dW.account.id}>
+                            <div class="panel-heading">{dW.account.Name} -  {dW.status} <!--{Status(accs.id)}--></div>                            
+                            <div class="panel-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="headerRow"><th>Case</th><th>Subject</th><th>Detail</th><th>Satisfied</th><th>Comment</th></tr>
+                                        </thead>
+                                        <tbody>
+                                        <template  for:each={dW.Cases} for:item="cas" for:index="cindex">   
+                                        <!--<apex:repeat value="{!Cases[accs.id]}" var="cas">-->
+                                            <tr class="dataRow" key={cas.id}>                                            
+                                                <td><a  class="urlColor"  data-casid={cas.id} onclick={handleCaseNoClick} >{cas.CaseNumber }</a>  </td>
+                                                <td>{cas.Subject}</td><td>{cas.Detail}</td>
+                                                <td>
+                                                    <lightning-combobox
+                                                        name={cas.id}
+                                                        value={cas.Satisfied}
+                                                        placeholder="Select"
+                                                        options={Satisfiedoptions}
+                                                        onchange={handleChange} ></lightning-combobox>
+                                                    <!--<apex:selectList size="1" styleClass="form-control" value="{!cas.Satisfied}">
+                                                        <apex:selectOption itemValue="No"></apex:selectOption>
+                                                        <apex:selectOption itemValue="Yes"></apex:selectOption>
+                                                    </apex:selectList> -->
+                                                </td>
+                                                <td><span class="comment" ><lightning-button name={cindex} label="Show" title={index} onclick={handleShowClick}  ></lightning-button></span> </td>                                            
+                                            </tr>
+                                            <template if:true={cas.ShowComment}>
+                                            <tr style=" " key={cas.id}>
+                                                
+                                                <td colspan="6">
+                                                    <lightning-textarea name={cas.id}  value={cas.Comment} onchange={handleCommentChange}></lightning-textarea>
+                                                  <!--  <apex:inputTextarea styleClass="form-control" rows="3" cols="10" value="{!cas.Comment}"/>-->
+                                                </td>
+                                                
+                                            </tr>
+                                            </template>
+                                        <!--</apex:repeat>-->
+                                        </template>
+                                    </tbody>
+                                </table>
+                                
+                                
+                                
+                                
+                            </div>                        
+                        </div>
+                    <!--</apex:repeat>-->
+                    </template>
+                        
+                     <lightning-record-edit-form record-id={baseOppId} object-api-name="Opportunity"  onsuccess={handleSuccess} onerror={handleError} >
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Comments</div>
+                            <div class="panel-body">
+                                <template if:true={opp}>
+                                     <lightning-input-field field-name="SellerBDM_Case_Summary__c"  variant="label-hidden">
+                                        </lightning-input-field>
+                                   <!--<input type="text" variant="standard" name="case summary" value={opp.SellerBDM_Case_Summary__c} onchange={handleCaseSummaryChange}><input>-->
+                               <!-- <apex:inputField styleClass="form-control" value="{!Opp.SellerBDM_Case_Summary__c}"/> value={Opp.SellerBDM_Case_Summary__c}-->
+                                </template>
+                            </div>
+                        </div>
+                    </div>   
+                    
+                    
+                     <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Final Submission Check</div>
+                            <div class="panel-body">
+                                
+                                 <div class="col-xs-12">
+                                     <p><a class="urlColor"  label="Equifax Web Site"  onclick={handleNewWinOpen} >Equifax Web Site </a></p>
+                                     <!-- <a href="javascript:void(0)"
+                                                onclick="doMC();"><b>Equifax Web Site</b> 
+                                      </a> jQuery Part  -->
+                                      
+                                     <table class="table" width="50%">
+                                         <tbody>
+                                             <tr>
+                                                 <td class="labelCol">Have you completed the companies house check ?</td>
+                                                 <td class="dataCol">
+                                                      <template if:true={opp}>
+                                                           <lightning-input-field field-name="Company_House_Check__c" variant="label-hidden" required="true" class="requiredInput" >
+                                                            </lightning-input-field>
+                                                        <!-- <select class="form-control1" required style=" border-left: solid  red;" onchange={handleCompanyHouseCheckChange} >
+                                                            <template for:each={Satisfiedoptions} for:item="option" for:index="index">
+                                                                    <option key={option.value} value ={option.value}> {option.value}</option>
+                                                            </template>
+                                                        </select>-->
+                                                    <!--<lightning-combobox
+                                                        value={opp.Company_House_Check__c}
+                                                        required=true
+                                                        placeholder="Select"
+                                                        options={Satisfiedoptions}
+                                                         onkeypress={handleKeyUp}
+                                                        onchange={handleCompanyHouseCheckChange} class="CompanyHouseCheck"  style=" border-left: solid  red;"  ></lightning-combobox>-->
+                                                    <!-- <lightning-input type="checkbox" name="Company house check"  onchange={handleHouseCheckChange}></lightning-input>-->
+                                                     <!--<apex:inputField required="true"  value="{!Opp.Company_House_Check__c}"/> value={Opp.Company_House_Check__c}-->
+                                                      </template>
+                                                     </td> 
+                                             </tr>
+                                             <tr>
+                                                 <td class="labelCol">Have you attached the companies house check to the opportunity?</td>
+                                                 <td class="dataCol">
+                                                      <template if:true={opp}>
+                                                          <lightning-input-field  field-name="Co_Hse_Check_Copy_Attached__c" variant="label-hidden" required="true" class="requiredInput">
+                                                            </lightning-input-field>
+                                                        <!--<select class="form-control2" required style=" border-left: solid  red;" onchange={handleCheckCopyAttachedChange} >
+                                                            <template for:each={Satisfiedoptions} for:item="option" for:index="index">
+                                                                    <option key={option.value} value ={option.value}> {option.value}</option>
+                                                            </template>
+                                                        </select>-->
+
+                                                     <!-- <lightning-combobox
+                                                        value={opp.Co_Hse_Check_Copy_Attached__c}
+                                                        
+                                                        placeholder="Select"
+                                                        options={Satisfiedoptions}
+                                                        onchange={handleCheckCopyAttachedChange} class="CheckCopyAttachedChange" style=" border-left: solid  red;" ></lightning-combobox>-->
+                                                     <!--<lightning-input type="checkbox" name="Companies house check to Opp"  onchange={handleHouseChecktoOppChange}></lightning-input>-->
+                                                     <!--<apex:inputField required="true"  value="{!Opp.Co_Hse_Check_Copy_Attached__c}"/> value={Opp.Co_Hse_Check_Copy_Attached__c}-->
+                                                      </template>
+                                                     </td> 
+                                             </tr>
+                                         </tbody>
+                                     </table>
+                                  </div>
+                             </div>
+                         </div>
+                     </div>   
+                    
+                    <div class="row">
+                      <!--  <lightning-button class="slds-button" label="Save"   onclick={handleSaveClick} ></lightning-button>-->
+                       <template if:false={IsCompleted}>
+                        <button  type="submit" class="slds-button"  onclick={handleSaveClick} > Save</button>
+                        <button class="slds-btn-danger" type="submit" onclick={handleNextClick}> Next</button>
+                       </template>
+                      <!--  <lightning-button  label="Next"  onclick={handleNextClick} ></lightning-button>-->
+                        <!--<apex:commandButton styleClass="btn-success" value="Save" rendered="{!!IsCompleted}" action="{!Save}" />
+                        <apex:commandButton styleClass="btn-danger" value="Next" rendered="{!!containsUSPerson && !IsCompleted}" action="{!Complete}" />
+                        -->
+                    </div> 
+                     </lightning-record-edit-form>
+                    </form>
+                    <template if:true={showSpinner}>
+                          <div class="busy">
+                            <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                
+            </div>
+            
+        </div>
+       
+       
+                    
+                
+   
+
+</template>

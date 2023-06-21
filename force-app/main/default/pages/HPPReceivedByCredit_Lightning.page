@@ -1,0 +1,54 @@
+<apex:page controller="HPPReceivedbyCredit" lightningStylesheets="true" sidebar="false" showHeader="false" title="Received by Credit ">
+         <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:KendoResource ></c:KendoResource>
+        <style>
+        	input.slds-button.k-button {
+    			width: 120px;
+			}
+        </style>
+    </head>
+    <body>
+        <div class="slds-scope">
+        	<apex:form >
+            <div id="formWrapper">
+                
+                <c:HPPSummary_Lightning objAcc="{!Accounts[0]}" objOpp="{!opp}" objExOpp="{!ExOpp}" Product="{!Prod}" />
+                <div id="container" >
+                    <table width="100%">
+                        <tr>
+                            <td valign="top" id="sidebar">
+                                <c:HPPBOMenu_Lightning oppId="{!Opp.Id}"  DirectorId="{!Opp.ProductEventDirector__c}" />
+                            </td>
+                            <td valign="top" id="contenttd">
+                                <div id="content">
+                                    <h1>Received by Credit</h1>
+                                
+                                    <apex:outputPanel id="mainPageBlock">
+                                    <div style="padding:20px;">
+                                        <!-- content -->
+                                        
+                                        <apex:pageBlock >
+                                                                                   
+                                                                                        <br> </br>
+                                            Please click on the button below to confirm that the application for <b> {!opp.name} </b> has been received by Credit:
+                                        <br> </br>
+                                            <apex:pageBlockButtons location="bottom">
+                                                <apex:commandButton styleClass="slds-button" value="Received by Credit" action="{!complete}" rendered="{!!IsCompleted}" />
+                                            </apex:pageBlockButtons>
+                                        </apex:pageBlock> 
+                                    </div>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+                        
+        </apex:form>
+        </div>
+        
+    </body>
+</apex:page>

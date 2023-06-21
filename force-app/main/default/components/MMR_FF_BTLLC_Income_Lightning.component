@@ -1,0 +1,303 @@
+<apex:component ><!-- C0644 -->
+    <apex:attribute name="Applicant" type="Account" description="" />
+    <apex:attribute name="appNo" type="String" description="" />
+    <apex:attribute name="type" type="String" description="" />
+    <div class="AppWidth col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2> {!type} {!appNo} - {!Applicant.Name}</h2>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Primary Employment
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <label class="form-label slds-label">Employment type</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield required="true" styleclass="form-control employmentType1{!AppNo} slds-input" value="{!Applicant.Employment_Type__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row employmentHide1{!AppNo}">
+                                <div class="form-group employmentOther{!AppNo}" style="display:none;">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Other Employment type</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Other_Employment_Type__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <label class="form-label slds-label">Employment status</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Employment_Status__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group employmentHide1{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Occupation</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Occupation__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group employmentHide1{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Nature of Employment / Your Business</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield required="true" styleclass="form-control employmentNatoB1{!AppNo} slds-input" value="{!Applicant.Nature_of_Employers_Your_Business__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row employmentHide1{!AppNo}">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Date Employment Commenced</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Date_Employment_Commenced__c}" style="width:100%" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- start panel self employed -->
+                            <div class="panel panel-info selfEmpItem1{!AppNo}">
+                                <div class="panel-heading">Self Employed</div>
+                                <div class="panel-body">
+                                    <div class="col-sm-12">
+                                        <div class="row employmentHide1{!AppNo}">
+                                            <div class="form-group selfEmpItem1{!AppNo}">
+                                                <div class="col-sm-6">
+                                                    <label class="slds-label">If self employed, please state the percentage of the business you own</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Share_holding_in_the_business__c}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row employmentHide1{!AppNo}">
+                                            <div class="form-group selfEmpItem1{!AppNo}">
+                                                <div class="col-sm-6">
+                                                    <label class="slds-label">If self employed, please state when you became self-employed</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.When_was_the_business_established__c}" style="width:100%"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end panel self employed -->
+                            <div class="row">
+                                <div class="form-group employmentHide1{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Gross annual salary</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Gross_Annual_Income__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group employmentHide1{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Net monthly income</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Net_Monthly_Income__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group employmentHide1{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">How do you receive your salary</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.How_do_you_receive_your_salary__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group employmentHide1{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">How often are you paid</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.How_often_are_you_paid__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info selfEmployed{!AppNo}">
+                    <div class="panel-heading">
+                        Self Employed Details
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Do you have 3 years of accounts</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Do_you_have_2_years_of_accounts__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Do you have 3 years of self-assessment tax forms</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Do_you_have_3_yrs_of_self_ass_tax_form__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Year 1 gross dividend income</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Year_1_Gross_Dividend_Income__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Year 1 net profit</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Year_1_Net_Profit__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Year 2 gross dividend income</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Year_2_Gross_Dividend_Income__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Year 2 net profit</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Year_2_Net_Profit__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Year 3 gross dividend income</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Year_3_Gross_Dividend_Income__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Year 3 net profit</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Year_3_Net_Profit__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Accountant Name</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Accountant_name__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Accountant Firm</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Accountant_Firm__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Accountant Street</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Accountant_Street__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Accountant Town/City</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Accountant_Town_City__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Accountant Postcode</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Accountant_PostCode__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group selfEmployed{!AppNo}">
+                                    <div class="col-sm-6">
+                                        <label class="slds-label">Accountant Contact No</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control slds-input" value="{!Applicant.Accountant_Phone__c}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:component>

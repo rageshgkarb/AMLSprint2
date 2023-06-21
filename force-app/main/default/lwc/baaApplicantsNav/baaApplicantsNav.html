@@ -1,0 +1,27 @@
+<template>
+    
+    <div style="padding-bottom:20px">
+        <ul class="nav nav-pills">
+
+            
+            <li><a href={applicantPageUrl}>Applicants</a></li>
+
+            <template for:each={applicantList} for:item="applicant" for:index="index">
+                <template if:true={applicant.isDirectorApplicant}>
+                    <li key ={applicant} class={applicant.className}> <a href={applicant.directorUrl} > {applicant.customerName}</a></li>
+                </template>
+            </template>
+
+
+
+
+            <template if:true={isApplicantPage}>
+                <li class="active"><a href="#">Additional Information</a></li>
+            </template> 
+            <template if:false={isApplicantPage}>
+                <li><a class="active" href={applicantCompletePageUrl}>Additional Information</a></li>
+            </template>  
+            
+        </ul>
+    </div>
+</template>

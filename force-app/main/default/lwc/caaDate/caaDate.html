@@ -1,0 +1,114 @@
+<template>
+
+    <div>
+        <div class="row">
+            <div class="col-xs-8">
+                <label>{title}</label>
+            </div>
+            <div class="col-xs-4">
+                <template if:true={showhelp}>
+                    <c-tooltip-utility class="pull-right" helptext={helptext}></c-tooltip-utility>
+
+                </template>
+                <template if:false={showhelp}>
+                    <label>&nbsp;</label>
+                </template>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4" data-id="dayclassid">
+
+                <select class="form-control arbBox hidden-xs" onchange={ondayChange} onfocusout={ondayChange} required={requiredcondition}
+                    name={domFieldNames.dateFieldDay}>
+                    <template for:each={days} for:item="option">
+                        <option key={option.key} value={option.value}>{option.value}</option>
+                    </template>
+                </select>
+
+                <select class="form-control arbBox visible-xs"  onchange={onday1Change} onfocusout={onday1Change} required={requiredcondition}
+                    name={domFieldNames.dateFieldDay1}>
+                    <template for:each={daysSM} for:item="option">
+                        <option key={option.key} value={option.value}>{option.value}</option>
+                    </template>
+                </select>
+                <template if:true={domFieldNames.isdateFieldDayError}>
+                    <div class="input-validation hidden-xs">
+                        <p class="alert alert-danger">This field is required</p>
+                    </div>
+                </template>
+                <template if:true={domFieldNames.isdateFieldDay1Error}>
+                    <div class="input-validation visible-xs">
+                        <p class="alert alert-danger">Required</p>
+                    </div>
+                </template>
+            </div>
+            <div class="col-xs-4" data-id="monthclassid">
+
+                <select class="form-control arbBox hidden-xs" onchange={onMonthChange} onfocusout={onMonthChange} required={requiredcondition}
+                    name={domFieldNames.dateFieldMonth}>
+                    <template for:each={months} for:item="option">
+                        <option key={option.key} value={option.value}>{option.value}</option>
+                    </template>
+                </select>
+                <select class="form-control arbBox visible-xs" onchange={onMonth1Change} onfocusout={onMonth1Change} required={requiredcondition}
+                    name={domFieldNames.dateFieldMonth1}>
+                    <template for:each={monthsSM} for:item="option">
+                        <option key={option.key} value={option.value}>{option.value}</option>
+                    </template>
+                </select>
+                <template if:true={domFieldNames.dateFieldMonthError}>
+                    <div class="input-validation hidden-xs">
+                        <p class="alert alert-danger">This field is required</p>
+                    </div>
+                </template>
+                <template if:true={domFieldNames.dateFieldMonth1Error}>
+                    <div class="input-validation visible-xs">
+                        <p class="alert alert-danger">Required</p>
+                    </div>
+                </template>
+
+
+
+            </div>
+            <div class="col-xs-4" data-id="yearclassid">
+
+                <select class="form-control arbBox hidden-xs" onchange={onYearChange} onfocusout={onYearChange}  required={requiredcondition}
+                    name={domFieldNames.dateFieldYear}>
+                    <template for:each={years} for:item="option">
+                        <option key={option.key} value={option.value}>{option.value}</option>
+                    </template>
+                </select>
+
+                <select class="form-control arbBox visible-xs" onchange={onYear1Change} onfocusout={onYear1Change} required={requiredcondition}
+                    name={domFieldNames.dateFieldYear1}>
+                    <template for:each={yearsSM} for:item="option">
+                        <option key={option.key} value={option.value}>{option.value}</option>
+                    </template>
+                </select>
+                <template if:true={domFieldNames.dateFieldYearError}>
+                    <div class="input-validation hidden-xs">
+                        <p class="alert alert-danger">This field is required</p>
+                    </div>
+                </template>
+                <template if:true={domFieldNames.dateFieldYear1Error}>
+                    <div class="input-validation visible-xs">
+                        <p class="alert alert-danger">Required</p>
+                    </div>
+                </template>
+            </div>
+
+
+        </div>
+
+
+        <template if:false={isDatevalid}>
+            <div class="input-validation">
+                <p class="alert alert-danger">Please enter a valid date</p>
+            </div>
+        </template>
+
+
+
+    </div>
+ 
+</template>

@@ -1,0 +1,32 @@
+<!--
+  @description       : 
+  @author            : Rishitha
+  @group             : 
+  @last modified on  : 05-24-2022
+  @last modified by  : Rishitha
+-->
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="CAA_Core_Controller" action="{!ANCSetup}">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" class="container" style="font-size : 14px;margin: auto;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    color: #666666 !important;
+    font-family: Arial !important;"/>   
+<!-- the Id of div tag which will be used to render your LWC component  -->
+    <script>
+        $Lightning.use("c:LigtningOutApp", function() {
+            $Lightning.createComponent("c:caaAncCmp",
+            {   
+              
+                accountid:'{!$CurrentPage.parameters.accountid}',
+               
+            },
+            "LightningComponentid", // the Id of div tag where your component will be rendered
+            function(cmp) {
+                console.log('Calling the LWC Component');
+            });
+        });
+    </script>
+    <apex:composition template="CAA_Template_Lightning">
+    </apex:composition>
+</apex:page>

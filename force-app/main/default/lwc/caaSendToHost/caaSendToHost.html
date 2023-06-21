@@ -1,0 +1,283 @@
+<!--
+   @description       : 
+   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+   @group             : 
+   @last modified on  : 04-11-2022
+   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+   -->
+   <template>
+      <!-- ng-controller="controllerSendToHost" ng-init="EventLogId = '{!EventLogId}'; IsANC={!IsANC}; SessionId='{!SessionId}'"-->
+      <!-- ng-controller -->
+      <div class="container">
+         <div class="col-md-9">
+            <div class="SectionHeader">
+               <div class="numberCircleReverse">3</div>
+               <div>Send To Host</div>
+            </div>
+            <template if:true={IsABranch}>
+               <!--<apex:outputPanel layout="none" rendered="{!IsABranch}">-->
+               <div class="PanelContents">
+                  <div style="padding-bottom:10px;">
+                     <div class="SectionTitle">
+                        Branch checklist
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <label>
+                              <!--ng-required="true"-->
+                              <input type="checkbox"  name="Hand_out_Introductory_Leaflets_c" value={Checklist.Hand_out_Introductory_Leaflets_c} onclick={checklistChanges} checked={Checklist.Hand_out_Introductory_Leaflets_c}/> Hand out Introductory Leaflets
+                           </label>
+                        </div>
+                        <div class="col-sm-6">
+                           <label>
+                              <!--ng-required="true"-->
+                              <input type="checkbox" name="Purpose_of_Account_Account_T_Cs_c" value={Checklist.Purpose_of_Account_Account_T_Cs_c} onclick={checklistChanges} checked={Checklist.Purpose_of_Account_Account_T_Cs_c}/> Purpose of Account &amp; Account T&amp;Cs
+                           </label>
+                        </div>
+                        <div class="col-sm-6">
+                           <label>
+                              <!--ng-required="true"-->
+                              <!--<input type="checkbox" ng-required="true" ng-model="Checklist.Paying_in_book_c"/> Paying-in Book-->
+                              <input type="checkbox" name="Paying_in_book_c" value={Checklist.Paying_in_book_c} onclick={checklistChanges} checked={Checklist.Paying_in_book_c}/>  Paying-in Book
+                           </label>
+                        </div>
+                        <div class="col-sm-6">
+                           <label>
+                              <!--ng-required="true"-->
+                              <input type="checkbox" name="Statements_c" value={Checklist.Statements_c} onclick={checklistChanges} checked={Checklist.Statements_c}/>  Statements
+                              <!--<input type="checkbox" ng-required="true" ng-model="Checklist.Statements_c"/> Statements-->
+                           </label>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <label>
+                              <!--ng-required="true"-->
+                              <!--<input type="checkbox" ng-model="Checklist.Telephone_Banking_c"/> Telephone Banking-->
+                              <input type="checkbox" name="Telephone_Banking_c" value={Checklist.Telephone_Banking_c} onclick={checklistChanges} checked={Checklist.Telephone_Banking_c}/>  Telephone Banking
+                           </label>
+                        </div>
+                        <div class="col-sm-6">
+                           <label>
+                              <!--ng-required="true"-->
+                              <!--<input type="checkbox" ng-required="true" ng-model="Checklist.Online_Banking_c"/> Online Banking-->
+                              <input type="checkbox" name="Online_Banking_c" value={Checklist.Online_Banking_c} onclick={checklistChanges} checked={Checklist.Online_Banking_c}/>  Online Banking
+                           </label>
+                        </div>
+                        <div class="col-sm-6">
+                           <label>
+                              <!--ng-required="true"-->
+                              <!--<input type="checkbox" ng-required="true" ng-model="Checklist.Tariff_List_c"/> Tariff List-->
+                              <input type="checkbox" name="Tariff_List_c" value={Checklist.Tariff_List_c} onclick={checklistChanges} checked={Checklist.Tariff_List_c}/>  Tariff List
+                           </label>
+                        </div>
+                     </div>
+                     <template if:true={IsCurrentAccount}>
+                        <!--<apex:outputPanel layout="none" rendered="{!IsCurrentAccount}">-->
+                        <hr/>
+                        <div class="SectionTitle">
+                           Current Account
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-3">
+                              <label>
+                                 <!--<input type="checkbox" ng-required="true" ng-model="Checklist.Counter_Fee_Current_Account_Only_c"/> Counter Fee-->
+                                 <input type="checkbox" name="Counter_Fee_Current_Account_Only_c" value={Checklist.Counter_Fee_Current_Account_Only_c} onclick={checklistChanges} checked={Checklist.Counter_Fee_Current_Account_Only_c}/>  Counter Fee
+                              </label>
+                           </div>
+                           <div class="col-sm-3">
+                              <label>
+                                 <!--<input type="checkbox" ng-required="true" ng-model="Checklist.Debit_Card_Current_Account_Only_c"/> Debit Card-->
+                                 <input type="checkbox" name="Debit_Card_Current_Account_Only_c" value={Checklist.Debit_Card_Current_Account_Only_c} onclick={checklistChanges} checked={Checklist.Debit_Card_Current_Account_Only_c}/>  Debit Card
+                              </label>
+                           </div>
+                           <div class="col-sm-3">
+                              <label>
+                                 <!--<input type="checkbox" ng-required="true" ng-model="Checklist.PIN_Current_Account_Only_c"/> PIN-->
+                                 <input type="checkbox" name="PIN_Current_Account_Only_c" value={Checklist.PIN_Current_Account_Only_c} onclick={checklistChanges} checked={Checklist.PIN_Current_Account_Only_c}/>  PIN
+                              </label>
+                           </div>
+                           <div class="col-sm-3">
+                              <label>
+                                 <!--<input type="checkbox" ng-required="true" ng-model="Checklist.Chequebook_Current_Account_Only_c"/> Chequebook-->
+                                 <input type="checkbox" name="Chequebook_Current_Account_Only_c" value={Checklist.Chequebook_Current_Account_Only_c} onclick={checklistChanges} checked={Checklist.Chequebook_Current_Account_Only_c}/>  Chequebook
+                              </label>
+                           </div>
+                        </div>
+                     </template>
+                     <!--</apex:outputPanel>--> 
+                     <template if:false={isFormValid}>
+                        <div class="alert alert-danger">
+                           You must confirm all items on the check list
+                        </div>
+                     </template>
+                  </div>
+               </div>
+            </template>
+            <div class="PanelContents">
+               <div style="padding-bottom:10px;" class="SectionTitle">
+                  <!-- C0551 -->
+                  <!--Setup on EBS -->
+                  {titleText}
+               </div>
+               <div class="panel-group" >
+                  <!--id="accordion" role="tablist" aria-multiselectable="true"-->
+                  <div class="panel panel-default">
+                     <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                           <a role="button" class="buttonWhite" onclick={toggleDetails}>
+                              <!--data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"-->
+                              Details
+                           </a>
+                        </h4>
+                     </div>
+                     <template if:true={showdetails}>
+                        <div id="collapseOne" >
+                           <!--class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne"-->
+                           <div class="panel-body">
+                              <template if:true={Data.Items}>
+                                 <div>
+                                    <!--ng-show="Data.Items"-->
+                                    <h4 class="title">Applicants- ANC</h4>
+                                    <table class="table">
+                                       <thead>
+                                          <tr>
+                                             <th width="80px">EBS ID</th>
+                                             <th>Name</th>
+                                             <th width="50px">Xml</th>
+                                             <th width="80px">On EBS</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <template for:each={Data.Items} for:item="app">
+                                             <tr key={app}>
+                                                <!--ng-repeat-start="app in Data.Items"-->
+                                                <td>{app.EBSId}</td>
+                                                <td><c-caa-display-link name-ofthe-link={app.Name} target-val="_blank" base="/" concatenate-value={app.AccountId}></c-caa-display-link><!--<a href={app.AccountId} target="_blank">{app.Name}</a>--></td>
+                                                <td>
+                                                   <a href=""><i class="fa fa-code"></i></a>
+                                                </td>
+                                                <td align="center">
+                                                   <template if:false={app.EBSId}>
+                                                      <i class="fa fa-times" ></i><!--ng-show="!app.EBSId"-->
+                                                   </template>
+                                                   <template if:true={app.EBSId}>
+                                                      <i class="fa fa-check" ></i><!--ng-show="app.EBSId"-->
+                                                   </template>
+                                                </td>
+                                             </tr>
+                                          </template>
+                                          <!--ng-repeat-end=" " ng-show="app.ANCError"-->
+                                          <!--<template if:true={app.ANCError}>
+                                             <tr class="danger">
+                                               
+                                                <td></td>
+                                                <td colspan="2">{app.ANCError}</td>
+                                             </tr>
+                                             </template>-->
+                                       </tbody>
+                                    </table>
+                                    <!-- C0551 <div ng-hide="Data.IsFTD"> -->
+                                    <div>
+                                       <h4 class="title">Open Account</h4>
+                                       <table class="table">
+                                          <thead>
+                                             <tr>
+                                                <th width="160px">Account Number</th>
+                                                <th>Product</th>
+                                                <th align="right" width="80px">On EBS</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td>{Data.CustomerAccountId }</td>
+                                                <td><c-caa-display-link name-ofthe-link={Data.ProductName} target-val="_blank" base="/" concatenate-value=""></c-caa-display-link></td>
+                                                <td align="center">
+                                                   <template if:false={Data.CustomerAccountId}>
+                                                      <i class="fa fa-times" ></i><!--ng-show="!Data.CustomerAccountId "-->
+                                                   </template>
+                                                   <template if:true={Data.CustomerAccountId}>
+                                                      <i class="fa fa-check" ></i><!--ng-show="Data.CustomerAccountId "-->
+                                                   </template>
+                                                </td>
+                                             </tr>
+                                          </tbody>
+                                          <!-- C0551 -->
+                                          <template if:true={Data.AWIError}>
+                                             <tr class="danger">
+                                                <!-- ng-show="Data.AWIError" -->
+                                                <td></td>
+                                                <!--<td colspan="2">{Data.AWIError}</td>-->
+                                             </tr>
+                                          </template>
+                                       </table>
+                                    </div>
+                                    <template if:true={showApplicant}>
+                                       <div>
+                                          <!-- ng-show="Data.Items && Data.Items.length > 1 && !Data.IsFTD"-->
+                                          <h4 class="title">JARs</h4>
+                                          <table class="table">
+                                             <thead>
+                                                <tr>
+                                                   <th width="80px">Applicant</th>
+                                                   <th>Name</th>
+                                                   <th align="right" width="80px">On EBS</th>
+                                                </tr>
+                                             </thead>
+                                             <tbody>
+                                                <template for:each={Data.Items} for:item="app" for:index="index">
+                                                   <tr key={app}>
+                                                      <!--ng-repeat-start="app in Data.Items" ng-show="$index != 0"-->
+                                                      <td>
+                                                         <c-display-next-value display-val = '' value-to-add="1" current-num={index}></c-display-next-value>
+                                                      </td>
+                                                      <!--{{$index+1}}-->
+                                                      <td><c-caa-display-link name-ofthe-link={app.Name} target-val="_blank" base="/" concatenate-value={app.AccountHolderId}></c-caa-display-link> </td><!--<a href={app.AccountHolderId} target="_blank">{app.Name}</a>-->
+                                                      <td align="center">
+                                                         <template if:false={app.JarComplete}>
+                                                            <i class="fa fa-times" ></i><!--ng-show="!app.JarComplete"-->
+                                                         </template>
+                                                         <template if:true={app.JarComplete}>
+                                                            <i class="fa fa-check" ></i><!--ng-show="app.JarComplete"-->
+                                                         </template>
+                                                      </td>
+                                                   </tr>
+                                                   <template if:true={app.JARError}>
+                                                      <tr  class="danger" key={app}>
+                                                         <!--ng-repeat-end=" " ng-show="app.JARError"-->
+                                                         <td></td>
+                                                         <!--<td colspan="2">{app.JARError}</td>-->
+                                                      </tr>
+                                                   </template>
+                                                </template>
+                                             </tbody>
+                                          </table>
+                                       </div>
+                                    </template>
+                                 </div>
+                              </template>
+                           </div>
+                           <!-- panel body end -->
+                        </div>
+                     </template>
+                  </div>
+               </div>
+               <template if:true={isFormValid}>
+                  <template if:false={HideButton}></template>
+                  <div class="margintop">
+                     <!-- ng-show="myform.$valid && !HideButton"-->
+                     <template if:false={Data.NextEventUrl}>
+                        <button class="btn btnArb" onclick={CallEBS}>Send to Host</button><!--ng-hide="Data.NextEventUrl"  ng-click="CallEBS()" -->
+                     </template>
+                     <template if:true={Data.NextEventUrl}>
+                        <!--ng-show="Data.NextEventUrl"-->
+                        <a href={Data.NextEventUrl} class="btn btnArb" >Next</a>
+                     </template>
+                  </div>
+               </template>
+            </div>
+            </div>
+            
+         <c-caa-message-broker></c-caa-message-broker>
+      </div>
+   </template>

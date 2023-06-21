@@ -1,0 +1,18 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" >
+ <head>       
+        <c:BAA_Resource_Lightning ></c:BAA_Resource_Lightning>       
+    </head>
+ <apex:includeLightning />    
+    <div id="LightningComponentid" />    
+    <script>
+    $Lightning.use("c:LigtningOutApp", function() {
+        $Lightning.createComponent("c:baa_SubmissionResultLwc",
+          { 
+          },
+          "LightningComponentid",
+          function(cmp) {
+             console.log('Calling the LWC Component');
+          });
+    });
+    </script>
+</apex:page>

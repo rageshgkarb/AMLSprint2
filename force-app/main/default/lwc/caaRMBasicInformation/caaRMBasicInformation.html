@@ -1,0 +1,176 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="panel-heading" role="tab" id={headerId}>
+        <h4 class="panel-title">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+            <!--<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}" aria-expanded="false" aria-controls="collapse{{$index}}" style="text-decoration:none;">-->
+                <!--<apex:outputpanel rendered="{!YPSA}">-->
+                <template if:true={YPSA}>
+                    {firstHeading}                    
+                </template>
+                <!--</apex:outputpanel>-->
+
+                <!--<apex:outputpanel rendered="{!Not(YPSA)}">-->
+                <template if:false={YPSA}> 
+                   <button class="btn btnArb" style="padding: 5px 12px;" onclick={hideApplicant}>
+                        <span>
+                            <strong class="ng-binding">{applicantHeading}</strong>
+                            <span class="fa-stack fa">
+                                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                <i class="fa fa-chevron-right fa-stack-1x"></i>
+                            </span>
+                        </span>
+                    </button>
+                <!--</apex:outputpanel>-->
+                </template>
+             </div>
+            <!--</a>-->
+        
+        </h4>
+        <br/>
+    </div>
+    <br/>
+    <template if:true={showHideApplicant}>
+    <div style="background-color: rgb(255, 255, 255);">
+        <div class="panel-body">
+           
+                <template if:true={app.EDD_Data_Missing}>
+                <!--<div ng-show="app.EDD_Data_Missing">-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="SectionBreak" ></div>
+                            <div class="SectionTitle">Customer Application - Further Information</div>
+                            <div>In order for us to complete your application we just require a few more details</div>
+                        </div>
+                    </div>  
+                   
+                    <div style="margin-top:5px;" ><!--ng-class="{ 'has-error':( myform.optCountryOfExpCredits{{$index}}.$touched|| Submitted) && myform.optCountryOfExpCredits{{$index}}.$invalid }"-->
+                        <div>
+                            <label class="control-label">Countries of Expected Transaction Activity (Credits)</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!--<select ng-model="app.Country_of_Expected_Transactions_Credits_c" class="form-control" name="optCountryOfExpCredits{{$index}}" ng-required="(app.EDD_Data_Missing) && !app.Country_of_Expected_Transactions_Credits_c"
+                                        ng-options="option.Key as option.Value  for option in Data.CountryOfExpCredits"></select>-->
+                                
+                                <select  class="form-control" name="Country_of_Expected_Transactions_Credits_c" id="CountryOfExpCredits" onchange={onchangeDropDown}>
+                                    <template for:each={valuefromparent.CountryOfExpCredits} for:item="option">  
+                                        <template if:true={option.selected}>
+                                            <option value={option.Key} key={option.Value} selected>{option.Value}</option>     
+                                        </template>
+                                        <template if:false={option.selected}>
+                                            <option value={option.Key} key={option.Value}>{option.Value}</option>     
+                                        </template>
+                                         
+                                    </template>
+                                </select>
+                                <template if:true={app.EDD_Data_Missing}>
+                                    <c-caa-input-error id="Country_of_Expected_Transactions_Credits_c" errequired=true></c-caa-input-error>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:5px;"><!--ng-class="{ 'has-error':( myform.optCountryOfExpDebits{{$index}}.$touched|| Submitted) && myform.optCountryOfExpDebits{{$index}}.$invalid }">-->
+                        <div>
+                            <label class="control-label">Countries of Expected Transaction Activity (Debits)</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!--<select ng-model="app.Country_of_Expected_Transactions_Debits_c" class="form-control" name="optCountryOfExpDebits{{$index}}" ng-required="(app.EDD_Data_Missing) && !app.Country_of_Expected_Transactions_Debits_c"
+                                        ng-options="option.Key as option.Value  for option in Data.CountryOfExpDebits"></select>
+                               <c:CAA_InputError field="optCountryOfExpDebits" /> -->
+                                
+                               <select  class="form-control" name="Country_of_Expected_Transactions_Debits_c" id="CountryOfExpDebits" onchange={onchangeDropDown}>
+                                <template for:each={valuefromparent.CountryOfExpDebits} for:item="option">  
+                                    <template if:true={option.selected}>
+                                        <option value={option.Key} key={option.Value} selected>{option.Value}</option>     
+                                    </template>
+                                    <template if:false={option.selected}>
+                                        <option value={option.Key} key={option.Value}>{option.Value}</option>     
+                                    </template>
+                                     
+                                </template>
+                            </select>
+                            
+                            <template if:true={app.EDD_Data_Missing}>
+                                <c-caa-input-error id="Country_of_Expected_Transactions_Debits_c" errequired=true></c-caa-input-error>
+                            </template>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:5px;"><!--ng-class="{ 'has-error':( myform.optCountryOfExpDebits{{$index}}.$touched|| Submitted) && myform.optCountryOfExpDebits{{$index}}.$invalid }">-->
+                        <div>
+                            <label class="control-label">Currencies of Expected Transaction Activity (Denominations)</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!--<select ng-model="app.Currencies_of_Expected_Transactions_c" class="form-control" name="optCountryOfExpDebits{{$index}}" ng-required="(app.EDD_Data_Missing) && !app.Currencies_of_Expected_Transactions_c"
+                                        ng-options="option.Key as option.Value  for option in Data.CurrenciesOfExpDenomination"></select>
+                                <c:CAA_InputError field="optCountryOfExpDebits" />-->
+
+
+                                <select  class="form-control" name="Currencies_of_Expected_Transactions_c" id="CurrenciesOfExpDenomination" onchange={onchangeDropDown}>
+                                    <template for:each={valuefromparent.CurrenciesOfExpDenomination} for:item="option">  
+                                        <template if:true={option.selected}>
+                                            <option value={option.Key} key={option.Value} selected>{option.Value}</option>     
+                                        </template>
+                                        <template if:false={option.selected}>
+                                            <option value={option.Key} key={option.Value}>{option.Value}</option>     
+                                        </template>
+                                         
+                                    </template>
+                                </select>
+                                <template if:true={app.EDD_Data_Missing}>
+                                   
+                                    <c-caa-input-error id="Currencies_of_Expected_Transactions_c" errequired=true></c-caa-input-error>
+                                </template>
+
+                            </div>
+                        </div>
+                    </div>
+                            
+                    <div style="margin-top:5px;"><!--ng-class="{ 'has-error':( myform.optSourceOfWealth{{$index}}.$touched|| Submitted) && myform.optSourceOfWealth{{$index}}.$invalid }">-->
+                        <div>
+                            <label class="control-label">How did you generate or acquire your wealth?</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!--<select ng-model="app.Source_of_Wealth_c" class="form-control" name="optSourceOfWealth{{$index}}" ng-required="(app.EDD_Data_Missing) && !app.Source_of_Wealth_c"
+                                        ng-options="option.Key as option.Value  for option in Data.SourceOfWealth"></select>
+                                <c:CAA_InputError field="optSourceOfWealth" />-->
+
+                                <select  class="form-control" name="Source_of_Wealth_c" id="SourceOfWealth" onchange={onchangeDropDown}>
+                                    <template for:each={valuefromparent.SourceOfWealth} for:item="option">  
+                                        <template if:true={option.selected}>
+                                            <option value={option.Key} key={option.Value} selected>{option.Value}</option>     
+                                        </template>
+                                        <template if:false={option.selected}>
+                                            <option value={option.Key} key={option.Value}>{option.Value}</option>     
+                                        </template>
+                                         
+                                    </template>
+                                </select>
+                                <template if:true={app.EDD_Data_Missing}>
+                                   
+                                    <c-caa-input-error id="Source_of_Wealth_c" errequired=true></c-caa-input-error>
+                                </template>
+                                
+                            </div>
+                        </div>
+                    </div>
+                   
+                <!--</div>-->
+                </template>
+        </div>
+    </div>
+</template>
+</template>

@@ -1,0 +1,13 @@
+.requiredInput {
+    border-left: solid 5px red;
+    float: right;
+}
+.btn-danger {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+   
+    font-size: 12px;
+    font-weight: normal;
+    background-image: none;
+    min-width: 100px;
+}

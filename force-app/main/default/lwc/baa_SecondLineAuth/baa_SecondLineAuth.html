@@ -1,0 +1,180 @@
+<template>
+    <c-baa-header-cmp  title="Advisor Checklist"></c-baa-header-cmp>
+   <div class="container">
+        <div class="col-md-4 col-lg-3">
+            <!-- Include BAA_Menu component here -->
+            <c-baa-menu-cmp></c-baa-menu-cmp>
+        </div>
+        <div class="col-md-8 col-lg-9">
+    <lightning-record-edit-form record-id={baseOppId} object-api-name="Opportunity" onsuccess={handleSuccess} onsubmit ={handleSubmit}>
+        <lightning-messages>
+        </lightning-messages>
+    
+    <div class="panel panel-primary">
+        
+        <div class="panel-heading">
+                <span >Checklist</span>
+        </div>
+        <!-- Garnet Start -->
+        <div class="panel-body">
+            <div class="row" >
+                <div class="col-xs-12">
+                    <div>
+                        When approving the application, you need to verify that the relevant Know Your Customer documents have been received:
+                    </div>
+                </div>
+               
+               
+                <table class="table" width="50%">
+                   
+                        <tbody>
+                        <tr>
+                            <td class="labelCol">•  Has Proof of ID For each Director/Proprietor/Partner/Signatory been obtained?</td>
+                            <td class="dataCol"> <lightning-input-field required="true" field-name="Proof_of_ID_obtained__c" variant="label-hidden"  class="requiredInput"> </lightning-input-field></td> 
+                        </tr>
+                        <tr>   
+                            <td class="labelCol">•  Has Proof of Address For each Director/Proprietor/Partner/Signatory been obtained?</td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="Proof_of_Address_obtained__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr>
+                        <tr>
+                            <td class="labelCol">•  Has the Registered Company Name and Number evidence been obtained? </td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="Company_evidence_obtained__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr>
+                        <tr>     
+                            <td class="labelCol">•  Has the registered address evidence been obtained?</td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="Registered_address_evidence_obtained__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr>
+                        <tr>     
+                            <td class="labelCol">•  Has the current Trading Address evidence been obtained?</td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="Trading_address_evidence_obtained__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr> 
+                        <tr>     
+                            <td class="labelCol">•  Have you taken a legible photocopy of all documents?</td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="Legible_Photocopies__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr> 
+                        <tr>    
+                            <td class="labelCol">•  Have you certified all photocopies taken, with your signature and date?</td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="Certified_all_photocopies__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr> 
+                        <tr>     
+                            <td class="labelCol">•  Sanction Check - <br></br>Check FCU sanctions list, complete check with FCU where applicable</td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="Sanction_Check__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr>
+                        <tr>     
+                            <td class="labelCol">•  Politically Exposed Person (PEP) Check - <br></br>Ask question “Are you a Politically Exposed Person”? For PEP, take manual application , For Sanction raise Sanction case</td>
+                            <td class="dataCol"><lightning-input-field required="true" field-name="PEP_Check__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                        </tr>
+                    </tbody>
+                </table> 
+            
+            </div>
+        </div>
+        <!-- Garnet End -->
+   
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Additional Questions</div>
+        <div class="panel-body">
+            <div class="row" >
+                <div class="col-xs-12">
+                    <table class="table" width="50%">
+                        <tbody>
+                            <tr>
+                                <td class="labelCol">•  Have all pages been initialled and dated?</td>
+                                <td class="dataCol"><lightning-input-field required="true" field-name="All_pages_intialled__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                            </tr>
+                            <tr>
+                                <td class="labelCol">•  Have all alterations been counter-signed?</td>
+                                <td class="dataCol"><lightning-input-field required="true" field-name="Alterations_countersigned__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                            </tr>
+                            <tr>   
+                                <td class="labelCol">•  Have all signatures been confirmed and checked against the sample signatures in the ID documents?</td>
+                                <td class="dataCol"><lightning-input-field required="true" field-name="Signatures_confirmed__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                            </tr>
+                            <tr>      
+                                <td class="labelCol">•  Does the Business Name on the application exactly match the certificate of incorporation?</td>
+                                <td class="dataCol"><lightning-input-field required="true" field-name="Business_name_match__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                            </tr>
+                            <tr>     
+                                <td class="labelCol">•  Has the customer product suitability matrix been signed by the customer?</td>
+                                <td class="dataCol"><lightning-input-field required="true" field-name="Signed_matrix__c" variant="label-hidden" class="requiredInput"> </lightning-input-field></td> 
+                            </tr>
+                            <tr>     
+                                <td class="labelCol">•  If the Business annual turnover is over £900,000, get approval from the Head of Sales</td>
+                                 
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+   </div>
+
+   <div class="panel panel-primary">
+    <div class="panel-heading">When deciding whether to submit the application for approval, have you considered the following?</div>
+    <div class="panel-body">
+        <div class="row" >
+            <div class="col-xs-12">
+                <table class="table" width="50%">
+                    <tbody>
+                        <tr>
+                            <td class="labelCol">•  Why are we opening this account?</td>
+                            
+                        </tr>
+                        <tr>   
+                            <td class="labelCol">•  What are the benefits to Al Rayan Bank?</td>
+                            
+                        </tr>
+                        <tr>      
+                            <td class="labelCol">•  Do we understand the Business that we are entering into a relationship with?</td>
+                            
+                        </tr>
+                        <tr>     
+                            <td class="labelCol">•  Are we comfortable with the people behind the Business?</td>
+                            
+                        </tr>
+                        <tr>     
+                            <td class="labelCol">•  Are we satisfied with the information provided by Credit Checks and information provided by other sources such as:
+                                <br></br>    o  Companies House
+                                <br></br>    o  Personal Visits/checks
+                                <br></br>    o  Secondary Sources
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labelCol"></td>
+                        </tr>
+                        
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="panel panel-primary">
+    <div class="panel-heading">Advisor Comments</div>
+    <div class="panel-body">
+        <lightning-input-field field-name="Seller_Comments__c" variant="label-hidden"> </lightning-input-field>
+    </div>
+</div>
+
+<div class="row">
+    <!--lightning-button variant="success" label="Submit for Approval old" title="Submit for Approval old" onclick={Complete} class="btn-danger slds-m-left_x-small"></lightning-button-->
+  
+    <template if:false={IsCompleted}>
+        <div style="width: 110px; display: inline-block;">
+            <!--lightning-button class="btn btn-danger" type="submit" name="Submit for Approval" label="Submit for Approval"> </lightning-button-->
+            <button class="btn btn-danger" type="submit" name="Submit for Approval">Submit for Approval</button>
+        </div>
+   
+   
+    </template>
+    <!--apex:commandButton  value="Submit for Approval" rendered="{!!IsCompleted}" action="{!Complete}" /--> 
+</div> 
+</lightning-record-edit-form>
+    </div>
+</div>
+</template>

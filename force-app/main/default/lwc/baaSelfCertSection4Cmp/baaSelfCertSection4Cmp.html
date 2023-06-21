@@ -1,0 +1,63 @@
+<template >
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="col-sm-12">
+                    <strong>Controlling Person</strong> – An Entity is controlled by the persons or entities who hold at least 10%
+                    of the voting shares in the entity or who are known to exercise significant influence over the policy,
+                    business and strategy of the entity. In the case of a trust, the Controlling Person(s) are the settlors(s),
+                    the trustee(s), the protector(s) (if any), the beneficiaries or classes of beneficiaries, or any other
+                    natural persons exercising ultimate effective control over the trust (including through a chain of control
+                    or ownership). Where the settlor(s) of a trust is an Entity then the CRS requires Financial Institutions
+                    to also identify the Controlling Persons of the settlor(s) and when required report them as Controlling
+                    Persons of the trust.
+                    <br/>
+                    <br/>
+                    <strong>It is mandatory that you include your TIN (or equivalent). If a TIN is unavailable, please select a suitable
+                        reason code below.</strong>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span>Section 4 - Controlling Persons ({ControllingPersonAddedCount})</span>
+                <template if:true={HasUnAddedControllingPersonsBoolean}>
+                <div class="dropdown pull-right" style="margin-top: -3px;" >
+                    <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Add Controlling Person
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" style="cursor:pointer;">
+                        <li ><!-- ng-click="AddControllingPerson()" -->
+                            <a>[Add New Controlling Person]</a></li>
+                            <template for:each={ControllingPersonsData} for:item="person">
+                        <li key={person.Applicant_Number_c}><!-- ng-repeat="person in ControllingPersonsData track by person.Applicant_Number_c" ng-click="AddControllingPerson(person)" ng-if="person.Added == undefined || person.Added == false" -->
+                            <a>{ person.Firstname } {person.Lastname}</a>
+                        </li>
+                    </template>
+                    </ul>
+                </div>
+            </template>
+            </div>
+            <div class="panel-body">
+                <form name="formSection4" novalidate="novalidate">
+                    <div>
+                        <template for:each={ControllingPersonsData} for:item="person">
+                        <div key={person}>
+                            
+                            <!-- ng-repeat="person in ControllingPersonsData track by person.Applicant_Number_c" ng-if="person.Added != undefined && person.Added == true" -->
+                             <c-baa-self-certc-person-cmp model={person}  modellist="ControllingPersonsData" showpersondetails="false" form="formSection4" controllingpersonheader="Applicant" ></c-baa-self-certc-person-cmp>
+                        </div>
+                    </template>
+                    <template for:each={OtherControllingPersons} for:item="other">
+                        <div key={other}><!-- ng-repeat="other in OtherControllingPersons track by other.Applicant_Number_c" ng-if="other.Added != undefined && other.Added == true" -->
+                             <c-baa-self-certc-person-cmp model={other} modellist="OtherControllingPersons" showpersondetails="true" form="formSection4" controllingpersonheader="Controlling Person"></c-baa-self-certc-person-cmp>
+                        </div>
+                    </template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>

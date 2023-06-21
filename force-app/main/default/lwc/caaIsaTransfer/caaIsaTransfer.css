@@ -1,0 +1,127 @@
+.SectionContainer {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgb(243,243,243);
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+.LoginContainer {
+    background-color: rgb(30,30,30);
+    color: #fff;
+    padding: 15px;
+}
+.loginbutton {
+    background-color: rgb(173,153,93);
+}
+.container{
+    width: 1170px;padding-top: 50px;
+    
+}
+
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.numberCircleReverse {
+    border-radius: 50%;
+    behavior: url(PIE.htc);
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-right: 7px;
+    background: #fff;
+    color: rgb(179,153,93);
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+.SectionHeader {
+    padding: 20px;
+    background-color: rgb(179,153,93);
+    color: rgb(255,255,255);
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+.existingcustomer {
+    background-color: rgb(179,153,93);
+    color: #fff;
+    padding: 10px;
+}
+.PanelContents {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+}
+.SectionTitle {
+    color: rgb(179,153,93);
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.rad {
+    padding-right: 10px;
+    display: inline-block;
+}
+.brightGreyBack{
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #666666;
+}
+.alert-danger {
+    background-color: rgb(235,94,80);
+    color: #fff;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #666666;
+   
+    background-color: rgb(243,243,243);
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.myOdd {
+    font-weight: bold;
+}
+/*a:hover {
+    color: rgb(179,153,93);
+}*/
+a{
+    color:#fff;
+}
+.goldenLink {
+    color: rgb(179,153,93);
+}
+.btnArb {
+    text-shadow: none;
+    background-color: rgb(179,153,93);
+    color: #fff;
+}

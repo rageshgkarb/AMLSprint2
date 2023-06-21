@@ -1,0 +1,38 @@
+<template >
+    <div  >
+      <div class="SectionTitle">
+          Downloads                         
+      </div>
+        <div class="row">
+    
+          
+              <div class="col-sm-6" style="font-size:18px;">
+                <template for:each={documents} for:item="doc">
+
+                    <div key={doc} >
+                        <template if:true={doc.Complete}>
+                        <a  href={doc.URL} target="_blank">{doc.Name}</a>
+                       </template>
+                       <template if:false={doc.Complete}>
+                        <template if:true={doc.Generating}>
+                        <span ><i class="fa fa-spinner fa-pulse"></i>  Generating {doc.Name}</span>
+                        </template>
+                       </template>
+                       
+                    </div>
+
+                </template>
+                 
+<template if:true={ShowFSCSDoc}>      
+                    <a  href={$Resource.FSCScheme} 
+                            target="_blank">Important information about the FSCS</a>
+           
+            </template>            
+          </div>
+              <div class="col-sm-6">
+              </div>
+          </div>
+      </div>
+
+    <div class="SectionBreak"></div>
+</template>

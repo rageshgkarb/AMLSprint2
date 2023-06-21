@@ -1,0 +1,93 @@
+.SectionHeader {
+    padding: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    background-color: rgb(179,153,93);
+    color: rgb(255,255,255);
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+numberCircleReverse {
+    border-radius: 50%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    behavior: url(PIE.htc);
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-right: 7px;
+    background: #fff;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(255, 255, 255);
+    color: rgb(179,153,93);
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+.PanelContents {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+    font-size: 14px;
+      color:#666666;
+	
+}
+.SectionTitle {
+    color: rgb(179,153,93);
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.btnArb {
+    text-shadow: none;
+    background-color: rgb(179,153,93);
+    color: #fff;
+}
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.row {
+    padding: 60px 15px 0;
+ 
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 55px;
+}
+a:hover{
+    color: rgb(179,153,93);
+    font: Arial;
+    font-size: 14px;
+}
+a{
+    color: rgb(179,153,93); 
+    font: Arial;
+    font-size: 14px;
+}

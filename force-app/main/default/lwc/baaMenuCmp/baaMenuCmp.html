@@ -1,0 +1,126 @@
+<template>
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a onclick={onCollapseOne}>
+                        Application Flow
+                    </a>
+                </h4>
+            </div>
+            <template if:true={collapseOne}>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <ul class="menuList">
+                        <template for:each={Events} for:item="ev">
+                            <li key={ev} class={ev.CssClass}>
+
+                             
+                                <div data-id={ev.EventId} class="popover fade right in hide" style="top: auto; left: 320px; display: block;margin-top: -30px;">
+                                    <div class="arrow"> </div>
+                                    <div class="popover-content">
+                                        <div style="width:400px;">
+                                            Created : {ev.CreatedDate}<br />
+                                            Completed : {ev.CompletedDate}<br />
+                                            Completed By : {ev.CompletedBy}
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+
+
+
+                                <template if:true={ev.IsCreated}>
+                                    <div key={ev} class="tip ToolTip">
+                                        <a id={ev.EventId} onmouseover={onHoverElement} onmouseout={onFocusElementOut}
+                                            href={ev.AngularURL}>{ev.Title}</a>
+
+                                    </div>
+                                </template>
+                                <template if:false={ev.IsCreated}>
+                                    <div key={ev}>
+                                        <a id={ev.EventId} class='dis-link' href={ev.AngularURL} onmouseover={onHoverElement} onmouseout={onFocusElementOut} 
+                                        style="color:#999999;">{ev.Title}</a>
+                                    </div>
+                                </template>
+
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+            </template>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a onclick={onCollapseTwo}>
+                        Other
+                    </a>
+                </h4>
+            </div>
+            <template if:true={collapseTwo}>
+            <div id="collapseTwo">
+                <div class="panel-body">
+                    <ul style="margin-left: 40px;list-style-type: disc;">
+                        <li>
+                            <button class="btn-default" onclick={CompleteE} value="Complete Event (Testing)">Complete
+                                Event (Testing)</button>
+                        </li>
+                        <li>
+                            <a href={rewindurl}>Rewind Application</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </template>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a onclick={onCollapseThree}>
+                        Event History
+                    </a>
+                </h4>
+            </div>
+            <template if:true={collapseThree}>
+            <div id="collapseThree">
+                <div class="panel-body">
+                    <ul class="menuList">
+                            <template for:each={EventLogs} for:item="el">
+                                <li key={el.Id} class="hoverHiglight "> 
+                                    <div data-id={el.Id} class="popover fade right in hide" style="top: auto; left: 339px; display: block;margin-top: -35px;">
+                                        <div class="arrow"> </div>
+                                        <div class="popover-content">
+                                            <div style="width:400px;">
+                                                Created : {el.CreatedDate__c}<br/>
+                                                Created By : {el.CreatedBy.Name}<br/>
+                                                Completed : {el.ActualCompletedDate__c} <br/>
+                                                Completed By : {el.CompletedBy__c}
+                                            </div>
+                                        </div>
+                                    </div>   
+                                  </li> 
+                                  <hr key={el.Id}/> 
+                                  <div key={el.Event__r.Name} class="tip ToolTip" onmouseover={onHoverElement} onmouseout={onFocusElementOut}>
+                                    <a id={el.Id} class='dis-link' 
+                                    style="color:#999999;" >
+                                    {el.Event__r.Name} 
+                                        <lightning-formatted-date-time id={el.Id} value={el.LastModifiedDate} year="numeric" month="numeric" day="numeric" style="float: right;"  onmouseover={onHoverElement} onmouseout={onFocusElementOut}>
+                                        </lightning-formatted-date-time></a>
+                                </div>     
+                            </template>
+                   
+                        </ul>
+                </div>
+            </div>
+            </template>
+        </div>
+
+
+    </div>
+</template>

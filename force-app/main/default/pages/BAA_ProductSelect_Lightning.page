@@ -1,0 +1,37 @@
+<apex:page showheader="false" sidebar="false" doctype="html-5.0" controller="BAA_ProductSelect_Controller">
+    <head>
+        <c:BAA_Resource_Lightning ></c:BAA_Resource_Lightning>
+        <style>
+            #header{
+                width:100%;
+            }
+            
+        </style>
+        </head>
+        
+        <apex:includeLightning />
+        <div id="header">
+            <c:LiabilitiesLogo ></c:LiabilitiesLogo>
+        </div> 
+        <div id="LightningComponentid" class="container" style="font-size : 14px;margin: auto;"/>   
+        
+            <script>
+            $Lightning.use("c:LigtningOutApp", function() {
+                $Lightning.createComponent("c:baaProductSelectCmp",
+                            { 
+                            
+                            Name:'{!Name}',
+                            OrgType:'{!Acc.Organisation_type__c}',
+                            SubType:'{!Acc.Organisation_sub_type__c}',
+                            BusType:'{!Acc.Business_Type__c}'
+                            },
+                            "LightningComponentid", // the Id of div tag where your component will be rendered
+                            function(cmp) {
+                                console.log('Calling the LWC Component');
+                            });
+                });
+            
+
+            
+            </script>
+</apex:page>

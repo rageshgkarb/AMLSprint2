@@ -1,0 +1,11 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 03-24-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <c:caaFtd/>
+</aura:component>

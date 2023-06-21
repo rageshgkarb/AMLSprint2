@@ -1,0 +1,61 @@
+<!--
+ - Created by lbrindle on 08/11/2019.
+ -->
+
+<apex:page id="DotConnectBypassRegistration" extensions="DotConnect_BypassRegistration_Controller" showHeader="false" sideBar="false" standardController="Account">
+   <style>
+                .spinnerBg{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background-color: #000;
+                    opacity: 0.2;
+                    z-index: 999999;
+                }
+                .spinner{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background-image: url("/img/loading32.gif");
+                    background-size: 16px;
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                    background-position: center;
+                    z-index: 9999999;
+                    opacity: 1;
+                }
+   </style>
+    <apex:form id="userForm">
+    
+    <div>
+        This process is to be used where customers have been fully identified and verified by an agent over the telephone
+    </div>
+    
+        
+        <apex:actionStatus id="spinnerStatus">    
+                    <apex:facet name="start">
+                     <div class="spinnerBg" />
+                    <div class="spinner" />
+                </apex:facet>
+    </apex:actionStatus>
+    
+    
+        <apex:commandButton title="Bypass" action="{!bypass}" value="Alternative Security Process"/>
+        <apex:commandButton title="Reset User" action="{!resetUser}" value="Reset User" status="spinnerStatus" reRender="userForm"/>
+
+        <apex:pageBlock mode="maindetail">
+            <apex:pageBlockSection columns="1">
+
+            <apex:outputField value="{!acc.Registration_Bypass_Active__c}" />
+                <apex:outputField value="{!acc.Bypass_Registration_Started__c}" />
+                <apex:outputField value="{!acc.Bypass_Registration_Security_Until__c}" />
+                <apex:outputField value="{!acc.Reset_User_Completed__c}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+
+        <apex:outputPanel rendered="{!displayMessage}">
+            {!errorMessage}
+        </apex:outputPanel>
+
+    </apex:form>
+</apex:page>

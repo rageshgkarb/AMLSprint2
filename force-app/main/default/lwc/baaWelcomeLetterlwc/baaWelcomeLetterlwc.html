@@ -1,0 +1,59 @@
+<template>
+	<c-baa-header-cmp title="Welcome Letter"></c-baa-header-cmp>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-lg-3">
+				<c-baa-menu-cmp> </c-baa-menu-cmp>
+			</div>
+			<div class="col-md-8 col-lg-9">
+				<div class="row">
+					<div class="col-xs-12"> </div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">Welcome Letter</div>
+					<div class="welcome"> Welcome Letter Generation </div>
+					<table class="table" width="100%">
+						<tbody>
+							<tr>
+								<td class="labelCol">• Have the customers' images been set up? (Signatures and photos scanned)</td>
+								<!--   <td class="dataCol"><apex:inputField required="true" value="{!thisOpp.Customer_Images_Set_Up__c}"/></td> -->
+								<td class="dataCol">
+									<lightning-input type="checkbox" data-id="checkbox" required="true" onchange={handleChange1}> </lightning-input>
+								</td>
+							</tr>
+							<tr>
+								<td class="labelCol">• Have the mandate and authority levels been set up?</td>
+								<!--    <td class="dataCol"><apex:inputField required="true" value="{!thisOpp.Mandate_Set_Up__c}"/></td> -->
+								<td class=" dataCol">
+									<lightning-input type="checkbox" data-id="checkbox" onchange={handleChange2} required="true"> </lightning-input>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="welcome">
+						<button if:false={WelcomeLetterLink} class="btn btn-danger" onclick={CreateDoc}> Generate Welcome Letter </button>
+						<div class="slds-grid slds-gutters" if:true={WelcomeLetterLink}>
+							<div class="slds-col">
+								<p if:true={WelcomeLetterLink}>
+								 <b> >> </b><lightning-formatted-url value={WelcomeLetterLink} tooltip={WelcomeLetterLink} label="Welcome Letter" target="_blank"></lightning-formatted-url>
+								</p>
+							</div>
+							<div class="slds-col">
+							
+							
+								<button if:true={WelcomeLetterLink} class="btn btn-danger" onclick={onComplete}> Complete </button>
+								 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div if:true={isLoading} class="slds-spinner_container slds-is-fixed">
+		<div class="slds-spinner spinner-padding">
+			<lightning-spinner variant="brand" alternative-text="Generating Welcome Letter
+             This may take a few seconds..." size="large"> </lightning-spinner>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,223 @@
+<apex:page controller="HPPEventValuationInstructedController" lightningStylesheets="true" sidebar="false" showHeader="false" title="Valuation Instructed" action="{!autoRun}" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <style  type="text/css">
+        .slds-label { font-weight: bold !important; }
+        .slds-heading {
+        font-family: 'Optima LT W01 Medium', Arial, sans-serif;
+        font-weight: 500;
+        font-size: 90%;
+        color: #000;
+        }
+        .allBold{ 
+        font-weight: bold !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        }
+        body .bPageBlock .detailList .labelCol, .slds-vf-scope .bPageBlock .detailList .labelCol {
+        text-align: right;
+        width: 18%;
+        font-weight: bold !important;
+        }
+        .requiredInput {
+        border-left: solid 5px red;
+        }
+        .k-button {
+        display: inline-block !important;
+        margin: 0 !important;
+        padding: 2px 7px 2px !important;
+        font-family: inherit !important;
+        line-height: 1.66em !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+        font-weight: lighter !important;
+        color: #333333 !important;
+        background-color: #f5f5f5 !important;
+        }
+        .k-button:hover {
+        background-color: rgb(30,30,30) !important;
+        color: #fff !important;
+        }
+        a {
+        color: #333435;
+        }
+        body, td {
+        font-family: Arial,Helvetica,sans-serif !important;
+        color: #222 !important;
+        font-size: 90% !important;
+        }
+        body .bPageBlock .pbBody .labelCol, body .bPageBlock .pbBody .dataCol, body .bPageBlock .pbBody .data2Col, body .print .topics-label, body .print .topics-list {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        vertical-align: top !important;
+        
+        }
+        body .requiredInput .requiredBlock:after, .slds-vf-scope .requiredInput .requiredBlock:after {
+        color: white !important;
+        content: "*" !important;
+        position: absolute !important;
+        left: -0.5rem !important;
+        top: 0.125rem !important;
+        }
+    </style>
+    <head>
+        <c:KendoResource ></c:KendoResource>
+    </head>
+    <div class="slds-scope">
+        <body>
+            <apex:form >  
+                <div id="formWrapper">
+                    <!-- C00095-->
+                    <c:HPPSummary_Lightning objAcc="{!Accounts[0]}" objOpp="{!opp}" objExOpp="{!ExOpp}" Product="{!Prod}" />
+                    <div id="container" >
+                        <table width="100%">
+                            <tr>
+                                <td valign="top" id="sidebar">
+                                    <c:HPPBOMenu oppId="{!Opp.Id}"  DirectorId="{!Opp.ProductEventDirector__c}" />
+                                </td>
+                                <td valign="top" id="contenttd">
+                                    <div id="content">
+                                        <h1 class="slds-heading">Valuation Instructed</h1>
+                                        
+                                        <apex:outputPanel id="mainPageBlock" styleClass="allBold">
+                                            <div style="padding:20px !important;">
+                                                <!-- content -->
+                                                
+                                                <apex:pagemessages ></apex:pagemessages>
+                                                
+                                                <apex:pageBlock >
+                                                    <apex:pageBlockSection >
+                                                        
+                                                        <apex:outputField value="{!exOpp.Valuation_Table_Type__c }" styleClass="slds-output-field"/>
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Total Valuation Fee"  styleClass="slds-label"/><!--HPP-AVM C0785 -->
+                                                            <apex:inputField value="{!exOpp.ValuationPrice__c}"  styleclass="form-control slds-input" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:outputField value="{!opp.Finance_Required__c}"/>
+                                                        <apex:outputField value="{!opp.Purchase_price_market_value__c}" />
+                                                        
+                                                  
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Address 1"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!opp.New_property_street__c}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Access Name" styleClass="slds-label"/> 
+                                                            <!--C0782 REAC changes required="{!If(CONTAINS(Opp.Interested_in__c,'REAC') ,false,true)}" -->                                                                                       
+                                                            <apex:inputField required="{!If(CONTAINS(Opp.Interested_in__c,'REAC') ,false,true)}" value="{!exOpp.Estate_agent_contact_name__c}" styleclass=" {!If(CONTAINS(Opp.Interested_in__c,'REAC'),'slds-input ' ,'requiredInput ')} form-control slds-input requiredInput"/>
+                                                        </apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Address 2"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!opp.New_property_city__c}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Access Telephone Number"  styleClass="slds-label"/>
+                                                            <!--C0782 REAC changes required="{!If(CONTAINS(Opp.Interested_in__c,'REAC') ,false,true)}" -->   
+                                                            <apex:inputField required="{!If(CONTAINS(Opp.Interested_in__c,'REAC') ,false,true)}" value="{!exOpp.Estate_agent_contact_telephone_number__c}" styleclass="{!If(CONTAINS(Opp.Interested_in__c,'REAC'),'slds-input ' ,'requiredInput ')} form-control slds-input "/>
+                                                        </apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Address 3"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!opp.New_property_postcode__c}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:outputField value="{!exOpp.Property_Type__c}" />
+                                                        
+                                                        
+                                                        <apex:outputField value="{!exOpp.Tenure__c}"  styleClass="slds-label"/>
+                                                        <apex:outputField value="{!exOpp.Property_details__c}" />
+                                                        
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Title"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!acc.Salutation}" />   
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Current/Expected Rent (BTL Applications Only)"  styleClass="slds-label"/>
+                                                            <apex:inputField value="{!opp.Expected_monthly_rent_payment__c}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:outputField value="{!acc.FirstName}" />
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Applicant 2 Title"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!secondApplicant.Salutation}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:outputtext value="{!acc.LastName}"  styleClass="slds-label"/>
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Applicant 2 First Name"  styleClass="slds-label" />
+                                                            <apex:outputField value="{!secondApplicant.FirstName}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Address 1"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!acc.BillingStreet}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Applicant 2 Last Name"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!secondApplicant.LastName}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Address 2"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!acc.BillingCity}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Address 3"  styleClass="slds-label"/>
+                                                            <apex:outputField value="{!acc.BillingPostalCode}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                                                        
+                                                        <apex:pageBlockSectionItem >
+                                                            <apex:outputLabel value="Telephone"  styleClass="slds-label"/>
+                                                            <apex:inputField value="{!acc.Home_Telephone_No__c}" />
+                                                        </apex:pageBlockSectionItem>
+                                                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                                                    </apex:pageBlockSection>
+                                                    
+                                                    <apex:pageBlockButtons location="bottom" id="page_block_buttons">
+                                                        <!--apex:commandButton onclick="ShowDocumentLoad()" oncomplete="HideDocumentLoad()"
+reRender="mainPageBlock" value="Instruct Valuation" action="{!instructValuation}" rendered="{!NOT(successfulCallout) && !NOT(IsCompleted)}" /-->
+                                                        <apex:commandButton onclick="ShowDocumentLoad()" oncomplete="HideDocumentLoad()"
+                                                                           styleClass="k-button" reRender="mainPageBlock" value="Instruct Valuation" action="{!instructValuation}" rendered="{! (NOT(IsCompleted) || !NOT(successfulCallout)) && exopp.Manual_valuation_instructed__c =null  }" />
+                                                        <apex:commandButton styleClass="k-button" value="Complete Event" action="{!complete}" rendered="{!successfulCallout && !IsCompleted}" />
+                                                        <apex:commandButton value="Manual Valuation Instruction" action="{!complete}"  styleClass="k-button"/>                                                   
+                                                    </apex:pageBlockButtons>
+                                                </apex:pageBlock>
+                                                
+                                                <div style="text-align: center;">
+                                                    <apex:outputPanel id="take_payment_response" style="text-align: center; font-weight: bold;">
+                                                        <apex:outputText value="{!calloutResponse}" />
+                                                    </apex:outputPanel>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </div>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="fade"></div>
+                <div id="overlay">
+                    Instruct Valuation...
+                    <br/>
+                    <br/>
+                    This may take a few seconds.
+                    <div style="padding-top: 50px;" >
+                        <!--  CPDR01 
+<img src="{!URLFOR($Resource.ibbstyle, 'images/269.gif')}">
+</img>-->
+                        
+                        <img src="{!URLFOR($Resource.ibbstyleexternal, 'graphics/logos/circular-timer.gif')}"/>
+                    </div>
+                </div>    
+            </apex:form>
+        </body>
+    </div>
+</apex:page>

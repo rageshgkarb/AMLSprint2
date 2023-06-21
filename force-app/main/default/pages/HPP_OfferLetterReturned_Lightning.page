@@ -1,0 +1,157 @@
+<!-- C00108 Get some product switching information -->
+
+<apex:page controller="HPP_OfferLetterReturned" sidebar="false" showHeader="false" title="Generate Offer Letter" action="{!Setup}" doctype="html-5.0" standardstylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <style type="text/css">
+        a {
+        color: #333435;
+        }
+        .k-button {
+        display: inline-block !important;
+        margin: 0 !important;
+        padding: 2px 7px 2px !important;
+        
+        line-height: 1.66em !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+        font-weight: lighter !important;
+        color: #333333 !important;
+        background-color: #f5f5f5 !important;
+        }
+        .k-button:hover {
+        background-color: rgb(30,30,30) !important;
+        color: #fff !important;
+        }
+        .pbBody {
+        font-size: 12px !important;
+        color: #000 !important;
+        padding: 0rem 0rem !important;
+        font-family: Arial,Helvetica,sans-serif !important;
+        }
+        body .requiredInput .requiredBlock:after, .slds-vf-scope .requiredInput .requiredBlock:after {
+        content: none;
+        position: absolute;
+        
+        }
+        .bPageBlock .requiredInput .requiredBlock {
+        background-color: #c00 !important;
+        position: absolute !important;
+        left: -4px !important;
+        width: 3px !important;
+        top: 1px !important;
+        bottom: 1px !important;
+        }
+    </style>
+    <apex:composition template="HPPProductSwitchTemplate">
+        <apex:define name="include">
+            <script>
+            hppApp.controller('offerLetterController', ['$scope', '$timeout','serviceApplication','serviceOffer','$window',
+                                                        function($scope, $timeout,serviceApplication,serviceOffer,$window) {
+                                                            
+                                                            $scope.Complete= function()
+                                                            {
+                                                                if(!$scope.OppId) return null;
+                                                                serviceApplication.LoadShow('Processing...');
+                                                                serviceOffer.Complete($scope.EventLogId, $scope.OppId, $scope.DateSigned, $scope.SwitchDate)
+                                                                .then(
+                                                                    function(result){
+                                                                        if(result.URL)
+                                                                        {
+                                                                            $window.location.href = result.URL;                                                                                              
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            serviceApplication.LoadHide(true);   
+                                                                        }
+                                                                        
+                                                                    },
+                                                                    function(error){
+                                                                        serviceApplication.LoadHide(true);
+                                                                        $scope.ErrorMessage = error;
+                                                                    }
+                                                                );
+                                                            }                        
+                                                            
+                                                        }]);
+            
+            
+            angular.module("hppApp").service('serviceOffer', ['$q', '$rootScope', function ($q, $rootScope) {
+                
+                this.Complete = function(id, oppId, signedDate, switchDate)
+                {
+                    var deferred = $q.defer();
+                    HPP_OfferLetterReturned.Complete(id,oppId,signedDate, switchDate,function(result, event){
+                        if(event.status){
+                            deferred.resolve(result);
+                        }
+                        else {
+                            deferred.reject(event);
+                        }     
+                    },{ buffer: false, escape: false, timeout: 30000} );
+                    return deferred.promise;
+                }
+                
+                
+            }]);
+            
+            </script>
+        </apex:define>
+        
+        
+        <apex:define name="header">
+            <c:HPP_Header title="Offer letter returned" numapps="1" opp="{!Opp}" />
+        </apex:define>
+        <apex:define name="menu">
+            <c:HPP_Angular_Menu oppid="{!Opp.Id}" directorid="{!DirectorID}">
+            </c:HPP_Angular_Menu>
+        </apex:define>
+        <apex:define name="body">
+            <div class="slds-scope"> 
+                <div style="100%" ng-controller="offerLetterController" ng-init="OppId='{!Opp.id}';EventLogId='{!eventId}';
+                                                                                 DateSigned ='{!DateSigned }';
+                                                                                 SwitchDate= '{!SwitchDate}'"> <!-- controller -->
+                    <div class="container" style="height:100%">
+                        <div class="row" style="height:100%">
+                            <div class="col-md-12" style="height:100%;">
+                                <div class="PanelContents" style="height:100%;" >
+                                    <div class="verticalScrollSection" style="height:calc(100%);">
+                                        <div class="verticalSection">
+                                            <div class="SectionTitle">Offer letter returned</div>
+                                            
+                                            
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label class="slds-label">Date signed offer letter returned</label>
+                                                    <div>
+                                                        <input kendo-date-picker="kendo-date-picker" ng-required="true" ng-model="DateSigned" 
+                                                               k-format="'dd/MM/yyyy'"
+                                                               />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="slds-label">Product Switch Date</label>
+                                                    <div>
+                                                        <input kendo-date-picker="kendo-date-picker" ng-required="true" ng-model="SwitchDate" 
+                                                               k-format="'dd/MM/yyyy'"
+                                                               />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center" style="padding-top:10px;">                    
+                                                <button ng-disabled="!SwitchDate || !DateSigned" type="button" class="btn btn-default" ng-click="Complete()">Complete</button>
+                                            </div>                                    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

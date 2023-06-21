@@ -1,0 +1,41 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0">
+<style>
+ .slds-scope .slds-checkbox [type=checkbox]:checked~.slds-checkbox--faux:after, .slds-scope .slds-checkbox [type=checkbox]:checked+.slds-checkbox__label .slds-checkbox_faux:after, .slds-scope .slds-checkbox [type=checkbox]:checked+.slds-checkbox__label .slds-checkbox--faux:after{
+    height: 0.35rem;
+    width: 0.75rem;
+ }
+ .slds-scope .slds-checkbox .slds-checkbox_faux, .slds-scope .slds-checkbox .slds-checkbox--faux{
+    width: 1.3rem;
+    height: 1.3rem;
+ }
+ lightning-calendar > div > lightning-focus-trap > slot > div > div > div > lightning-button-icon > button {
+            min-width: 40px !important;
+        }
+        lightning-input > lightning-datepicker > div > div > lightning-button-icon {
+            right: 5rem !important;
+        }
+        .slds-scope .slds-input-has-icon .slds-input__icon{
+        margin-top: -1rem;
+        }
+        lightning-calendar > div > lightning-focus-trap > slot > div > div > h2 {
+    color: black !important;
+    }
+</style>
+
+  <head>       
+        <c:BAA_Resource_Lightning ></c:BAA_Resource_Lightning>       
+    </head>
+ <apex:includeLightning />    
+    <div id="LightningComponentid" />    
+    <script>
+    $Lightning.use("c:LigtningOutApp", function() {
+        $Lightning.createComponent("c:bAA_SetUpFinance1Lwc",
+          { 
+          },
+          "LightningComponentid",
+          function(cmp) {
+             console.log('Calling the LWC Component');
+          });
+    });
+    </script>
+</apex:page>

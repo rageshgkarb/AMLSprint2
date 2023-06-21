@@ -1,0 +1,99 @@
+<apex:page controller="HPPSolicitorConfirmFundsRecieved" sidebar="false" showHeader="false" title="Solicitor Confirm Funds Recieved" lightningStylesheets="true">
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <style type="text/css">
+        a {
+        color: #333435;
+        }
+       .k-button {
+        display: inline-block !important;
+        margin: 0 !important;
+        padding: 2px 7px 2px !important;
+        
+        line-height: 1.66em !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+        font-weight: lighter !important;
+        color: #333333 !important;
+        background-color: #f5f5f5 !important;
+        }
+        .k-button:hover {
+        background-color: rgb(30,30,30) !important;
+        color: #fff !important;
+        }
+        .pbBody {
+        font-size: 12px !important;
+        color: #000 !important;
+        padding: 0rem 0rem !important;
+        font-family: Arial,Helvetica,sans-serif !important;
+        }
+        body .requiredInput .requiredBlock:after, .slds-vf-scope .requiredInput .requiredBlock:after {
+        content: none;
+        position: absolute;
+      
+        }
+        .bPageBlock .requiredInput .requiredBlock {
+        background-color: #c00 !important;
+        position: absolute !important;
+        left: -4px !important;
+        width: 3px !important;
+        top: 1px !important;
+        bottom: 1px !important;
+        }
+    </style>
+    <head>
+        <c:KendoResource ></c:KendoResource>
+    </head>
+    <div class="slds-scope">
+        <body>
+            <apex:form > 
+                <div id="formWrapper">
+                    <!-- C00095-->
+                    <c:HPPSummary_Lightning objAcc="{!Accounts[0]}" objOpp="{!opp}" objExOpp="{!ExOpp}" Product="{!Prod}" />
+                    <div id="container" >
+                        <table width="100%">
+                            <tr>
+                                <td valign="top" id="sidebar">
+                                    <c:HPPBOMenu oppId="{!Opp.Id}"  DirectorId="{!Opp.ProductEventDirector__c}" />
+                                </td>
+                                <td valign="top" id="contenttd">
+                                    <div id="content">
+                                        <h1 class="pbBody">Solicitor Confirm Funds Received</h1>
+                                        
+                                        <apex:outputPanel id="mainPageBlock">
+                                            <div style="padding:20px;">
+                                                <!-- content -->
+                                                
+                                                <apex:pageBlock >
+                                                    <apex:pageBlockSection >
+                                                        <apex:pageBlockSectionItem >
+                                                            
+                                                            <!--  CPDR01  <apex:outputLabel value="Funds Received from IBB" />-->
+                                                            <apex:outputLabel value="Funds Received from Al Rayan Bank" styleClass="slds-label"/>
+                                                            <apex:inputField value="{!exOpp.Receipt_of_funds_from_IBB_solicitors__c}" required="true" />
+                                                        </apex:pageBlockSectionItem>
+                                                    </apex:pageBlockSection>
+                                                    
+                                                    <apex:pageBlockButtons location="bottom">
+                                                        <!--  CPDR01<apex:commandButton value="Funds Received from IBB" action="{!complete}" />
+-->
+                                                        <apex:commandButton value="Funds Received from Al Rayan Bank" action="{!complete}" styleClass="k-button" />
+                                                    </apex:pageBlockButtons>
+                                                </apex:pageBlock> 
+                                            </div>
+                                        </apex:outputPanel>
+                                    </div>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+            </apex:form>
+        </body>
+    </div>
+</apex:page>

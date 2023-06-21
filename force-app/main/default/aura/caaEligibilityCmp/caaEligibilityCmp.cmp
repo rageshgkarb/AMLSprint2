@@ -1,0 +1,15 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-08-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+  <aura:attribute name="accountid" type="String"/>  
+  <aura:attribute name="webFormDataId" type="String"/> 
+
+  <c:caaEligibility accountid = "{!v.accountid}" 
+                    webFormDataId = "{!v.webFormDataId}"
+                  />
+</aura:component>

@@ -1,0 +1,63 @@
+<!--
+@description       : 
+@author            : Rishitha
+@group             : 
+@last modified on  : 05-24-2022
+@last modified by  : Rishitha
+-->
+<template>
+<div class="row">
+<div class="col-md-9">      
+<div class="SectionHeader" style="margin-bottom:18px;">
+    <div>ANC
+          <template if:true={AccountId}>
+              <span> {Firstname} {Lastname}</span>
+          </template>
+    </div>
+</div>
+<div class="PanelContents">
+<div class="row">
+    <label class="control-label col-sm-6">
+        Seller
+    </label>
+    <div class="col-sm-6">
+    {name}
+    </div>       
+</div>
+<div class="row">
+    <label class="control-label col-sm-6">
+        Decision Engine
+    </label>
+    <div class="col-sm-6">
+        <select class="form-control" onchange={onDEType} onselect={onDEType} > 
+           <option class="optionhide" value="select"> </option>
+            <template for:each={options} for:item="option">
+                <option key={option.Id} value={option.Id}>{option.Name}</option>
+            </template>
+        </select>
+    </div>       
+</div>
+<template if:true={isButtonDisplay}>
+<div class="row">
+    <div class="col-sm-12">
+        <button style="color: white" class="btn btnArb" onclick={Create}>Next</button>
+    </div>
+</div>
+</template>
+<template if:true={EBSId}>
+<div class="row">
+    <div class="col-sm-12" style="padding-top:30px;">
+        <div class="alert alert-danger">Customer is already setup on EBS - {EBSId}</div>
+    </div>
+</div>
+</template>
+</div>
+</div>
+<div class="col-md-3">
+<div class="rightcol visible-md visible-lg" id="sidebar" >    
+</div>
+
+</div>
+</div> <!-- row -->
+<c-caa-message-broker></c-caa-message-broker>
+</template>

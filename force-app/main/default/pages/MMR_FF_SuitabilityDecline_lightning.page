@@ -1,0 +1,229 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-05-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page showHeader="false" sidebar="false" lightningStylesheets="true" controller="MMR_Suitability" docType="html-5.0" action="{!SetupDecline}">
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:MMR_PageHeader ></c:MMR_PageHeader>   
+    </head>
+    <body>
+
+    <c:MMR_Header title="Product Suitability Decline" numapps="{!numapplying}" opp="{!bopp}"/>
+        <div class="container">
+            <apex:form id="aForm" styleClass="form-horizontal">
+                <apex:outputPanel rendered="{!IsPage1}">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label class="slds-label">Reason for Decline</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <apex:inputTextarea required="true" styleClass="form-control slds-input" value="{!Opp.Reason_for_decline__c}"/>
+                            </div>
+                        </div>         
+                    </div>   
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label class="slds-label">Alternate Product Selected</label>
+                            </div>
+                            <div class="col-sm-8">
+                                
+                                <apex:selectList required="true" size="1" styleClass="form-control" value="{!Opp.Alternate_product__c}">
+                                <apex:selectOptions value="{!ProductItems}"  />
+                                
+                                
+                            </apex:selectList>
+                                
+                                
+                            </div>
+                        </div>         
+                    </div>   
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label class="slds-label">Term Required </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <apex:inputField required="true" styleClass="form-control slds-input" value="{!Opp.Term_of_Finance__c}"/>
+                                
+                            </div>
+                        </div>         
+                    </div>  
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label class="slds-label">Finance Required </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <apex:inputField required="true" styleClass="form-control slds-input" value="{!Opp.Finance_Required__c}"/>
+                                
+                            </div>
+                        </div>         
+                    </div>
+                
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <apex:commandButton styleClass="btn-primary slds-button" value="Previous" action="{!PrevSuitLightning}" rendered="{!!IsCompleted}"/>
+                                <apex:commandButton styleClass="btn-danger slds-button" value="Next" action="{!NextDecline}" rendered="{!!IsCompleted}"/>
+                            </div>
+                            
+                        </div>         
+                    </div> 
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!IsPage1}" id="mainPageBlock">
+                    <div class="row">    
+                        <div class="col-sm-4">
+                            <label class="slds-label">Product Selected</label>
+                        </div>    
+                        <div class="col-sm-8">
+                            {!Opp.Alternate_product__r.name}
+                        </div>
+                    </div>
+                    
+                    <div class="row">    
+                        <div class="col-sm-4">
+                            <label class="slds-label">Your reason for decline</label>
+                        </div>    
+                        <div class="col-sm-8">
+                            <apex:inputTextarea rows="5" styleClass="form-control slds-input" readonly="true"  value="{!Opp.Reason_for_decline__c}" />
+                        
+                            
+                        </div>
+                    </div>
+                    <div class="row">    
+                        <div class="col-sm-4">
+                            <label class="slds-label">Term of finance</label>
+                        </div>    
+                        <div class="col-sm-8">
+                            {!Opp.Term_of_Finance__c}
+                        </div>
+                    </div>
+                    <div class="row">    
+                        <div class="col-sm-4">
+                            <label class="slds-label">Finance Required</label>
+                        </div>    
+                        <div class="col-sm-8">
+                            {!Opp.Finance_Required__c}
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">  
+
+                        <div class="col-sm-4">
+                            <label class="slds-label">Disclaimer</label>
+                        </div>    
+                        <div class="col-sm-8">
+                            <strong>
+                            Please be aware that as you decided not to take our advice, you are not protected under the normal rules of the FCA's advice guidance scheme.
+                            </strong>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Documents
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <a class="btn btn-primary slds-button" target="_blank" href="{!URLFOR($Resource[RiskDoc])}">Risk and Features Document</a>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <apex:commandButton styleClass="{!IF(FISCreated,'btn-info slds-button','btn-danger slds-button')}" value="Create FIS/FQS" reRender="aForm" onclick="ShowDocumentLoad('Calling RCE','This may take a few seconds...');" oncomplete="RceResult();" action="{!CallRCE}" />                           
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <apex:outputPanel rendered="{!FISCreated}">
+                                                <apex:outputPanel rendered="{!LEFT(FisId,3)=='00P' || LEFT(FisId,3)=='015'}">
+                                                    <a target="_blank" href="/servlet/servlet.FileDownload?file={!FisId}">View Document</a>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!LEFT(FisId,3)!='00P' && LEFT(FisId,3)!='015'}">
+                                                    <a target="_blank" href="/sfc/servlet.shepherd/version/download/{!FisId}">View Document</a>
+                                                 </apex:outputPanel>
+                                                <!--<a target="_blank" href="{!IF(LEFT(FisId,3)=='00P' || LEFT(FisId,3)=='015','/servlet/servlet.FileDownload?file={!FisId}','/sfc/servlet.shepherd/version/download/{!FisId}')}" >View Document</a>-->
+                                                <!--<a  target="_blank" href="/servlet/servlet.FileDownload?file={!FisId}" >View Document</a>-->
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                    
+                                    <!--
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <apex:commandButton styleClass="{!IF(RecommendCreated,'btn-info','btn-danger')}" value="Create Recommendation" reRender="aForm" onclick="ShowDocumentLoad('Creating document','This may take a few seconds...');" oncomplete="HideDocumentLoad();" action="{!CreateRecommend}" />                                      
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <apex:outputPanel rendered="{!RecommendCreated}">
+                                                <a target="_blank" href="/servlet/servlet.FileDownload?file={!RecommendId}" >View Document</a>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                    -->
+                                    
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                        
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <apex:commandButton styleClass="btn-danger slds-button" value="Start Application" action="{!Complete}" rendered="{!FISCreated}"/>                            
+                        </div>      
+                    </div>
+                                    
+                    <apex:actionFunction oncomplete="HideDocumentLoad()" name="offerletter" action="{!CreateDoc}" rerender="aForm"/>             
+                    <apex:outputPanel rendered="{!!RCEFailed}">
+                        <script>
+                            function RceResult()
+                            {
+                                HideDocumentLoad();
+                                ShowDocumentLoad('Generating document','This may take a few seconds...');
+                                offerletter();
+                            }        
+                        </script>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!RCEFailed}">
+                        <script>
+                            function RceResult()
+                            {
+                                HideDocumentLoad1();
+                                
+                                var errwindow = $("#errWindow");
+                                
+                                if (!errwindow .data("kendoWindow")) {
+                                            errwindow .kendoWindow({
+                                                width: "400px",                            
+                                                title: "RCE Failed",
+                                                modal: true
+                                                });                        
+                                            }
+                                            errwindow .data("kendoWindow").open();                   
+                                            errwindow .data("kendoWindow").center(); 
+                                            
+                            }        
+                        </script>
+                    </apex:outputPanel>                    
+                                        
+                </apex:outputPanel> 
+        
+                <div class="row">
+                    <apex:commandButton rendered="{!!IsPage1}" value="Previous" styleClass="btn-primary slds-button" action="{!PrevDeclineLightning}" />
+                
+                </div>
+                
+            </apex:form>        
+        </div>
+        
+        <c:MMR_PageFooter ></c:MMR_PageFooter>
+
+        <c:MMR_PopupLoad />
+    </body>
+</apex:page>

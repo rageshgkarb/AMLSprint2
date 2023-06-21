@@ -1,0 +1,89 @@
+<apex:page controller="HPPPostCompletion" lightningStylesheets="true"  sidebar="false" showHeader="false" title="Post Completion">
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:KendoResource ></c:KendoResource>
+    </head>
+    <style>
+    .slds-button {
+		width: auto !important;
+        padding-right: 7px !important;
+		padding-left: 7px !important;
+       }
+     .slds-button:hover {
+        background-color: rgb(30,30,30) !important;
+        color: #fff !important;
+        }
+    </style>    
+    <body>
+     <div class="slds-scope">
+        <apex:form >
+            <div id="formWrapper">
+              
+                <c:HPPSummary_Lightning objAcc="{!Accounts[0]}" objOpp="{!opp}" objExOpp="{!ExOpp}" Product="{!Prod}" />
+                <div id="container" >
+                    <table width="100%">
+                        <tr>
+                            <td valign="top" id="sidebar">
+                                <c:HPPBOMenu_Lightning oppId="{!Opp.Id}"  DirectorId="{!Opp.ProductEventDirector__c}" />
+                            </td>
+                            <td valign="top" id="contenttd">
+                                <div id="content">
+                                    <h1>Post Completion</h1>
+                                <apex:pageMessages ></apex:pageMessages>
+                                    <apex:outputPanel id="mainPageBlock">
+                                    <div style="padding:20px;">
+                                        <!-- content -->
+                                        
+                                        <apex:pageBlock >
+                                            <apex:pageBlockSection >
+                                                
+                                                
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="SDLT Sent" />
+                                                    <apex:inputField value="{!exOpp.SDLT_sent_to_IBB_solicitors__c}" required="false" />
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="SDLT Recieved" />
+                                                    <apex:inputField value="{!exOpp.SDLT_received__c}" required="false" />
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="Documentation Filed" />
+                                                    <apex:inputField value="{!exOpp.Filed__c}" required="false" />
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="Documentation Archived" />
+                                                    <apex:inputField value="{!exOpp.Archived__c}" required="false" />
+                                                </apex:pageBlockSectionItem>
+                                              
+                                         </apex:pageBlockSection>
+                                            <br> </br>
+                                            Please click on the button below to confirm that the all the post completion actions for <b> {!opp.name} have been completed</b> has been actioned
+                                        <br> </br><apex:commandButton styleclass="slds-button" value="Save changes" action="{!save}"/>
+                                            <apex:pageBlockButtons location="bottom">
+                                                <apex:commandButton styleclass="slds-button" value="Confirm all actions completed" action="{!complete}" />
+                                                <br> </br>
+                                                
+                                                
+                                            </apex:pageBlockButtons>
+                                           
+                                                   
+                                           
+                                        </apex:pageBlock> 
+                                    </div>
+                                    </apex:outputPanel>
+                                    
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </apex:form>
+	</div>    
+</body>
+    
+</apex:page>

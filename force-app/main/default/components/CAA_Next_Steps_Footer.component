@@ -1,0 +1,72 @@
+<apex:component >
+    <div id="next-steps">
+        <div class="SectionTitle">
+            If you need to contact us
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-sm-4 border-right">
+                    <div class="row">
+                        <div class="col-xs-2">
+                    
+                        <span class="fa-stack fa-lg" style="color: rgb(179,153,93);font-size:18px;">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-phone fa-stack-1x" style="color:#fff;"></i>
+                        </span>
+                        </div>
+                        
+                        <div class="col-xs-10">
+                            <div>
+                                <p class="contact-title">
+                                    <strong>Call us</strong><br/>
+                                    0800 4080 786                        
+                               </p>
+                       
+                                <p>
+                                    <strong>Lines are open</strong><br/>
+                                    Monday to Friday: 9am - 5pm<br/>
+                                </p>
+                                
+                                <p>
+                                    <strong> Phoning from outside the UK?</strong><br/>
+                                    Call 0044 129 889 0137
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-xs-2">
+                    
+                        <span class="fa-stack fa-lg" style="color: rgb(179,153,93);font-size:18px;">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-envelope-o fa-stack-1x" style="color:#fff;"></i>
+                        </span>
+                        </div>
+                        
+                        <div class="col-xs-10">
+                            <div class="next-steps-contact">
+                                <p class="contact-title">
+                                    <strong>Message us</strong><br/>
+                                    <a href="https://digital.alrayanbank.co.uk/Login">Online</a><br/>
+                                    If you are already registered for Digital Banking, you can send us a secure message.<br/> 
+                                    Alternatively, you can request a call back through our website.
+                                </p>
+                        
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+            
+           
+            
+            
+        </div>
+    </div>
+</apex:component>

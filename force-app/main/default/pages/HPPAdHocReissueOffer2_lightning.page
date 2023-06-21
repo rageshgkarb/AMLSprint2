@@ -1,0 +1,33 @@
+<apex:page lightningStyleSheets="true" apiVersion="" controller="HPPEventAdHocReIssueOfferController" sidebar="false" showHeader="false" title="Re-Issue Offer Letter" action="{!autoRun}">
+   <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+      <c:KendoResource ></c:KendoResource>
+    </head>
+    <body>
+    <div class="slds-scope">
+        <apex:form id="reasonForm" >
+            <div id="formWrapper">
+              <c:HPPSummary_Lightning objAcc="{!Accounts[0]}" objOpp="{!opp}" objExOpp="{!ExOpp}" Product="{!Prod}"></c:HPPSummary_Lightning>
+              <div id="container">
+                  <table width="100%">
+                      <tr>
+                          <td valign="top" id="Sidebar">
+                              <c:HPPBOMenu oppId="{!Opp.Id}" DirectorId="{!Opp.ProductEventDirector__c}"></c:HPPBOMenu>   
+                          </td>
+                          <td valign="top" id="contenttd" >
+                              <c:HPPOfferLetterReissue ExOpp="{!ExOpp}" Opp="{!Opp}" IsValid="{!IsValid}" ProcessedOK="{!processedOK}" theReason="{!theReason}" theComments="{!theComments}"  />
+                               <!--apex:commandButton value="Generate Offer Letter" action="{!GenerateOfferLetter}"/-->   
+                               <apex:actionFunction action="{!GenerateOfferLetter}" name="GenOffer" /> 
+                               <apex:actionFunction action="{!CompleteTheEvent}" name="CompleteEvent" /> 
+                          </td>   
+                           
+                      </tr>
+                  </table>
+              </div>
+              
+           </div>
+       </apex:form>
+       </div>
+    </body>
+    
+</apex:page>

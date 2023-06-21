@@ -1,0 +1,435 @@
+<aura:component controller="CAA_Core_Controller_Lightning" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ltng:require scripts="!join(',', 
+                           $Resource.CAA_Includes + '/js/controller/controller_declaration.js', 
+                           $Resource.CAA_Includes + '/js/service/service_declaration.js',
+                           $Resource.CAA_Includes + '/js/service/service_ebs.js')" />
+    <lightning:navigation aura:id="navService"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="activeSections" type="List"  />
+    
+    <aura:attribute name="EventLogId" type="String"  />
+    <aura:attribute name="Decision" type="String" />
+    <aura:attribute name="SessionId" type="String" />
+    <aura:attribute name="numOfApplicants" type="Integer" />
+    <aura:attribute name="isISA" type="Boolean" />
+    <aura:attribute name="isYPSA" type="Boolean" />
+    <aura:attribute name="IsGuest" type="Boolean" />
+    <aura:attribute name="showYPSATC" type="Boolean" />
+    <aura:attribute name="showYPNATC" type="Boolean" />
+    <aura:attribute name="showSavingText" type="Boolean" />
+    <aura:attribute name="showCurrentAccountTC" type="Boolean" />
+    <aura:attribute name="Product" type="String" />
+    <aura:attribute name="applicantNames" type="String[]" default="[ 'Applicant1', 'Applicant2']"/>
+    <aura:attribute name="applicants" type="List" default="[ 'Applicant1', 'Applicant2']"/>
+    <aura:attribute name="Data" type="CAA_Data.GenericResponse"  />
+    <aura:attribute name="Error" type="String" />
+    <aura:attribute name="applicantNamesListStr" type="String" />
+    
+    <aura:attribute name="applicantJsonList" type="List"/>
+   
+    
+    <aura:attribute name="applicant1AgreeSet" type="Set"  />
+    <aura:attribute name="applicant2AgreeSet" type="Set"  />
+    <aura:attribute name="applicant3AgreeSet" type="Set"  />
+    <aura:attribute name="applicant4AgreeSet" type="Set"  />
+    <aura:attribute name="allClicked" type="Boolean" default="false"/>
+    <aura:attribute name="Loading" type="Boolean" default="false"/>
+    <lightning:navigation aura:id="navigationService" />
+    
+    <aura:if isTrue="{!v.Loading}">
+        <div class="regionLoad"  style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;">
+            <div class="regionWaitBackground" style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;"></div>
+            <div class="regionWaitMessage text-center" style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;">
+                <div class="regionSpinner">
+                </div>
+                <div class="regionTitle">
+                    Please wait
+                    <br/>Processing
+                </div>
+            </div>
+        </div>  
+    </aura:if>
+    
+    
+    
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-4">
+            <span></span>
+        </div>
+        <div class="slds-col slds-size_2-of-4">
+            
+            <div class="slds-box headerBack">
+                <div class="SectionHeader" style="margin-bottom:18px;">
+                    <div class="numberCircleReverse">3</div>
+                    <div>Declaration</div>
+                </div>
+            </div><br/>
+            <aura:if isTrue="{!v.Decision=='DECLINE'}">
+                <div class="slds-card"><br/>
+                    <div style="margin-left: 20px" class="PanelContents">
+                        <div>
+                            Thank you for your application for an Al Rayan Bank {!productType}
+                        </div>
+                        <br/>
+                        <div>
+                            We have reviewed your application and we must advise you that regretfully, in this instance, we are unable to offer the facility you have requested.
+                        </div>
+                        <br/>
+                        <div>
+                            Al Rayan Bank, like most financial organisations, assesses applications using information supplied by credit bureau.  Unfortunately, in this case we have been supplied with information by Equifax Ltd that means we are unable to accept your application at this moment. If you would like more information please either go to www.equifax.co.uk or write to:-<br/>
+                        </div>
+                        <br/>
+                        <div>
+                            Equifax plc
+                        </div>
+                        <div>
+                            Credit File Advice Centre
+                        </div>
+                        <div>
+                            Po Box 1140
+                        </div>
+                        <div>
+                            Bradford
+                        </div>
+                        <div>
+                            BD1 5US
+                        </div>
+                        <br/>
+                        <div>
+                            A fee of £2.00 will be payable to Equifax Plc if you wish to use either of these methods.
+                        </div>
+                        <br/>
+                        <div>
+                            If you require any further information about your account application please contact us on 0800 4080 786.
+                        </div>
+                        
+                    </div>
+                    <c:caaNextStepsFooter />
+                </div>
+            </aura:if>
+            
+            <aura:if isTrue="{!!v.Error}">
+                <div class="slds-box" style="
+                                             background: white;
+                                             padding: 15px 20px;
+                                             font-weight: bold;
+                                             margin-bottom: 19px;
+                                             font-family: Arial;
+                                             font-size: 14px;
+                                             line-height: 1.42857143;
+                                             color: #666666;">
+                    Please expand and accept the following declarations to continue your application</div>
+                
+                
+                <lightning:accordion
+                                     allowMultipleSectionsOpen="true"
+                                     onsectiontoggle="{! c.handleSectionToggle }"
+                                     activeSectionName="{! v.activeSections }"
+                                     >
+                    <lightning:accordionSection class="SectionSubHeader" name="section1" label="Automatic Exchange of Information (AEOI)">
+                        <aura:set attribute="body">
+                            
+                            
+                            
+                            <div style="    margin-bottom: 30px;
+                                        padding: 20px;
+                                        background-color: #fff;"> 
+                                <div style="color: #666666; font-size: 85%; font-weight:normal;" >
+                                    <span>
+                                        <small>
+                                            Tax legislations referred to in this form are regulations created to enable automatic exchange of information and include
+                                            Foreign Account Tax Compliance Act, various agreements to improve
+                                            international tax compliance entered into between the UK, the Crown
+                                            Dependencies and the Overseas Territories, and OECD Common Reporting
+                                            Standard for Automatic Exchange of Financial Account Information,
+                                            as implemented in the relevant jurisdictions
+                                        </small>
+                                    </span>
+                                </div>
+                                <hr/>
+                                <div>
+                                    <span>
+                                        <ul class="slds-list_dotted SectionContent">
+                                            <li>
+                                                I understand that the information supplied by me is covered by the full provisions of the terms and conditions governing
+                                                the Account Holder’s relationship with Al Rayan Bank PLC setting out
+                                                how Al Rayan Bank PLC may use and share the information supplied by me.
+                                            </li>
+                                            <li>I acknowledge that the information contained in this form and information
+                                                regarding the Account Holder and any reportable Account(s) may be provided
+                                                to the tax authorities of the country in which this account(s) is/are
+                                                maintained and exchanged with tax authorities of another country or countries
+                                                in which the Account Holder may be tax resident pursuant to inter-governmental
+                                                agreements to exchange financial account information.</li>
+                                            <li>I certify that
+                                                I am the Account Holder (or I am authorised to sign for the Account Holder)
+                                                of all account(s) to which this application relates.
+                                                <strong>
+                                                    I declare that all statements made in this declaration are, to the best of my knowledge and belief, correct and complete</strong>.
+                                            </li>
+                                            <li>
+                                                I undertake to advise Al Rayan Bank PLC within 28 days of any change
+                                                in circumstances which affects the tax residency status of the individual
+                                                identified in Section 1 of this form or causes the information contained
+                                                to become incorrect or incomplete, and to provide Al Rayan Bank PLC with
+                                                a suitably updated self-certification and declaration within 28 days
+                                                of such change.
+                                            </li>
+                                        </ul>
+                                    </span>
+                                    
+                                </div><hr/>
+                                <div style="margin-top: 10px;color: #666666">
+                                    <div class="slds-grid slds-gutters" aura:id="section1">
+                                        <aura:iteration items="{!v.applicantJsonList}" var="listvar" indexVar="i" >
+                                            
+                                            <aura:if isTrue="{!listvar.section ==1}">
+                                            <div class="slds-col">
+                                                <aura:if isTrue="{!!isYPSA || !i==0 }">
+                                                    <strong>
+                                                        <aura:if isTrue="{!isYPSA}">
+                                                            Guardian {!listvar.appNum} - {!listvar.app}
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!!isYPSA}">
+                                                            Applicant {!1 + listvar.appNum} - {!listvar.app}
+                                                        </aura:if>
+                                                    </strong><br/>
+                                                   
+                                                    <aura:if isTrue="{!listvar.displayButton}">
+                                                    	<lightning:button  class="goldbutton btn" name="{!'Section1'+listvar.appNum}" label="I agree" />
+                                                    </aura:if>
+                                                     <aura:if isTrue="{!!listvar.displayButton}">
+                                                    	<lightning:button  class="blackbutton btn" name="{!'Section1'+listvar.appNum}" label="I agree" onclick="{!c.iAgreeClicked}"/>
+                                                    </aura:if>
+                                                </aura:if>
+                                            </div>
+                                            </aura:if>
+                                        </aura:iteration>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:set>
+                    </lightning:accordionSection>
+                    <lightning:accordionSection class="SectionSubHeader" name="section2" label="Prevention of fraud and money laundering ">
+                        <div style="    margin-bottom: 30px;
+                                    padding: 20px;
+                                    background-color: #fff;">
+                            
+                            <aura:if isTrue="{!v.showYPSATC || v.showYPNATC }">
+                                <c:LC_CAA_Declaration_YPSA_ML/></aura:if>
+                            
+                            <aura:if isTrue="{!v.showSavingText}">
+                                <c:LC_CAA_Declaration_Saving_ML/></aura:if>
+                            
+                            <aura:if isTrue="{!v.showCurrentAccountTC}">
+                                <c:LC_CAA_Declaration_Current_ML/></aura:if>
+                            <hr/>
+                            <div style="margin-top: 2px;color: #666666">
+                                
+                                <div class="slds-grid slds-gutters">
+                                    <aura:iteration items="{!v.applicantJsonList}" var="listvar" indexVar="i" >
+                                            
+										<aura:if isTrue="{!listvar.section ==2}">
+                                        <div class="slds-col">
+                                            <span>
+                                                <aura:if isTrue="{!!isYPSA || !i==0 }">
+                                                    <strong>
+                                                        <aura:if isTrue="{!isYPSA}">
+                                                            Guardian {!listvar.appNum} - {!listvar.app}
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!!isYPSA}">
+                                                            Applicant {!1 + listvar.appNum} - {!listvar.app}
+                                                        </aura:if>
+                                                    </strong><br/>
+													 <aura:if isTrue="{!listvar.displayButton}">
+                                                    	<lightning:button class="goldbutton btn" name="{!'Section2'+listvar.appNum}" label="I agree"  />
+                                                    </aura:if>
+                                                     <aura:if isTrue="{!!listvar.displayButton}">
+                                                    	<lightning:button class="blackbutton btn" name="{!'Section2'+listvar.appNum}" label="I agree" onclick="{!c.iAgreeClicked}" />
+                                                    </aura:if>
+                                                    
+                                                    
+                                                </aura:if>
+                                            </span>
+                                        </div>
+										</aura:if>
+                                    </aura:iteration>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning:accordionSection>
+                    <lightning:accordionSection class="SectionSubHeader" name="section3" label="Financial Services Compensation Scheme (FSCS)">
+                        <div class="SectionContent" style="margin-bottom: 30px; padding: 20px; background-color: #fff;">
+                           <!-- Removed below text SFD426
+                             <p>
+                                <span>
+                                    All eligible deposits with Al Rayan Bank are protected by the Financial Services Compensation Scheme (FSCS), the UK's deposit guarantee scheme, up to a total of £85,000. Most deposits are covered by the scheme.
+                                </span>
+                            </p>
+                            <p>
+                                <span>
+                                    Any deposits you hold above the FSCS compensation limit are unlikely to be covered, unless under specific circumstances, as determined by the FSCS.
+                                </span>
+                            </p>-->
+                            <p>
+                                <img src="{!$Resource.CAA_Includes + '/documents/FSCS.PNG'}"></img>
+                                
+                            </p>
+                            <p>
+                                <span>
+                                    For your own benefit and protection, you should read the FSCS Information Sheet which you can access by clicking on the link below.
+                                </span>
+                            </p>
+                            <p>
+                                <a href="{!$Resource.CAA_Includes + '/documents/FSCS.pdf'}" target="_blank"><strong style="color:black;">FSCS Information Sheet</strong></a>
+                            </p>
+                            <hr/>
+                            <div style="margin-top: 2px;color: #666666">
+                                <div class="slds-grid slds-gutters">
+                                    <aura:iteration items="{!v.applicantJsonList}" var="listvar" indexVar="i" >
+                                            
+										<aura:if isTrue="{!listvar.section ==3}">
+                                        <div class="slds-col">
+                                            <aura:if isTrue="{!!isYPSA || !i==0 }">
+                                                <strong>
+                                                    <aura:if isTrue="{!isYPSA}">
+                                                        Guardian {!listvar.appNum} - {!listvar.app}
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!!isYPSA}">
+                                                        Applicant {!listvar.appNum+ 1} - {!listvar.app}
+                                                    </aura:if>
+                                                </strong><br/>
+                                                
+                                                
+													<aura:if isTrue="{!listvar.displayButton}">
+                                                    	<lightning:button class="goldbutton btn" name="{!'Section3'+listvar.appNum}" label="I agree"  />
+													</aura:if>
+													 <aura:if isTrue="{!!listvar.displayButton}">
+														<lightning:button class="blackbutton btn" name="{!'Section3'+listvar.appNum}" label="I agree" onclick="{!c.iAgreeClicked}" />
+													</aura:if>
+                                            </aura:if>
+                                        </div>
+										</aura:if>
+                                    </aura:iteration>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning:accordionSection>
+                    <lightning:accordionSection class="SectionSubHeader" name="section4" label="Declaration">
+                        <div class="SectionContent" style="margin-bottom: 30px; padding: 20px; background-color: #fff;">
+                            <aura:if isTrue="{!v.showYPSATC || v.showYPNATC }">
+                                <c:LC_CAA_Declaration_YP  ibbProductName="{!v.Product}"/></aura:if> 
+                            <aura:if isTrue="{!v.showSavingText}">
+                                <c:LC_CAA_Declaration_Saving ibbProductName="{!v.Product}"/> </aura:if>
+                            <aura:if isTrue="{!v.showCurrentAccountTC}">
+                                <c:LC_CAA_Declaration_Current ibbProductName="{!v.Product}"/> </aura:if>
+                            
+                            <hr/>
+                            <div style="margin-top: 2px;color: #666666">
+                                <div class="slds-grid slds-gutters">
+                                    <aura:iteration items="{!v.applicantJsonList}" var="listvar" indexVar="i" >
+                                            
+										<aura:if isTrue="{!listvar.section == 4}">
+                                        <div class="slds-col">
+                                            <aura:if isTrue="{!not(isYPSA)}">
+                                                <strong>
+                                                    <aura:if isTrue="{!isYPSA}">
+                                                        Guardian {!listvar.appNum} - {!listvar.app}
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!!isYPSA}">
+                                                        Applicant {!listvar.appNum + 1} - {!listvar.app}
+                                                    </aura:if>
+                                                </strong><br/>
+													<aura:if isTrue="{!listvar.displayButton}">
+                                                    	<lightning:button  class="goldbutton btn" name="{!'Section4'+listvar.appNum}" label="I agree"  />
+													</aura:if>
+													 <aura:if isTrue="{!!listvar.displayButton}">
+														 <lightning:button  class="blackbutton btn" name="{!'Section4'+listvar.appNum}" label="I agree" onclick="{!c.iAgreeClicked}" />
+													</aura:if>
+                                               
+                                                
+                                            </aura:if>
+                                        </div>
+										</aura:if>
+                                    </aura:iteration>
+                                </div>
+                            </div>
+                            <br/>
+                            <aura:if isTrue="{!v.allClicked}">
+                                <hr/>
+                                <lightning:button name="Continue" class="btn btnArb" label="Continue" onclick="{!c.getServiceData}" disabled="{!v.Loading}" />
+                            </aura:if>
+                        </div>
+                        
+                    </lightning:accordionSection>  
+                    
+                </lightning:accordion>
+            </aura:if> 
+            <aura:if isTrue="{!!v.IsGuest}">
+                <aura:if isTrue="{!v.Error}">
+                    <div class="PanelContents">
+                        <div class="SectionTitle">
+                            System Error
+                        </div>
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Applicant</th>
+                                        <th>Decision</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.Data.Reasons}" var="item">
+                                        <tr>
+                                            <td>
+                                                System Timeout
+                                                <!--{{item.ThisApplicant.Applicant_Number__c}}-->
+                                            </td>
+                                            <td>
+                                                System Timeout
+                                                <!--{{item.ThisDecision}}-->
+                                            </td>
+                                            <td>
+                                                No response from decision engine
+                                               <!--{{item.ReasonDescription}}-->
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div><br/>
+                        <aura:if isTrue="{!v.allClicked}">
+                            <lightning:button name="Continue" class="btn btnArb" label="Continue" onclick="{!c.getServiceData}" disabled="{!v.Loading}"/>
+                        </aura:if>
+                    </div>
+                </aura:if>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.IsGuest}">
+                <aura:if isTrue="{!v.Error}">
+                    <div class="PanelContents">
+                        Thank you for your application. 
+                        
+                        Your application is being processed and we will contact you to discuss further.
+                    </div>
+                </aura:if>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.IsGuest}">
+                <div class="rightcol visible-md visible-lg" id="sidebar" >
+                    <c:caaProgress Stage="3" ></c:caaProgress>  
+                </div>
+            </aura:if>
+        </div>
+        
+        <div class="slds-col slds-size_1-of-4">
+            <span></span>
+        </div>
+        
+    </div>
+    
+    
+</aura:component>

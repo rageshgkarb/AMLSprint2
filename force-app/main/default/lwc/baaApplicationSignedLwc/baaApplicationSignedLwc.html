@@ -1,0 +1,27 @@
+<template>
+	<c-baa-header-cmp title="Submit to Decision Engine"></c-baa-header-cmp>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-lg-3">
+				<c-baa-menu-cmp> </c-baa-menu-cmp>
+			</div>
+			<div class="col-md-8 col-lg-9">
+				<div class="row">
+					<div class="panel panel-primary">
+						<div class="panel-heading">Submit to Decision Engine</div>
+						<div class="slds-m-around_small">
+							<p if:true={responseMessage} class="slds-m-around_small">{responseMessage}</p>
+							<button if:true={discmpevent} class="slds-button slds-button_destructive" onclick={SubmitToDe}>Call decision Engine</button>
+							<button if:false={discmpevent} class="slds-button slds-button_destructive" onclick={onComplete}>Complete Event</button>
+						</div>
+						<div if:true={isLoading} class="slds-spinner_container slds-is-fixed">
+							<div class="slds-spinner spinner-padding">
+								<lightning-spinner variant="brand" alternative-text="Loading..." size="large"> </lightning-spinner>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

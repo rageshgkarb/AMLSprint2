@@ -1,0 +1,72 @@
+<apex:page controller="HPPEventOfferDocsReturnedController" lightningStylesheets="true" sidebar="false" showHeader="false" title="Offer Documents Returned">
+     <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:KendoResource ></c:KendoResource>
+        <style>
+        	input.k-textbox{
+            	width : 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slds-scope">
+        	<apex:form >
+            <div id="formWrapper">
+                <!-- C00095-->  
+                <c:HPPSummary_Lightning objAcc="{!Accounts[0]}" objOpp="{!opp}" objExOpp="{!ExOpp}" Product="{!Prod}" />
+                <div id="container" >
+                    <table width="100%">
+                        <tr>
+                            <td valign="top" id="sidebar">
+                                <c:HPPBOMenu_Lightning oppId="{!Opp.Id}"  DirectorId="{!Opp.ProductEventDirector__c}" />
+                            </td>
+                            <td valign="top" id="contenttd">
+                                <div id="content">
+                                    <h1>Offer Documents Returned</h1>
+                                
+                                    <apex:outputPanel id="mainPageBlock">
+                                    <div style="padding:20px;">
+                                        <!-- content -->
+                                        
+                                        <apex:pageBlock >
+                                            <apex:pageBlockSection >
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="Date signed offer letter returned" />
+                                                    <apex:inputField styleClass="slds-input" value="{!exOpp.Offer_returned_field__c}" required="true" />
+                                                </apex:pageBlockSectionItem>
+                                            </apex:pageBlockSection>
+                                            <apex:pageBlockSection rendered="{!ProductSwitch}">
+                                       
+                                      
+                                      
+                                       <apex:pageBlockSectionItem >
+                                           <apex:outputLabel value="Product Switch Date" />
+                                               <apex:outputPanel >
+                                                   <apex:inputField styleClass="slds-input" required="true" value="{!Opp.Product_Switch_Date__c }" />  
+                                               </apex:outputPanel>
+                                       </apex:pageBlockSectionItem>
+                                       <apex:pageBlockSectionItem >
+                                       </apex:pageBlockSectionItem>
+                                       <apex:pageBlockSectionItem >
+                                       </apex:pageBlockSectionItem>
+                                    </apex:pageBlockSection>
+                                            
+                                            <apex:pageBlockButtons location="bottom">
+                                                <apex:commandButton value="Offer Letter Returned" action="{!complete}"  />
+                                            </apex:pageBlockButtons>
+                                        </apex:pageBlock>
+                                    </div>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+                        
+        </apex:form>
+        </div>
+        
+    </body>
+</apex:page>

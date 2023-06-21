@@ -1,0 +1,24 @@
+<apex:page showheader="false" sidebar="false" doctype="html-5.0" standardstylesheets="false" controller="CAA_Core_Controller" action="{!ISA_Transfer_Init}">
+
+   <apex:includeLightning />    
+    <div id="LightningComponentid" class="container" style="font-size : 14px;margin: auto;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    color: #666666 !important;
+    font-family: Arial !important;"/>    
+     <script>
+        $Lightning.use("c:LigtningOutApp", function() {
+            $Lightning.createComponent("c:caaIsaTransfer",
+            { 
+                DocId:'{!DocId}',
+                SessionId:'{!SessionId}',
+                EventLogId:'{!EventLogId}',
+                isGuest:{!IsGuest} 
+            },"LightningComponentid", function(cmp) {
+            });
+        });
+    </script>
+    <apex:composition template="CAA_Template_Lightning">
+    </apex:composition>
+    
+</apex:page>

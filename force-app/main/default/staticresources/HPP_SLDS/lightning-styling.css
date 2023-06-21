@@ -1,0 +1,165 @@
+/*!
+ * Lightining Styling for VF pages
+ *  
+ *//*!  */
+	html{
+		 background-color : rgb(243 243 243)
+	}
+	.slds-label {
+		font-size: 12px !important;
+		font-weight: 500;
+	}
+	.slds-label-bold {
+		font-size: 12px !important;
+		font-weight: bold;
+	}
+	.slds-output-field {
+		font-size: 13px !important;
+		font-weight: 500;
+		opacity:90%;
+	}
+	
+	h1, .h1, h2, .h2, h3, .h3 {
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+	}
+	.slds-button:hover{
+		background-color: #333333!important;
+		border-color: #333333;
+		color: #FFFFFF!important;
+	}
+
+	.slds-button {
+		width: 95px;
+		height: 35px;
+		position: relative !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		padding-top: 0px !important;
+		padding-right: 0 !important;
+		padding-bottom: 0 !important;
+		padding-left: 0 !important;
+		background: none !important;
+		background-color: #b3995d !important;
+		background-clip: border-box !important;
+		border-style: solid !important;
+		border-width: 1px !important;
+		border-radius: 0.25rem !important;
+		line-height: 1.875rem !important;
+		text-decoration: none !important;
+		color: white !important;
+		white-space: normal !important;
+		text-align: center !important;
+		vertical-align: middle !important;
+		justify-content: center !important;
+		user-select: none !important;
+		font-size: 12px !important;
+		margin-bottom: 4px;
+	}
+	.slds-button-default:hover{
+		background-color: #333333!important;
+		border-color: #333333;
+		color: #FFFFFF!important;
+	}
+	.slds-button-default {
+		width: 95px;
+		height: 35px;
+		position: relative !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		padding-top: 0px !important;
+		padding-right: 0 !important;
+		padding-bottom: 0 !important;
+		padding-left: 0 !important;
+		background: none !important;
+		background-color: #e8e8e9 !important;
+		border-color: #ccc;
+		background-clip: border-box !important;
+		border-style: solid !important;
+		border-width: 1px !important;
+		border-radius: 0.25rem !important;
+		line-height: 1.875rem !important;
+		text-decoration: none !important;
+		color: #777 !important;
+		white-space: normal !important;
+		text-align: center !important;
+		vertical-align: middle !important;
+		justify-content: center !important;
+		user-select: none !important;
+		font-size: 12px !important;
+		margin-bottom: 4px;
+	}
+	
+	body input[type="submit"][disabled]{
+		color: rgb(201, 201, 201) !important;
+		opacity: .65 !important;
+		cursor: not-allowed !important;
+		pointer-events: none !important;
+		box-shadow: none !important;
+	
+	}
+	ul{
+		margin: 0 !important; 
+	}
+	.slds-input {
+		height: 32px !important;
+		padding : 0px 32px 0px 12px !important;
+	}
+	
+	.slds-checkbox:after {
+		height: 0.4rem !important;
+		width: 0.8rem !important;
+	}
+	.slds-checkbox {
+		width: 16px !important;
+		height: 16px !important;
+		padding: 0px !important;
+		border :0px !important;
+	}
+	.row {
+		margin-bottom: 3px;
+	}
+	body .slds-vf-data-table thead tr{
+		font-size: 12px !important;
+		text-transform: capitalize !important;
+	}
+	body .datePicker .calDays .selectedDate {
+		background: rgb(1, 118, 211) !important;
+		color: rgb(255, 255, 255) !important;
+		border-radius: 50%;
+	}
+	.calRow td {
+		padding: 0.75rem !important;
+		font-size: 12px !important;
+		
+	}
+	body .datePicker .calDays .highlight {
+		border-radius: 50%;
+		background-color: rgb(243, 243, 243) !important;
+		color: #000 !important;
+	}
+	.datePicker{
+		font-size: 12px !important;
+	
+	}
+	body .datePicker .dateBar{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-right: 10px;
+	}
+	body .datePicker select{
+		padding-left: 12px;
+		padding-right: 5px;
+	}
+	::placeholder{
+		font-size:12px !important;
+	}
+	 body .zen-searchBox:after
+{
+left: -1rem;
+} 
+body textarea, .slds-vf-scope textarea {
+	max-width: none;
+	resize: both;
+}

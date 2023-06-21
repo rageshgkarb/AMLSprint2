@@ -1,0 +1,26 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" controller="BAA_Product_Specific" action="{!Setup}">
+     <head>
+          <c:BAA_Resource_Lightning ></c:BAA_Resource_Lightning>
+    </head>
+    <apex:includeLightning />
+      <!--<c:BAA_Header objOpp="{!BaseOpportunity}" title="Product"></c:BAA_Header>-->
+      <div id="LightningComponentid" class="container" style="font-size : 14px;margin: auto;"/>    
+     <script>
+      $Lightning.use("c:LigtningOutApp", function() {
+        $Lightning.createComponent("c:baaProductSpecificCmp",
+                    { 
+                    
+                    eventId:'{!EventId}',
+                    opportunityId:'{!BaseOpportunity.Id}'  
+                    },
+                    "LightningComponentid", // the Id of div tag where your component will be rendered
+                    function(cmp) {
+                        console.log('Calling the LWC Component');
+                    });
+        });
+     
+
+      
+    </script>
+    
+</apex:page>

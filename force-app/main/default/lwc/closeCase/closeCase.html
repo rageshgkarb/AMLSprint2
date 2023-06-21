@@ -1,0 +1,50 @@
+<template>
+    <template if:true={loading}>
+        <div class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--small slds-is-relative" role="alert">
+              <span class="slds-assistive-text">Loading...</span>
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+            </div>
+          </div>
+    </template>
+    <div class="slds-box">
+        <div class="slds-box slds-text-align_center slds-theme_inverse" style="margin-bottom: 10px;"><h2 class="slds-text-heading_medium">Close Case</h2></div>
+        <lightning-record-edit-form onsubmit={handleSubmit} onerror={handleError} object-api-name="Case" record-id={recordId} onsuccess={handleSuccess}>
+            <lightning-messages></lightning-messages>
+            <template if:true={errormsg}>
+                <div class="slds-box slds-text-align_center slds-theme_error">{errormsg}</div>
+            </template>
+            <div class="slsd-box slds-theme_shade">
+                <lightning-layout vertical-align="center" multiple-rows="ture">
+                    <lightning-layout-item flexibility="auto" size="6" key={recordId}>
+                        <lightning-combobox class="slds-form-element slds-form-element_horizontal"
+                            name="Status"
+                            variant="label-inline"
+                            label="Status"
+                            placeholder="Select Status"
+                            options={options}
+                            onchange={handleChange} required="true" ></lightning-combobox>
+                    </lightning-layout-item>
+                    <template for:each={inputFields} for:item="field">
+                        <lightning-layout-item flexibility="auto" size="6" key={recordId}>
+                            <lightning-input-field class={field.fieldName} field-name={field.fieldName} name={field.fieldName}
+                            key={recordId} required={field.isRequired}>
+                            </lightning-input-field>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+            
+            </div>
+            
+            
+            <div class="slds-box slds-text-align_center slds-theme_inverse" style="margin-top: 10px;">
+                <lightning-button class="slds-p-horizontal_xx-small" variant="brand" type="submit" label="Save">
+                </lightning-button>
+                <lightning-button class="slds-p-horizontal_xx-small" variant="destructive" type="cancel" label="Cancel" onclick={cancel}>
+                </lightning-button>
+            </div>
+        </lightning-record-edit-form>
+    </div>
+    
+</template>

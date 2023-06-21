@@ -1,0 +1,18 @@
+<template>
+    <!-- Load Screen -->
+    <template if:true={state}>
+          <div class="regionLoad"  style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;">
+              <div class="regionWaitBackground" style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;"></div>
+              <div class="regionWaitMessage text-center" style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;">
+                  <div class="regionSpinner">
+  
+                  </div>
+                  <div class="regionTitle">
+                      Please wait
+                      <br/>{message}
+                  </div>
+  
+              </div>
+          </div>  
+      </template>
+  </template>

@@ -1,0 +1,117 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <!-- <div ng-controller="controllerRMDetails" ng-init="EventLogId= '{!EventLogId}';SessionId='{!SessionId}'; YPSA=false; isRMT=false;isABranch={!(IsABranch && !IsGuest)};isEDD=false;canEDD=false;">-->
+    <div class="container">
+        <div class="brightGreyBack ng-scope  ext-webkit ext-chrome">
+        <!--<form name="myform" novalidate="novalidate" ng-hide="Duplicates && {!IsGuest}">-->
+            <div class="row">
+                <div class="col-md-9" style="padding-bottom:10px;">
+                    <div class="SectionHeader">
+                        <div class="numberCircleReverse">4</div>
+                        <div>Further details</div>
+                    </div>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" style="background-color: rgb(255, 255, 255);">
+                        <!--C0750: CAA Quick Wins Starts-->
+                        <template if:true={Data.Applicants}>
+                            <template for:each={Data.Applicants} for:item="app"  for:index="index">  
+                            <!--<div class="panel panel-default" ng-repeat="app in Data.Applicants track by app.Id" on-finish-render="ngRepeatFinished" ng-init="SerialNo=['One', 'Two', 'Three', 'Four', 'Five']">-->
+                                <div key={app}>
+                                
+                                    <c-caa-r-m-basic-information onvaluechange={handleValueFromApp} ypsa=false currentaccount={IsCurrentAccount} ftd={IsFTD} model={isguest} applicantindex={index} applicant={app} valuefromparent={Data}></c-caa-r-m-basic-information>
+                                </div>
+                            </template>
+                        </template>
+                        <!--C0750: CAA Quick Wins Ends-->
+                        <!-- <apex:outputpanel rendered="{!IsABranch}">-->
+                        
+                        <template if:false={hideBranch}>
+                            <div class="panel panel-default" ><!--ng-hide="{!!IsABranch} && !isBranch"-->
+                                <c-caa-r-m-branch-override model={model} ypsa="false" currentaccount={IsCurrentAccount} ftd={IsFTD} isguest={IsGuest} manger-detials={ManagerAuthorisors}></c-caa-r-m-branch-override>
+                            </div>
+                        </template> 
+                       <!--</apex:outputpanel> --> 
+                    </div>
+
+
+                    <!--<apex:outputpanel rendered="{!Not(IsGuest) && false}">
+                   
+                        <div>
+                            Submit clicked : {{Submitted}}
+                        </div>
+                        <div>
+                            Form valid : {{myform.$valid}}
+                        </div>
+                    </apex:outputpanel>-->
+                    <div>
+                        <template if:true={forminValid}>
+                            <div class="alert alert-danger visible-xs" ><!--ng-show="myform.$invalid"-->
+                                There is missing required information
+                            </div>
+                        </template>
+                        <template if:false={HideComplete}>
+                            <button class="btn btnArb" onclick={Complete}>
+                                <span>
+                                    <strong>Continue</strong>
+                                    <span class="fa-stack fa">
+                                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                        <i class="fa fa-chevron-right fa-stack-1x"></i>
+                                    </span>
+                                </span>
+                            </button>
+                        </template>
+                    </div>
+                    
+                </div>
+                <div class="col-md-3">
+                    <div class="rightcol" id="sidebar">
+                        <!-- <c:CAA_Progress stage="4" rendered="{!IsGuest}"></c:CAA_Progress>-->
+                        <!--<apex:outputpanel rendered="{!Not(IsGuest)}">-->
+                            <template if:false={IsGuest}>
+                                <template if:true={canEDD}>
+                                    <template if:false={isRMT}>
+                                        <div><!-- ng-show="!isRMT && canEDD"-->
+                                            <button class="btn btnArb" onclick={adhocEdd} >Adhoc EDD</button><!--ng-click="isEDD=true;canEDD=false;"-->
+                                        </div>
+                                    </template>
+                                </template>
+                            </template>
+                        <!-- </apex:outputpanel>-->
+                        <template if:true={RMAlertText}>
+                            <div class="alert alert-warning">
+                                <i class="fa fa-thumb-tack"></i>
+                                {RMAlertText}
+                            </div>
+                        </template>
+                        
+                        <!--<div style="display:none">
+                            {{ShowErrors()}}
+                        </div>-->
+                      
+                        <template if:true={Submitted}>
+                            <template if:false={Duplicates}>
+                                <template for:each={Data.Applicants} for:item="app"> 
+                                   
+                                <div key={app}> <!-- ng-repeat="app in Data.Applicants" ng-show="Submitted && !Duplicates"-->
+                                    <template if:true={app.Valid}>
+                                        <div class="alert alert-success" key={app}><i class="fa fa-check"></i> {app.FirstName} {app.LastName}</div>
+                                    </template>
+                                    <template if:false={app.Valid}>
+                                        <div class="alert alert-danger" key={app}><i class="fa fa-close"></i> {app.FirstName} {app.LastName} <br /> is missing required information</div>
+                                    </template>
+                                </div>
+                            </template>
+                        </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </div>
+    <c-caa-message-broker></c-caa-message-broker>
+</template>

@@ -1,0 +1,274 @@
+<!--
+   @description       : 
+   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+   @group             : 
+   @last modified on  : 04-10-2022
+   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+   -->
+   <template>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="SectionHeader">
+                <div class="numberCircleReverse">3</div>
+                <div>ISA Transfer</div>
+            </div>
+            <div class="PanelContents">
+                <template if:false={ShowDocScreen}>
+                    <div ><!--ng-hide="ShowDocScreen"-->
+                        <div>
+                        <label class="control-label">Do you want to transfer an existing ISA?</label>
+                        </div>
+                        <div>
+                        <label class="radio-inline"><input type="radio" name="Transfer" value="yes" onclick={IsaChanges} />Yes</label><!--ng-model="ISA.Transfer"-->
+                        <label class="radio-inline"><input type="radio" name="Transfer" value="no"  onclick={IsaChanges}/>No</label><!--ng-model="ISA.Transfer"-->
+                        </div>
+                        <template if:true={showTransferExisting}>
+                            <div class="alert alert-danger" >
+                            <!--ng-show="Submitted && !ISA.Transfer"-->
+                            Please select if you want to transfer an existing ISA
+                            </div>
+                        </template>
+                        <template if:true={showTransfer}>
+                            <div>
+                            <!--ng-show="ISA.Transfer == 'yes'"-->
+                            <hr />
+                                <div data-id="ProviderClass">
+                                <!--ng-class="{ 'has-error': (myform.provider.$touched || Submitted ) && myform.provider.$invalid }"-->
+                                    <div>
+                                        <label class="control-label">Name of existing ISA provider</label>
+                                        <c-tooltip-utility class="pull-right" helptext="The name of the existing ISA provider that you wish to transfer in."></c-tooltip-utility>
+                                       
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-8" >
+                                        <input class="form-control arbBox" name="Provider" value={ISA.Provider} onfocusout = {IsaChanges} onchange={IsaChanges} /><!--ng-model="ISA.Provider" ng-required="ISA.Transfer == 'yes'"-->
+                                        <template if:true={isTransferYes}>
+                                            <c-caa-input-error data-id="Provider" errequired=true></c-caa-input-error>
+                                        </template>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-4" data-id="SortCodeClass">
+                                        <!--ng-class="{ 'has-error': (myform.sortcode.$touched || Submitted ) && myform.sortcode.$invalid }"-->
+                                        <label class="control-label">Sort code</label>
+                                        <c-tooltip-utility class="pull-right" helptext="The sort code of the existing ISA provider that you wish to transfer in."></c-tooltip-utility>
+                                        
+                                        <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox" name="SortCode"  maxlength="6" value={ISA.SortCode} onfocusout = {IsaChanges} onchange={IsaChanges}/><!--ng-model="ISA.SortCode" ng-maxlength="6"  ng-required="ISA.Transfer == 'yes'" -->
+                                        <template if:true={isTransferYes}>
+                                        <c-caa-input-error data-id="SortCode"  ermaxlength=6 errequired=true></c-caa-input-error>
+                                        </template>
+                                    </div>
+                                    <div class="col-sm-4" data-id="AccountNumberClass">
+                                        <!-- ng-class="{ 'has-error': (myform.account.$touched || Submitted ) && myform.account.$invalid }"-->
+                                        <label class="control-label">Account number</label>
+                                        <c-tooltip-utility class="pull-right" helptext="The account number of the existing ISA that you wish to transfer in."></c-tooltip-utility>
+                                        
+                                        
+                                        <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox" maxlength="8" name="AccountNumber"  value={ISA.AccountNumber} onfocusout = {IsaChanges} onchange={IsaChanges} /><!--ng-model="ISA.AccountNumber" ng-required="ISA.Transfer == 'yes'"  ng-maxlength="8"-->
+                                        <!--<c:Input_Error_Field field="account"/>-->
+                                        <template if:true={isTransferYes}>
+                                            <c-caa-input-error data-id="AccountNumber"  ermaxlength=8 errequired=true></c-caa-input-error>
+                                        </template>
+                                    </div>
+                                    <div class="col-sm-4" data-id="RollNumberClass">
+                                        <label>Roll number (if applicable)</label>
+                                        <c-tooltip-utility class="pull-right" helptext="The roll number of the existing ISA that you wish to transfer in (if applicable)."></c-tooltip-utility>
+                                        
+                                        <input type="number" class="form-control arbBox" name="RollNumber"  value={ISA.RollNumber}  onchange={IsaChanges}/><!--ng-model="ISA.RollNumber" -->                                    
+                                    </div>
+                                </div>
+                                <hr />
+                            <!-- C0596 Start -->
+                                <div data-id="AllandCloseClass">
+                                <!--ng-class="{ 'has-error': Submitted  && myform.sortcode.$invalid }"-->
+                                    <div>
+                                        <label class="control-label">Do you wish to transfer all and close this Cash ISA?</label>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label class="radio-inline"><input type="radio"  name="AllandClose" value="yes" onclick={IsaChanges} />Yes</label><!--ng-required="ISA.Transfer == 'yes' && !ISA.AllandClose"  ng-model="ISA.AllandClose"-->
+                                            <label class="radio-inline"><input type="radio"  name="AllandClose" value="no" onclick={IsaChanges}  />No</label><!--ng-required="ISA.Transfer == 'yes' && !ISA.AllandClose" ng-model="ISA.AllandClose"-->
+                                        </div>
+                                        <template if:true={isTransferYesAllClose}>
+                                            <c-caa-input-error data-id="AllandClose"  errequired=true></c-caa-input-error>
+                                        </template>
+                                        
+                                    </div>
+                                </div>
+                                <template if:true={showPartCash}>
+                                    <div><!-- ng-show="ISA.AllandClose == 'no'"-->
+                                        <div data-id="PartClass"><!--ng-class="{ 'has-error': Submitted  && myform.optSubscribed.$invalid }"-->
+                                            <div>
+                                                <label class="control-label">Do you wish to transfer part of this Cash ISA?</label>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <label class="radio-inline"><input type="radio"  name="Part"  value="yes" onclick={IsaChanges}  />Yes</label><!--ng-required="ISA.AllandClose=='no' && !ISA.Part" ng-model="ISA.Part"-->
+                                                    <label class="radio-inline"><input type="radio"  name="Part"  value="no" onclick={IsaChanges} />No</label><!--ng-required="ISA.AllandClose=='no' && !ISA.Part"  ng-model="ISA.Part" -->
+                                                </div>
+                                            </div>
+                                            <template if:true={isTransferYesAllCloseNo}>
+                                                <c-caa-input-error data-id="Part"  errequired=true></c-caa-input-error>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                                <hr />
+                                <template if:true={showHaveyousubscribed}>
+                                    <div>
+                                        <div data-id="SubscribedClass"><!--ng-class="{ 'has-error': Submitted  && myform.optSubscribed.$invalid }"-->
+                                            <div>
+                                                <label class="control-label">Have you subscribed to this cash ISA in the current tax year?</label>
+                                                <c-tooltip-utility class="pull-right" helptext="The tax year runs from 6 April to 5 April in the following year.  You can only apply for one ISA per tax year."></c-tooltip-utility>
+                                                
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <label class="radio-inline"><input type="radio"  name="Subscribed" value="yes" onclick={IsaChanges} />Yes</label><!--ng-required="ISA.AllandClose && !ISA.Subscribed" ng-model="ISA.Subscribed"-->
+                                                    <label class="radio-inline"><input type="radio"  name="Subscribed" value="no" onclick={IsaChanges}/>No</label><!--ng-required="ISA.AllandClose && !ISA.Subscribed" ng-model="ISA.Subscribed" -->
+                                                </div>
+                                            </div>
+                                            <template if:true={isTransferYesAllSubscribed}>
+                                                <c-caa-input-error data-id="Subscribed"  errequired=true></c-caa-input-error>
+                                            </template>
+                                        </div>
+                                        <hr />
+                                        <template if:true={showISAAmount}>
+                                            <div><!-- ng-show="ISA.AllandClose == 'no' && ISA.Part=='yes'"-->
+                                                <template if:true={showIsNotSubscribed}>
+                                                    <div data-id="TransferAmountClass"><!--ng-show="ISA.Subscribed == 'no'" ng-class="{ 'has-error': Submitted  && myform.transferval1.$invalid }"-->
+                                                        <div>
+                                                            <label class="control-label">If you are asking to transfer part of your ISA, please say how much of your cash ISA you want to transfer?</label>
+                                                            <c-tooltip-utility class="pull-right" helptext="There is no limit on the amount of funds you can transfer into an Al Rayan Bank ISA."></c-tooltip-utility>
+                                                           
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-4" data-id="TransferAmountClass">
+                                                                <input type="number" name="TransferAmount"  class="form-control arbBox" value={ISA.TransferAmount} onchange={IsaChanges}/><!--ng-required="ISA.Subscribed == 'no' && ISA.AllandClose == 'no' && ISA.Part=='yes'"  ng-model="ISA.TransferAmount"-->
+                                                            </div>
+                                                        </div>
+                                                        <template if:true={isNotSubscribedNoALLPart}>
+                                                            <c-caa-input-error data-id="TransferAmount"  errequired=true></c-caa-input-error>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                                <template if:false={showIsNotSubscribed}>
+                                                    <div><!--ng-show="ISA.Subscribed == 'yes'" ng-class="{ 'has-error': Submitted  && myform.optIncludeSubscription.$invalid }"-->
+                                                        <div class="DPAText">
+                                                            According to HMRC regulations you must transfer the full balance of any current year''s cash ISA subscriptions
+                                                        </div>
+                                                        <hr />
+                                                        <div data-id="IncludeSubscriptionClass">
+                                                            <div>
+                                                                <label class="control-label">As you are transferring part of your ISA, do you want to include the subscription from the current tax year?</label>
+                                                                <c-tooltip-utility class="pull-right" helptext="There is no limit on the amount of funds you can transfer into an Al Rayan Bank ISA."></c-tooltip-utility>
+                                                                
+                                                            </div>
+                                                            <div>
+                                                                <div>
+                                                                    <label class="radio-inline"><input type="radio"  name="IncludeSubscription" value="yes" onclick={IsaChanges}  />Yes</label><!--ng-required="!ISA.IncludeSubscription && ISA.Subscribed == 'yes' && ISA.AllandClose == 'no' && ISA.Part=='yes'" ng-model="ISA.IncludeSubscription"-->
+                                                                    <label class="radio-inline"><input type="radio"  name="IncludeSubscription" value="no" onclick={IsaChanges} />No</label><!--ng-required="!ISA.IncludeSubscription && ISA.Subscribed == 'yes' && ISA.AllandClose == 'no' && ISA.Part=='yes'" ng-model="ISA.IncludeSubscription" -->
+                                                                </div>
+                                                                <template if:true={isIncludeSubscriptionEr}>
+                                                                    <c-caa-input-error data-id="IncludeSubscription"  errequired=true></c-caa-input-error>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                        <hr />
+                                                        <div data-id="TransferAmountClass"><!--ng-class="{ 'has-error': Submitted  && myform.transferval.$invalid }"-->
+                                                            <div>
+                                                                <label class="control-label">If you are asking to transfer part of your ISA, please say how much of your cash ISA you want to transfer?</label>
+                                                                <c-tooltip-utility class="pull-right" helptext="There is no limit on the amount of funds you can transfer into an Al Rayan Bank ISA."></c-tooltip-utility>
+                                                                
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <input type="text" name="TransferAmount" class="form-control arbBox" value={ISA.TransferAmount} onchange={IsaChanges} disabled={isOnlyCurrentYear}/><!--ng-required="!ISA.TransferAmount && !ISA.OnlyCurrentYear && ISA.Subscribed == 'yes' && ISA.AllandClose == 'no' && ISA.Part=='yes' " ng-model="ISA.TransferAmount" ng-disabled="ISA.OnlyCurrentYear" -->
+                                                                </div>
+                                                            </div>
+                                                            <template if:true={isTransferSubscriped}>
+                                                                <c-caa-input-error data-id="TransferAmount"  errequired=true></c-caa-input-error>
+                                                            </template>
+                                                        </div>
+                                                        <hr />
+                                                        <div class="clearfix" data-id="OnlyCurrentYearClass"><!--ng-class="{ 'has-error': Submitted  && myform.onlycurrentyear.$invalid }"-->
+                                                            <div>
+                                                                <label class="control-label">Or, If you only want to transfer your subscriptions from the current tax year, tick here</label>
+                                                            </div>
+                                                            <div class="pull-left">
+                                                                <input type="checkbox" name="OnlyCurrentYear"  value={ISA.OnlyCurrentYear} checked={ISA.OnlyCurrentYear} onclick={IsaCheckChange}/><!-- ng-required="!ISA.TransferAmount && !ISA.OnlyCurrentYear && ISA.Subscribed == 'yes' && ISA.AllandClose == 'no' && ISA.Part=='yes'" ng-disabled="ISA.TransferAmount" ng-model="ISA.OnlyCurrentYear" -->
+                                                            </div>
+                                                        </div>
+                                                        <template if:true={isCurrentYear}>
+                                                            <c-caa-input-error data-id="OnlyCurrentYear"  errequired=true></c-caa-input-error>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </div>  
+                                </template>
+                            </div>             
+                        </template>
+                        <!-- C0596 End -->
+                        <hr/>
+                        <div>
+                            <template if:true={showTransferno}>
+                                <button class="btn btnArb" onclick={SaveISATerms} value=true>Complete your application </button><!--ng-click="SaveISATerms(true)" ng-show="ISA.Transfer == 'no'"-->
+                            </template>
+                            <template if:true={showCompleteYourApplication}>
+                                <button class="btn btnArb"  onclick={SaveISATerms} value=false>Complete your application </button><!-- ng-click="SaveISATerms(false)" ng-show="ISA.Transfer == 'yes' && !(ISA.AllandClose=='no' && ISA.Part=='no')"-->
+                            </template>
+                            <template if:false={isaTransfer}>
+                                <button class="btn btnArb" onclick={submitted}>Complete your application</button><!--ng-click="Submitted = true;" ng-show="!ISA.Transfer"-->
+                            </template>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={ShowDocScreen}>
+                    <div><!-- ng-show="ShowDocScreen"-->
+                        <div style="padding-bottom:10px;">
+                        <strong>Please download the following form before continuing to complete your application</strong>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12">
+                            <template if:false={IsGuest}>
+                                <!--<apex:outputpanel rendered="{!Not(IsGuest)}" layout="none">-->
+                                <template if:true={DocComplete}> 
+                                    <a href={urlForDownLoad} target="_blank">ISA transfer form</a><!-- ng-show="DocComplete"-->
+                                </template>   
+                                <!--</apex:outputpanel>-->
+                            </template>
+                            <template if:true={IsGuest}>
+                                <!--<apex:outputpanel rendered="{!IsGuest}" layout="none">-->
+                                    <template if:true={DocComplete}> 
+                                        <a ng-show="DocComplete" href={URL} target="_blank">ISA transfer form</a>
+                                    </template>
+                                
+                                <!--</apex:outputpanel>-->
+                            </template>
+                            <template if:true={IsGuest}>
+                                <template if:true={DocComplete}> 
+                                    <span ><i class="fa fa-spinner fa-pulse"></i>  Generating ISA transfer form...</span><!--ng-show="!DocComplete && DocGenerating"-->
+                                </template>
+                            </template>
+                        </div>
+                        </div>
+                        <div style="padding-top:10px;">
+                            <template if:true={DocComplete}>
+                                <button class="btn btnArb" value=true>Complete your application</button><!--ng-click="SaveISATerms(true)" ng-show="DocComplete"-->
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+       <div class="col-md-3">
+          <!--<c:CAA_Progress rendered="{!IsGuest}" Stage="3"></c:CAA_Progress>-->
+       </div>
+    </div>
+    <c-caa-message-broker></c-caa-message-broker>
+ </template>

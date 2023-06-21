@@ -1,0 +1,126 @@
+<!--
+  @description       : This component is created for converting BAA_RM Page to Lightning
+  @author            : Ragesh G
+  @group             : 
+  @last modified on  : 11-05-2022
+  @last modified by  : Ragesh G
+-->
+<template>
+    <c-baa-header-cmp  title="Risk Management Details"></c-baa-header-cmp>
+    <template if:true={message}>
+    <div class="slds-message">
+        {message}
+    </div>
+    </template>
+    <div class="container">
+        <div class="col-md-4 col-lg-3">
+            <!-- Include BAA_Menu component here -->
+            <c-baa-menu-cmp></c-baa-menu-cmp>
+        </div>
+        <div class="col-md-8 col-lg-9">
+            <div class="row">
+                <div class="col-xs-12">
+                 
+                </div>
+            </div>
+            <div>
+                <h4>
+                    Applicant - {applicantName}
+                </h4>
+            </div>
+            
+            <c-baa-rm-branch-override-cmp model={model} isabranch={isBranch}></c-baa-rm-branch-override-cmp>
+
+            
+         <!--   <div ng-show="!isVerified"><c:BAA_RM_BasicInformation model="AppAccs[0]" /></div>--> <!-- Commented for Garnet -->
+            
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <template if:true={showFurtherInfo}>
+                        <span >Further Information</span>
+                    </template>
+                    <template if:true={custAppFurtherInfo}>
+                         <span>Customer Application - Further Information<br/>
+                        In order for us to complete your application we just require a few more details
+                    </span>
+                    </template>
+                   
+                </div>
+                <!-- Garnet Start -->
+                <div class="panel-body">
+
+                <template if:true={showUploadStatus}>
+                    <h1> PLEASE COMPLETE THE NON PERSONAL CUSTOMER RISK ASSESSMENT CALCULATOR AND UPLOAD THE COMPLETED CALCULATOR USING THE UPLOAD FUNCTION BELOW </h1>
+
+                        <lightning-input type="file" 
+                    accept=".xlsx, .xls, .csv, .png, .doc, .docx, .pdf"
+                    label="Upload" onchange={openfileUpload}></lightning-input>
+                    <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleOnClick} class="slds-m-left_x-medium"></lightning-button>
+
+                </template>
+              
+                    <template if:true={showUplaodSuccessful}>
+                         <h1> RISK CALCULATOR UPLOADED SUCCESSFULLY. PLEASE CONTINUE THE APPLICATION </h1>
+                    </template>
+                    <template if:true={showUplaodInProgress}>
+                         <h1> A risk assessment is currently being undertaken and will be processed shortly - for any questions please refer to the KYC team </h1>
+                    </template>
+                    
+                    <template if:true={showUplaodRejected}>
+                         <h1> Application cannot progress - for more details please speak to the KYC Team </h1>
+                    </template>
+
+                </div>
+                <!-- Garnet End -->
+            </div>
+            
+            <div>
+                <template if:true={forminValid}><!-- {!(RMStatus == 'Upload Successfully' || RMStatus == 'Accepted')}-->
+                    <div class="alert alert-danger visible-xs" ><!--ng-show="myform.$invalid"-->
+                        There is missing required information
+                    </div>
+                </template>
+                <template if:false={HideComplete}>
+                    <button class="btn btnArb slds-button" onclick={completeEventController}>
+                        <span>
+                            <strong>Continue</strong>
+                            <span class="fa-stack fa">
+                                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                <i class="fa fa-chevron-right fa-stack-1x"></i>
+                            </span>
+                        </span>
+                    </button>
+                </template>
+            </div>
+    
+            <template if:true={RMAlertText}>
+                <div class="alert alert-warning">
+                    <i class="fa fa-thumb-tack"></i>
+                    {RMAlertText}
+                </div>
+            </template>
+            <template if:true={ErrorAlertText}>
+                <div class="alert alert-warning">
+                    <i class="fa fa-thumb-tack"></i>
+                    {ErrorAlertText}
+                </div>
+            </template>
+           
+        </div>
+
+    </div>
+    <template if:true={waitEnable}> 
+    <div class="regionLoad" style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;">
+        <div class="regionWaitBackground" style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;"></div>
+        <div class="regionWaitMessage text-center" style="box-sizing: content-box !important; -webkit-box-sizing: content-box !important;">
+            <div class="regionSpinner">
+            </div>
+            <div class="regionTitle">
+                {waitMsg}
+                <br />{PleaseWaitAddOn}
+            </div>
+        </div>
+    </div>
+</template>
+    
+</template>

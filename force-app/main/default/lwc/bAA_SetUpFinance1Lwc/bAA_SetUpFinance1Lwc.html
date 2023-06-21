@@ -1,0 +1,110 @@
+<template>
+        
+        <!--<c:BAA_Header objOpp="{!BaseOpportunity}" title="Advisor Checklist"></c:BAA_Header>-->
+        
+        <c-baa-header-cmp  title="Advisor Checklist"></c-baa-header-cmp>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                  <!--  <apex:form >-->
+                        <c-baa-menu-cmp > </c-baa-menu-cmp>
+                       <!-- <c:BAA_Menu oppId="{!BaseOpportunity.Id}"  DirectorId="{!BaseOpportunity.ProductEventDirector__c}" />-->
+                    <!--</apex:form>-->
+                </div>            
+                <div class="col-md-8 col-lg-9">
+                    <lightning-record-edit-form record-id={baseOppId} object-api-name="Opportunity"  onsuccess={handleSuccess}  >
+                    <form >
+                        <div class="row">
+                            <div class="col-xs-12">
+                              <!--  <apex:pagemessages ></apex:pagemessages>-->
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Set Up of Customer </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div>
+                                            Application Form Signed
+                                        </div>
+                                        <table class="table" width="50%">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="labelCol">•  Has the signed application form been received?</td>
+                                                    <td class="dataCol">
+                                                        <lightning-input-field field-name="NPAA_Application_Signed__c"  variant="label-hidden" >
+                                                        </lightning-input-field>
+                                                        <!--<apex:inputCheckbox required="true" value="{!thisOpp.NPAA_Application_Signed__c}"/>-->
+                                                        </td> 
+                                                </tr>
+                                                <tr>
+                                                    <td class="labelCol">•  Have the supporting documents been received?</td>
+                                                    <td class="dataCol">
+                                                         <lightning-input-field field-name="NPAA_Documents_Received__c"  variant="label-hidden" >
+                                                        </lightning-input-field>
+                                                       <!-- <apex:inputCheckbox required="true" value="{!thisOpp.NPAA_Documents_Received__c}"/>-->
+                                                        </td> 
+                                                </tr>
+                                                <tr>
+                                                    <td class="labelCol">•  Date Received?</td>
+                                                    <td class="dataCol">
+                                                        <lightning-input-field field-name="Date_Application_Received__c"  variant="label-hidden" required="true" class="requiredInput">
+                                                        </lightning-input-field>
+                                                       <!-- <apex:inputField required="true" value="{!thisOpp.Date_Application_Received__c}"/>-->
+                                                        </td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                       <!-- <apex:variable value="{!thePrimaryApplicant}" var="thePrimeApp"/> -->
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">{thePrimeApp}</div>
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tbody>
+                                        <template if:true={theSecondaryAccountHolders}>
+                                            <template for:each={theSecondaryAccountHolders} for:item="theJAR">
+                                            <!--<apex:repeat value="{!theSecondaryAccountHolders}" var="theJAR">-->
+                                                <tr class="dataRow" key={theJAR.Id}>
+                                                    <td>
+                                                        {theJAR.Prospect_Customer__r.Name} Relationship to {thePrimeApp} :
+                                                    </td>
+                                                    <td>
+                                                        <select  data-opid={theJAR.Id} class={theJAR.Id} value={theJAR.Relationship_To_Primary_Applicant1__c} required style=" border-left: solid  red;" onchange={handleRelationshipChange} >
+                                                            <template for:each={Relationships} for:item="option" for:index="index">
+                                                                    <option key={option.value} value ={option.value}> {option.label}</option>
+                                                            </template>
+                                                        </select>
+                                                    <!-- <apex:selectList value="{!theJAR.Relationship_To_Primary_Applicant1__c}" required="true"  size="1">
+                                                            <apex:selectOptions value="{!Relationships}" />
+                                                        </apex:selectList>-->
+                                                    </td>
+                                                </tr>
+                                        <!--  </apex:repeat> -->
+                                            </template>
+                                        </template>
+                                        
+                                        <tr>
+                                            <td>
+                                                 <button  type="submit" class="slds-button"  onclick={handleSaveClick} > Continue to Set Up</button>
+                                               <!-- <apex:commandButton value="Continue to Set Up" action="{!ContinueToEBS}" styleclass="btn-success" />-->
+                                            </td>
+                                        </tr>  
+                                    </tbody>
+                                </table>
+                             </div>
+                        </div>
+                     </form>
+                     </lightning-record-edit-form>
+                </div>
+             </div>
+         </div>
+     
+</template>

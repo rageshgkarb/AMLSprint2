@@ -1,0 +1,28 @@
+<apex:page showHeader="false" sidebar="false"  docType="html-5.0" standardStylesheets="false" controller="CAA_Core_Controller" action="{!SendToHost}">  
+    <apex:composition template="CAA_Template_Lightning"/> 
+    <apex:includeLightning />    
+    <div id="LightningComponentid" style="background-color: rgb(237,237,237);"/>
+    
+   
+    <!-- the Id of div tag which will be used to render your LWC component  -->
+    <script>
+        console.log('Before Calling');
+        $Lightning.use("c:LigtningOutApp", function() {
+            $Lightning.createComponent("c:caaSendToHost",
+            { 
+               
+               EventLogId:'{!EventLogId}',
+               IsANC : {!IsANC},
+               SessionId : '{!SessionId}',
+               isABranchVar: {!IsABranch},
+               IsCurrentAccount: {!IsCurrentAccount},
+               titleText : '{!titleText}'               
+            },
+            "LightningComponentid", // the Id of div tag where your component will be rendered
+            function(cmp) {
+                console.log('Calling the LWC Component');
+            });
+        });
+           
+    </script>
+</apex:page>

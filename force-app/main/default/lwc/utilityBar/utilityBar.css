@@ -1,0 +1,10 @@
+.dummy{
+	color : black;
+	
+}
+.check{
+	display: none;
+}
+.verify{
+	display: block;
+}

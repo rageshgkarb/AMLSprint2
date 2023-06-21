@@ -1,0 +1,141 @@
+<template>
+
+
+    <c-baa-header-cmp title="Self Certification"></c-baa-header-cmp>
+
+
+
+    <!--lightning-message ></lightning-message-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <span>
+
+                    <c-baa-menu-cmp> </c-baa-menu-cmp>
+
+                </span>
+            </div>
+            <div>
+                <div class="col-md-8 col-lg-9" style=" position:relative;display: block">
+                    <div class="row" style="padding-bottom:10px;">
+                        <ul class="nav nav-pills">
+                            <li class="active section1" style="margin-left: 0px;">
+                                <a class="sectionPill" data-id="section1" onclick={onChangeStage}>
+                                    <div data-id="section1" onclick={onChangeStage}>Section 1 - Account Holder Details
+                                    </div>
+                                    <!--ng-class="formSection1.$invalid ? 'ng-invalid' : ''"-->
+                                </a>
+                            </li>
+                            <li class="section2">
+                                <a class="sectionPill" data-id="section2" onclick={onChangeStage}>
+                                    <div data-id="section2" onclick={onChangeStage}>Section 2 - Tax Residency</div>
+                                    <!--ng-class="formSection2.$invalid ? 'ng-invalid' : ''"-->
+                                </a>
+                            </li>
+                            <li class="section3">
+                                <a class="sectionPill" data-id="section3" onclick={onChangeStage}>
+                                    <div data-id="section3" onclick={onChangeStage}>
+                                        <!--ng-class="formSection3.$invalid ? 'ng-invalid' : ''"-->
+                                        Section 3 - Entity Type
+                                    </div>
+                                </a>
+                            </li>
+                            <!-- <template if:true={ShowSection4}> -->
+                                <li class="section4">
+                                    <a class="sectionPill" data-id="section4" onclick={onChangeStage}>
+                                        <div data-id="section4" onclick={onChangeStage}>
+                                            <!--ng-class="formSection4.$invalid || ControllingPersonAddedCount==0 ? 'ng-invalid' : ''"-->
+                                            Section 4 - Controlling Persons ({ControllingPersonAddedCount})
+                                        </div>
+                                    </a>
+                                </li>
+                            <!-- </template> -->
+                            <li class="section5">
+                                <a class="sectionPill" data-id="section5" onclick={onChangeStage}>
+                                    <div data-id="section5" onclick={onChangeStage}>
+                                        <!--ng-class="formSection5.$invalid ? 'ng-invalid' : ''"-->
+                                        Declaration
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- section 1 -->
+                    <template if:true={sections.section1}>
+                        <div>
+                            <c-baa-self-cert-section1-cmp></c-baa-self-cert-section1-cmp>
+                        </div>
+                    </template>
+                    <!-- section 2 -->
+                    <template if:true={sections.section2}>
+                        <div>
+                            <c-baa-self-cert-section2-cmp></c-baa-self-cert-section2-cmp>
+                        </div>
+                    </template>
+                    <!-- section 3 -->
+                    <template if:true={sections.section3}>
+                        <div>
+                            <c-baa-self-cert-section3-cmp></c-baa-self-cert-section3-cmp>
+                        </div>
+                    </template>
+                    <!-- section 4 -->
+                    <template if:true={sections.section4}>
+                        <!-- <template if:true={ShowSection4}> -->
+                            <div>
+                                <div>
+                                    <c-baa-self-cert-section4-cmp eventid = {eventId}></c-baa-self-cert-section4-cmp>
+                                </div>
+                            </div>
+                        <!-- </template> -->
+
+                    </template>
+
+                    <!-- section 5 - declaration -->
+                    <template if:true={sections.section5}>
+                        <div>
+                            <c-baa-self-cert-section5-cmp></c-baa-self-cert-section5-cmp>
+                        </div>
+                    </template>
+                    <div class="pull-right">
+                        <button class="btn btn-danger" style="height: 27px;" onclick={OnSave}>Save</button>
+                        <!--ng-click="OnSave(formSection1.$valid, formSection2.$valid, formSection3.$valid, formSection4.$valid, formSection5.$valid)"-->
+                        <template if:true={IsSaved}>
+                            <div style="width: 110px; display: inline-block;">
+                                <button class="btn btn-danger" onclick={Complete}>Complete</button>
+                            </div>
+                        </template>
+                    </div>
+
+                    <template if:true={ErrorMessage}>
+                        <div class="saveError">
+                            <p>Error saving data</p>
+                            <p>{ErrorAction}</p>
+                            <p>{ErrorMessage}</p>
+                        </div>
+                    </template>
+
+                    <template if:true={showBusy}>
+                        <div class="busy">
+                            <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

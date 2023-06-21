@@ -1,0 +1,52 @@
+<template>
+    <c-baa-header-cmp  title="Additional Information"></c-baa-header-cmp>
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                
+                <c-baa-menu-cmp > </c-baa-menu-cmp>
+            </div>            
+            <div class="col-md-8 col-lg-9">
+    
+    
+        <div class="row">
+            <div class="col-xs-12">
+                <!--<c:BAA_Applicants_Nav eventId="{!EventId}" Applicants="{!AppAccs}" Page="Z"  />-->
+               <!--<c-BaaApplicantCompleteCmp--> 
+                   <template if:true={showNavigationCmp}>
+                        <c-baa-applicants-nav event-id={eventId} opportunity-id={opportunityId}></c-baa-applicants-nav>
+                   </template>
+                  
+            </div>
+        </div>
+        
+        
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    
+                </div>
+                <div class="panel-body"> 
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="labelClass">Additional Information</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <lightning-textarea name="generalcommentsfield"  data-id="generalcommentsfield"></lightning-textarea>
+                            </div>
+                        </div>
+
+                    </div>                      
+                    <div class="row">
+                        <template if:false={isCompleted}>
+                            <button data-id="completebuttonid" class="btn btn-danger" onclick={handleCompleteButton} > Complete </button>
+                        </template>
+                        <!--<apex:commandButton action="{!Complete}" value="Complete" styleClass="btn-danger" rendered="{!!IsCompleted}"/>-->
+                    </div>
+                </div>
+            </div>
+       </div>
+       </div>
+       <template if:true={showLoadingSpinner}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+</template>

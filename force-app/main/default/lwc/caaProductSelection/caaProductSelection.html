@@ -1,0 +1,515 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 07-28-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template >
+   
+    <!--<c-caa-template opp={opp} >
+
+    </c-caa-template>-->
+    <div class="container">
+   <div class="brightGreyBack ng-scope  ext-webkit ext-chrome">
+   
+        <div class={ImageClass}  style="height:260px;padding-top:74px">
+            <div class="hidden-xs" style="background-color:#fff;width:280px; height:150px;padding-top:25px;padding-bottom:17px;padding-left:20px;">
+                <div class="bannertitle " style="height:101px;background-repeat: no-repeat;">
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs mobile-title" style="background-color:#fff;margin-left:0px;margin-right:0px;margin-bottom:20px">
+            <div style="padding:20px;font-size:24px;">
+                <strong>Application</strong> for a Current or Savings Account
+            </div>
+        </div>
+
+        <div class="row" id="header-photo" style="background-color:#fff;margin-left:0px;margin-right:0px;margin-bottom:20px">
+            <div class="col-md-9 col-sm-12">
+                <div style="background-color:#fff;padding-top:20px;padding-bottom:20px;">
+                
+                    
+                    <div class="SectionContainer">
+                                                        
+                        <!--C0750: CAA Quick Wins Starts-->
+                        <div>
+                            <p style="color:rgb(179,153,93);font-size:18px">To complete this application you will need:</p>
+                        </div>
+                        <div>                                    
+                            <li>Move in dates for each applicant's home address <span class="darkGreyColor">(covering the past three years)</span></li>
+                            <li>Your National Insurance number / TIN </li>
+                        </div>
+                        </div>
+                    <!--C0750: CAA Quick Wins Ends-->
+
+                </div>
+
+            </div>
+            <!--C0750: CAA Quick Wins Starts-->
+            <div class="col-md-3 col-sm-12 progressCol" style="padding-top:6px;">
+            <!--C0750: CAA Quick Wins Ends-->
+            <template if:false={accountValAvailable}>
+                <div class="LoginContainer">
+                    <div>
+                        <p>
+                            <strong>Existing Al Rayan Bank customers</strong>
+                            &nbsp;should apply through online banking
+                        </p>
+                    </div>
+                    <div>
+                        <a style="color:#fff;" href="https://online.alrayanbank.co.uk/online/aspscripts/Logon.asp" class="btn loginbutton">Login</a>
+                    </div>
+                </div>
+            </template>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="SectionHeader">
+                    <div class="numberCircleReverse">1</div>
+                    <div>Account details </div>
+                </div>
+                <div class="PanelContents">
+                    <template if:true={ErrorMessage}>
+                        <div class="panel panel-danger">
+                            {ErrorMessage}
+                        </div>
+                    </template>
+                    <template if:false={m_AccountId}>
+                        <div>
+                            <label>Are you an existing Al Rayan Bank customer?</label>
+                        </div>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="optExistingCustomer" onclick={ExistingCustomerOnchange} value="Yes" />Yes</label>
+                            <label class="radio-inline"><input type="radio" name="optExistingCustomer" onclick={ExistingCustomerOnchange} value="No" />No</label>
+                        </div>
+                    
+                        <hr />
+                        <template if:true={isExistingCustomer}>
+                            <div class="existingcustomer">
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        <span class="fa-stack fa">
+                                            <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                            <i class="fa fa-chevron-right fa-stack-1x"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <label>
+                                            We already have your personal details - please apply through your <a href="https://online.alrayanbank.co.uk/online/aspscripts/Logon.asp">online banking area</a> instead.
+                                            <br />If you have not registered for online banking, please click <a href="http://www.alrayanbank.co.uk/online-personal-banking">here</a> or call us on 0800 408 6407.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                    
+                    <template if:false={firstTimeLoad}>
+                    <template if:false={isExistingCustomer}>
+
+                        <div class="SectionTitle">
+                            Select your product
+                        </div>
+                        <div>
+                            <div>
+                                <label>What type of account would you like?</label>
+                               <!-- <span class="borderCircle pull-right" data-toggle="popover" data-placement="auto right" data-trigger="click" data-html="true" data-content="The type of account you wish to apply for. If you are applying for an ISA, please choose 'tax free savings'.">?</span>-->
+                                <c-tooltip-utility class="pull-right" helptext="The type of account you wish to apply for. If you are applying for an ISA, please choose 'tax free savings'."></c-tooltip-utility>
+                            </div>
+                            <div class="rad">
+                                <label class="radio-inline"><input type="radio" onclick={ochangeAccountType} name="current" value="current" checked={accountTypeCheck.current}/>Current Account</label>
+                            </div>
+                            <div class="rad">
+                                <label class="radio-inline"><input type="radio" onclick={ochangeAccountType} name="instant" value="savings" checked={accountTypeCheck.savings}/>Savings Account</label>  <!-- C0755: Nature and purpose of account - Added ng-Click -->
+                            </div>
+                            <div class="rad">
+                                <label class="radio-inline"><input type="radio" onclick={ochangeAccountType} name="instant" value="taxfree" checked={accountTypeCheck.taxfree}/>Individual Savings Accounts (ISAs)</label>  <!-- C0755: Nature and purpose of account - Added ng-Click -->
+                            </div>
+                            <hr />
+                            <template if:true={savingOrTax}>
+                            <div>
+                                <div>
+                                    <label>When will you want to withdraw your money?</label>
+                                    <!--<span class="borderCircle pull-right" data-toggle="popover" data-placement="auto right" data-trigger="click" data-content="When will you need to access your funds? Do you require instant access or are you happy to lock your money away for a longer time and receive a greater expected return?">?</span>-->
+                                    <c-tooltip-utility class="pull-right" helptext="When will you need to access your funds? Do you require instant access or are you happy to lock your money away for a longer time and receive a greater expected return?"></c-tooltip-utility>
+                                    
+                                </div>
+                                <div>
+                                    <div class="rad">
+                                        <label class="radio-inline"><input type="radio"  name="fixed" value="fixed" onclick={AccessOnchange} checked={AccessCheck.fixed}/>Fixed Term</label>  <!-- C0755: Nature and purpose of account - Added ng-Click -->
+                                    </div>
+                                   
+                                    <div class="rad">
+                                        <label class="radio-inline"><input type="radio"   value="instant"  onclick={AccessOnchange} checked={AccessCheck.instant}/>Instant Access</label>  <!-- C0755: Nature and purpose of account - Added ng-Click -->
+                                    </div>
+                                    <!--Case - 02071241 ;to show the product for customer;Start-->
+                                    <template if:true={ShowProductForCustomer}>
+                                        <div class="rad">
+                                            <label class="radio-inline"><input type="radio"  value="notice" onclick={AccessOnchange} checked={AccessCheck.notice} />Withdrawal with Notice</label> 
+                                        </div>
+                                    </template>
+                                    <template if:true={ShowNoticeProduct}>
+                                        <div class="rad">
+                                            <label class="radio-inline"><input type="radio"  value="notice" onclick={AccessOnchange} checked={AccessCheck.notice} />Withdrawal with Notice</label> 
+                                        </div>
+                                    </template>
+                                    <!--Case - 02071241 ;to show the product for customer;End-->
+                                </div>
+                                <hr />
+                            </div>
+                            </template>
+                                             
+                            
+                        </div> 
+                        <template if:true={AccountType}>
+                            <template if:false={IsExternalCAA}>
+                        <div>
+                        <!--<div ng-hide="!AccountType || AccountType == '' || (IsExternalCAA && AccountType == 'current')"> --><!--IsExternalCAA needs to be added-->
+                            <!--C0756: For external current account show end--> 
+                                <div>
+                                    <label>For which purpose(s) do you intend to use this account? (select all that apply)</label>
+                                    <!--<span class="borderCircle pull-right" data-toggle="popover" data-placement="auto right" data-trigger="click" data-html="true" data-content="The type of account you wish to apply for. If you are applying for an ISA, please choose ‘tax free savings’.">?</span>-->
+                                    <c-tooltip-utility class="pull-right" helptext="The type of account you wish to apply for. If you are applying for an ISA, please choose ‘tax free savings’."></c-tooltip-utility>
+                                </div>
+                                <template if:true={AccessCheckInstant}>
+                                    <div>
+                                    <!--<div ng-show="Access == 'instant'">-->
+                                       
+                                        <input type="checkbox" value="Receive_Salary_Benefits" onclick={onchangePurpose} checked={Data.Receive_Salary_Benefits} />
+                                        <label class="radio-inline">Receive Salary/Benefits</label>
+                                    </div>
+                                </template>
+                                <template if:true={accountTypeCheckCurrent}>
+                                    <div>
+                                    <!--<div ng-show="AccountType == 'current'">-->
+                                        <input type="checkbox" value="Pay_Bills_Expenses" onclick={onchangePurpose} checked={Data.Pay_Bills_Expenses} />
+                                        <label class="radio-inline">Pay Bills/Expenses</label>    <br/>
+                                        <input type="checkbox" value="Domestic_Transfers_In_Out" onclick={onchangePurpose} checked={Data.Domestic_Transfers_In_Out} />
+                                        <label class="radio-inline">Domestic Transfers (In/Out)</label>    <br/>
+                                        <input type="checkbox" value="International_Transfer_In_Out" onclick={onchangePurpose} checked={Data.International_Transfer_In_Out} />
+                                        <label class="radio-inline">International Transfer (In/Out)</label>
+                                    </div> 
+                                </template>   
+                                <template if:true={Access}>
+                                    <div>
+                                    <!--<div ng-show="Access != ''"> -->                                   
+                                        <input type="checkbox" value="Cash_Deposit_In_Out" onclick={onchangePurpose} checked={Data.Cash_Deposit_In_Out} />
+                                        <label class="radio-inline">Cash Deposit (In/Out)</label>    <br/>
+                                        <input type="checkbox" value="Saving_Goals" onclick={onchangePurpose} checked={Data.Saving_Goals}/>
+                                        <label class="radio-inline">Saving Goals</label>
+                                    </div>
+                                </template>  
+                                <hr />
+						</div> 
+                    </template>
+                    </template>
+
+                        <!-- C0755: Nature and purpose of account - END -->
+                            <!--C0756: For external current account show start--> 
+                    <!-- <div ng-hide="!AccountType || AccountType == '' || (IsExternalCAA && AccountType == 'current')"> -->
+                    <template if:true={showAgeDetails}>
+                    <div>
+                        <!--C0756: For external current account show end--> 
+                        <label>Are all applicants aged 16 or over?</label>
+                    </div>
+                    <!--C0756: For external current account show start--> 
+                    <div ><!--ng-hide="!AccountType || AccountType == '' || (IsExternalCAA && AccountType == 'current')"-->
+                    <!--C0756: For external current account show end--> 
+                        <!-- <apex:outputpanel layout="none" rendered="{!isYPSAAccount != 'no'}">-->
+                           
+                       
+                            <label class="radio-inline"><input type="radio" name="optOver16" value="yes" onclick={setAgeVal} />Yes</label>
+                        <!-- </apex:outputpanel>-->
+                            <label class="radio-inline"><input type="radio" name="optOver16" value="no" onclick={setAgeVal} />No</label>
+                      
+                    </div>
+                    </template>
+                    <!--C0756: For external current account show start--> 
+                    <!-- <div ng-show="IsExternalCAA && AccountType == 'current'" id="existing-customer"> -->
+                    <template if:true={currentAccountDisplay}>
+                    <div id="existing-customer">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <span class="fa-stack fa">
+                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                    <i class="fa fa-chevron-right fa-stack-1x"></i>
+                                </span>
+                            </div>
+                            <div class="col-xs-10">
+                                <label>
+                                    Current Accounts cannot be opened online.  Please contact your <a href="https://www.alrayanbank.co.uk/useful-info-tools/about-us/branch-finder/" target="_blank">local branch</a> or call us on <br/> 0800 408 6407 if you would like to open a new Current Account
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    </template>
+
+                    <!--C0756: For external current account show end-->
+                    <hr />
+                    <template if:true={natureAndPurposeDisplay}>
+                        <!--<div class="alert alert-danger" ng-show="((Data.Over16=='yes' || Data.Over16=='no') && SuitableProducts() == 'yes' && AccountType != '' && !Data.Receive_Salary_Benefits && !Data.Pay_Bills_Expenses && !Data.Domestic_Transfers_In_Out && !Data.International_Transfer_In_Out && !Data.Cash_Deposit_In_Out && !Data.Saving_Goals) && (!IsExternalCAA || (IsExternalCAA && (AccountType == 'taxfree' || AccountType == 'savings')))">-->
+                            <!--C0756: For external current account show end--> 
+                            <div class="alert alert-danger">
+                               
+                            Please select a Nature and Purpose of the account.
+                        </div>
+                    </template>
+                    <!--<div ng-hide="((Data.Over16=='yes' || Data.Over16=='no') && AccountType != '' && !Data.Receive_Salary_Benefits && !Data.Pay_Bills_Expenses && !Data.Domestic_Transfers_In_Out && !Data.International_Transfer_In_Out && !Data.Cash_Deposit_In_Out && !Data.Saving_Goals) || (IsExternalCAA && AccountType == 'current')"> -->
+                    <template if:true={furtherDetailsCurrent}>
+                    <div>
+                        <template if:true={suitabilityBoolean}>
+                            <div ><!--ng-show="SuitableProducts() == 'yes'"-->
+                            <template if:true={yspaVal}>
+                                <div ><!--ng-show="Data.Over16 == 'yes'"-->
+                                    <label>Number of applicants</label>
+                                </div>
+                            </template> 
+                            <template if:true={noyspaVal}>
+                                <div ><!--ng-show="Data.Over16 == 'no'"-->
+                                    <label>Number of guardians</label>
+                                </div>
+                            </template>
+                            <template if:true={yspaVal}>
+                                <div ><!--ng-show="Data.Over16 == 'yes'"-->
+                                    <div class="rad">
+                                        <label class="radio-inline"><input type="radio" name="optNumApplicants" value="1" onclick={onChangeNumberOfApplicants} />1 applicant</label>
+                                    </div>
+                                    <div class="rad">
+                                        <label class="radio-inline"><input type="radio" name="optNumApplicants" value="2" onclick={onChangeNumberOfApplicants}/>2 applicants</label>
+                                    </div>
+                                    <div class="rad">
+                                        <label class="radio-inline"><input type="radio" name="optNumApplicants" value="3" onclick={onChangeNumberOfApplicants} />3 applicants</label>
+                                    </div>
+                                    <div class="rad">
+                                        <label class="radio-inline"><input type="radio" name="optNumApplicants" value="4" onclick={onChangeNumberOfApplicants} />4 applicants</label>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:true={noyspaVal}>
+                            <div ><!--ng-show="Data.Over16 == 'no'"-->
+                                <div class="rad">
+                                    <label class="radio-inline"><input type="radio" name="optNumApplicants1" value="2" onclick={onChangeNumberOfApplicants} />1 guardian</label>
+                                </div>
+                                <div class="rad">
+                                    <label class="radio-inline"><input type="radio" name="optNumApplicants1" value="3" onclick={onChangeNumberOfApplicants} />2 guardians</label>
+                                </div>
+                            </div>
+                            </template>
+                            <hr />
+
+                            <div>
+                                <label>Deposit amount (£)</label>
+                                <!--<span class="borderCircle pull-right" data-toggle="popover" data-placement="auto right" data-trigger="click" data-content="The amount you expect to initially place in the account.">?</span>-->
+                                <c-tooltip-utility class="pull-right" helptext="The amount you expect to initially place in the account."></c-tooltip-utility>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <input type="number" inputmode="numeric" class="form-control arbBox" value={Data.Deposit} name="Deposit" onchange={onchangeDataVal}/>
+                                </div>
+                            </div>
+                            <hr />
+                            <!-- Garnet - START -->
+                            <div ><!--ng-class="{ 'has-error':( myform.Source_of_Funds_c{{$index}}.$touched || Submitted) && myform.Source_of_Funds_c{{$index}}.$invalid }"-->
+                                <div>
+                                    <label class="control-label">From where did the funds originate?</label>                            
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <select  class="form-control" name="Source_of_Funds_c" onchange={onchangeSourceOfFunds}>
+                                            <template for:each={SourceofFundsList} for:item="option">  
+                                                <option value={option.value} key={option.key}>{option.key}</option>  
+                                            </template>
+                                        </select><!--ng-model="Data.Source_of_Funds_c" ng-change="IsProductValid()" ng-options="option.Key as option.Value for option in SourceofFundsList" -->
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div>
+                                <div class="SectionTitle">Select your product</div>
+                                <div>
+                                    <table class="table hidden-xs">
+                                        <thead>
+                                            
+                                            <tr><!--ng-show="$index==0" ng-repeat="product in products | filter:{Category: AccountType, Access:Access,  Over16: Data.Over16 }"-->
+                                                <th></th>
+                                                <th></th>
+                                               
+                                                <th style="text-align:center;"><template if:false={accountTypeCheckCurrent}><div><!-- ng-hide="AccountType == 'current'"-->Expected<br/>profit rate</div></template></th>
+                                                <th style="text-align:center;"><template if:false={accountTypeCheckCurrent}><div><!--ng-hide="AccountType == 'current'"--><div><!-- ng-hide="{{product.chkproductname}}"-->When profit<br />is re-invested</div></div></template></th>
+                                               
+                                                <th style="text-align:center;">Maximum<br />applicants</th>
+                                                <th style="text-align:center;">Minimum<br />age</th>
+                                                <th style="text-align:center;">Minimum<br />deposit</th>
+                                            </tr>
+                                            
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={filteredProducts} for:item="product">  <!--ng-repeat="product in products | filter:{Category: AccountType, Access:Access,  Over16: Data.Over16 }"-->
+                                            <tr key={product.Name}>
+                                               
+                                                <td><input type="radio" name="optProduct" value={product.Id} onclick={onChangeSelectProduct}/></td><!--ng-model="$parent.SelectedProduct" -->
+                                                <td >{product.Name}</td>
+                                               
+                                                <td align="center" style="text-align:center;"><template if:false={accountTypeCheckCurrent}><div><!--ng-hide="AccountType == 'current'"-->{product.ProfitRateforltr}</div></template></td>  
+                                                <td align="center" style="text-align:center;"><template if:false={accountTypeCheckCurrent}><div><!--ng-hide="AccountType == 'current'"--><template if:false={product.chkproductname}><div><!--ng-hide="{{product.chkproductname}}"-->{product.ComProfitRateforltr}</div></template></div></template></td>
+                                               
+                                                <td align="center" style="text-align:center;">{product.MaxApplicants}</td>
+                                                <td align="center" style="text-align:center;">{product.MinAge}</td>
+                                                <td align="center" style="text-align:center;">£{product.MinDeposit}</td>
+                                            </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                   
+                                    <div class="visible-xs">
+                                        <template for:each={filteredProducts} for:item="produc">
+                                        <div key={produc}><!--ng-repeat="produc in products | filter:{Category: AccountType, Access:Access,  Over16: Data.Over16 }" ng-class-even="myOdd"-->
+                                            <div class="row">
+                                                <div class="col-xs-1">
+                                                    <input type="radio" name="optProduct1" value={produc.Id} onclick={onChangeSelectProduct} /><!--ng-model="$parent.SelectedProduct" ng-value="produc"-->
+                                                </div>
+                                                <div class="col-xs-10">
+                                                    <div class="row">
+                                                        <div class="col-xs-12"></div><div class="col-xs-12"><label>{produc.Name}</label></div>
+                                                    </div>
+                                                   
+                                                    <div class="row">
+                                                        <div class="col-xs-6">Expected<br />profit rate</div><div class="col-xs-6" style="padding-top:8px;">{produc.ProfitRateforltr}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6">When profit is<br/>re-invested</div><div class="col-xs-6" style="padding-top:8px;">{produc.ComProfitRateforltr}</div>
+                                                    </div>
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-xs-6">Max applicants</div><div class="col-xs-6">{produc.MaxApplicants}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6">Min age</div><div class="col-xs-6">{produc.MinAge}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6">Min deposit</div><div class="col-xs-6">£{produc.MinDeposit}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        </div>
+                                        </template>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        </template>
+                    </div> 
+                    </template>
+        
+                       <template if:true={displayProductError}>
+                       <!--<div ng-show="(SuitableProducts() == 'no' && products) && (!IsExternalCAA || (IsExternalCAA && (AccountType == 'taxfree' || AccountType == 'savings')))" class="alert alert-danger" id="noproducts">-->
+                        <div class="alert alert-danger" id="noproducts">
+                            Unfortunately no products match your selection. Please review your answers to check you have completed everything correctly.
+                        </div>
+                        </template> 
+                        <template if:true={displaySelectErrors}>
+                        <!--<div ng-show="(IsProductValid() == false && SuitableProducts() == 'yes') && (!IsExternalCAA || (IsExternalCAA && (AccountType == 'taxfree' || AccountType == 'savings')))" class="panel-invalid">-->
+                           <div class="panel-invalid">
+                            <template  for:each={SelectErrors} for:item="error">
+                            <!--<div ng-repeat="error in SelectErrors">
+                                {error}
+                            </div>-->
+                            {error}<br key={error}/>
+                            </template>
+                        </div>
+                        </template>
+
+                        <template if:true={displayMarketingDetails}>
+                            <div>
+                                   
+                                <div class="PanelContents">
+                                    <!-- C0697 -->
+                                    <!-- <div class="SectionTitle">Data Protection</div>-->
+                                    <div class="SectionTitle">Keeping you informed</div>
+                                    <div class="row">
+                                        <!--<div class="col-md-12">
+                                            <input type="checkbox" ng-model="DPAConsent" />
+                                            <label style="padding-left:10px;">I consent to Al Rayan Bank's Data Protection and Marketing Consent</label>
+                                        </div>-->                                    
+                                        <!--Removed <a href="" ng-click="ShowDPA= !ShowDPA">Data Protection and Marketing Consent</a>-->
+            
+                                        <div class="col-md-12">
+                                            <p>From time to time we'd also love to tell you about our Islamic financial services, products and any new offers that we think you’d be interested in based on the information we hold about you. If you would like to hear from us about these please tick the appropriate box(es) below so we know how you would prefer us to contact you.</p>
+                                        </div>
+                                    </div>
+                              
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="marketing-pref">
+                                                <!-- C0737 Start -->
+                                                <label><input type="checkbox" name="consentNewsletter" value={consentNewsletter} onclick={UnCheckConsentNone} checked={consentNewsletter}/> E-Newsletter </label>
+                                                <label><input type="checkbox" name="consentEmail" value={consentEmail} onclick={UnCheckConsentNone} checked={consentEmail}/> Email </label>
+                                                <label><input type="checkbox" name="consentMail" value={consentMail} onclick={UnCheckConsentNone} checked={consentMail}/> Post </label>
+                                                <label><input type="checkbox" name="consentSMS" value={consentSMS} onclick={UnCheckConsentNone} checked={consentSMS}/> SMS </label>
+                                                <label><input type="checkbox" name="consentPhone" value={consentPhone} onclick={UnCheckConsentNone} checked={consentPhone}/> Phone </label>
+                                                <!-- C0737 End -->
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>If you would prefer not to hear from us with Al Rayan Bank marketing information and offers, please tick here:&nbsp;<input type="checkbox" value={consentNone} onclick={checkNoContact} checked={consentNone} /> </p>
+                                            <p>You can change your preferences at any time, by writing to us at Al Rayan Bank, PO Box 12461, Birmingham, B16 6AQ or calling us on 0800 4086 407.</p>
+                                            <p>In accordance with the General Data Protection Regulation, Al Rayan Bank PLC is registered as a Data Controller on the public register of Data Controllers as maintained by the Information Commissioner.</p>
+                                            <p>If you would like more information about how we use your information please click <a href="https://www.alrayanbank.co.uk/privacy" target="_blank" class="goldenLink">here</a></p>
+                                        </div>
+                                    </div>
+                                    <!-- C0737 Start -->
+                                    <template if:true={IsMarketPrefSelectedDisplay}>
+                                    <div class="row">
+                                        <div class="panel-invalid">
+                                            Please select a marketing preference, we cannot proceed with your application without capturing this information.
+                                        </div>
+                                    </div>
+                                </template>
+                 
+                                    <hr />
+                                   
+                                        <div class="SectionBreak"></div>
+                                        <button class="btn btnArb" onclick={ProductSelected}>
+                                            <span>
+                                                <strong>Continue</strong>
+                                                <span class="fa-stack fa">
+                                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                                    <i class="fa fa-chevron-right fa-stack-1x"></i>
+                                                </span>
+                                            </span>
+                                        </button>
+                             
+                                </div>
+                            </div>
+                        </template>
+                   
+                </template>
+                
+
+            
+            <div class="col-md-3">
+               <!--<c:CAA_Progress rendered="{!IsGuest}" stage="1"></c:CAA_Progress>--> 
+            </div>
+            </template>
+            </div>
+           
+            
+
+        </div>       
+        </div>
+    </div>    
+</div>
+    <c-caa-message-broker></c-caa-message-broker>
+
+</template>

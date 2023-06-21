@@ -1,0 +1,59 @@
+.menuList 
+{
+    padding-left:0px;
+}
+
+.menuList li{
+    list-style-type:none; 
+}
+
+.menuList li a{
+    text-decoration: underline ;
+    font-weight:bold;
+}
+
+.hoverHiglight :hover
+{
+    font-weight:bold;
+    cursor:pointer;
+}
+
+
+
+.classname {
+    -moz-box-shadow:inset 0px 1px 0px -11px #bee2f9;
+    -webkit-box-shadow:inset 0px 1px 0px -11px #bee2f9;
+    box-shadow:inset 0px 1px 0px -11px #bee2f9;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #658aa8), color-stop(1, #163f61) );
+    background:-moz-linear-gradient( center top, #658aa8 5%, #163f61 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#658aa8', endColorstr='#163f61');
+    background-color:#658aa8;
+    border:1px solid #3866a3;
+    display:inline-block;
+    color:#ffffff;
+    font-family:arial;
+    font-size:12px;
+    font-weight:bold;
+    padding:5px 24px;
+    text-decoration:none;
+}.classname:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #163f61), color-stop(1, #658aa8) );
+    background:-moz-linear-gradient( center top, #163f61 5%, #658aa8 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#163f61', endColorstr='#658aa8');
+    background-color:#163f61;
+}.classname:active {
+    position:relative;
+    top:1px;
+}
+.hide{
+display: none;
+}
+.dis-link{
+    text-decoration: auto !important;
+    font-weight: normal !important;
+}
+.dis-link:hover{
+    font-weight: bold !important;
+    cursor: pointer !important;
+    text-decoration: auto !important;
+}

@@ -1,0 +1,190 @@
+<template>
+<div>
+
+<div class="row">
+<div class="col-md-9">
+
+
+
+<div class="SectionHeader">
+    <div class="numberCircleReverse">1</div>
+    <div>Product Details</div>
+</div>
+<div class="PanelContents">
+
+
+<div>
+<div>
+    <label>Where would you like your profit paid to</label>    
+</div>
+<div class="radio">
+    <label><input type="radio" name="optWhatToDoWithProfit" onclick={onWhatToDoWithProfit} value="invest"/>Reinvest in FTD</label>
+</div>
+<div class="radio">
+    <label><input type="radio" name="optWhatToDoWithProfit" onclick={onWhatToDoWithProfit} value="quarterly"/>Paid quarterly</label>
+</div>
+
+
+<hr/>
+
+<!-- MATURITY-->
+<template if:true={isMaturity}>
+    <div>
+        <label>Maturity paid to</label>
+        <!--span class="borderCircle pull-right" data-toggle="popover" data-placement="auto right" 
+        data-trigger="click" data-content="The account that you wish your maturity paid to?">?</span-->
+        <c-tooltip-utility class="pull-right" helptext="The account that you wish your maturity paid to?"></c-tooltip-utility>
+    </div>
+    <div class="radio">
+        <label><input type="radio" name="optMaturityTransferTo" onchange={onMaturityTransferToType}  value="existing"/>Existing Al Rayan Bank Account</label>
+    </div>
+    <div class="radio">
+        <label><input type="radio" name="optMaturityTransferTo" onchange={onMaturityTransferToType}  value="existingIsa"/>Existing Al Rayan Bank ISA</label>
+    </div>
+    <div class="radio">
+        <label><input type="radio" name="optMaturityTransferTo" onchange={onMaturityTransferToType}  value="external"/>External Bank Account</label>
+    </div>
+    <template if:true={isMaturityExternal}>
+    <div class="row" >
+        <!--C0787-Changes to External account name start-->
+        <div class="col-sm-4">
+            <label>Name(s) on account</label>
+            <input type="text" inputmode="text" class="form-control arbBox" 
+            onchange={onMaturityTransferToExternalAccountName} onkeyup = {onMaturityTransferToExternalAccountName} maxlength="35" />        
+        </div>
+         <!--Changes to External account name end-->
+        <div class="col-sm-4">
+            <label>Account Number</label>
+            <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox" 
+            onchange={onMaturityTransferToExternalAccount} onkeyup={onMaturityTransferToExternalAccount} maxlength="8" />        
+        </div>
+        <div class="col-sm-4">
+            <label>Sort code</label>
+            <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox" 
+            onchange={onMaturityTransferToExternalSortCode} onkeyup={onMaturityTransferToExternalSortCode}  maxlength="6" />        
+        </div>
+        <div class="col-sm-4">
+            <!--<span class="borderCircle pull-right">?</span>-->
+        </div>
+    </div>
+    </template>
+     <!--C0787-Changes to External account name start-->
+     <template if:true={isErrorMessage}>
+     <div class="alert alert-danger">    
+         {ErrorMessage}
+    </div>
+     </template>
+     <!--C0787-Changes to External account name end-->
+     <template if:true={isMaturityExisting}>
+    <div class="row" >
+    <div class="col-sm-4">
+        <label>Existing account</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox"
+         onchange={onMaturityTranferToInternal} onkeyup={onMaturityTranferToInternal} 
+         maxlength="8" />        
+    </div>
+    <div class="col-sm-8">
+        <!--<span class="borderCircle pull-right">?</span>-->
+    </div>   
+</div>
+     </template>
+<hr/>    
+</template>
+
+<!-- END MATURITY-->
+
+<!-- PROFIT -->
+   <template if:true= {isProfit}>
+<div >
+    <div>
+        <label>Profit paid to</label>
+        <c-tooltip-utility class="pull-right" helptext="The account that you wish your profit paid to?"></c-tooltip-utility>
+   
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="optProfitTransferTo" onchange = {onProfitTransferToType}  value="existing"/>
+            Existing Al Rayan Bank Account</label>
+    </div>
+    
+    <div class="radio">
+        <label><input type="radio" name="optProfitTransferTo" onchange = {onProfitTransferToType}   value="external"/>External Bank Account</label>
+        
+    </div>
+    <template if:true = {isProfitExternal}>
+    <div class="row" >
+        <!--C0787-Changes to External account name start-->
+        <div class="col-sm-4">
+            <label>Name(s) on account</label>
+            <input type="text" inputmode="text" class="form-control arbBox" 
+            onchange={onProfitTransferToExternalAccountName} onkeyup = {onProfitTransferToExternalAccountName}
+             maxlength="35" />        
+        </div>
+        <!-- Changes to External account name end-->
+        <div class="col-sm-4">
+            <label>Account number</label>
+            <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox" 
+            onchange={onProfitTransferToExternalAccount} onkeyup = {onProfitTransferToExternalAccount} maxlength="8" />  
+              
+        </div>
+        <div class="col-sm-4">
+            <label>Sort code</label>
+            <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox" 
+            onchange={onProfitTransferToExternalSortCode} onkeyup = {onProfitTransferToExternalSortCode} maxlength="6" />  
+     
+        </div>
+        <div class="col-sm-4">
+            <!--<span class="borderCircle pull-right">?</span>-->
+        </div>
+    </div>
+    </template>
+     <!--C0787-Changes to External account name start-->
+     <template if:true={isErrorMessage}>
+     <div class="alert alert-danger" >    
+         ErrorMessage
+    </div>
+     </template>
+     <!--C0787-Changes to External account name end-->
+     <template if:true= {isProfitExisitng}>
+    <div class="row" >
+    <div class="col-sm-4">
+        <label>Existing account</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control arbBox" 
+        onchange={onProfitTransferToInternalAccount} onkeyup={onProfitTransferToInternalAccount} 
+         maxlength="8" />        
+    </div>
+    <div class="col-sm-8">
+        <!--<span class="borderCircle pull-right">?</span>-->
+    </div>
+   
+</div>
+     </template>
+<hr/>
+</div>
+   </template>
+<!-- END PROFIT -->
+
+
+
+
+
+</div>
+
+
+<template if:true={isCompleteButton}>
+    <button class="btn btnArb" onclick={Complete} >Next</button>
+</template>
+
+</div>
+</div>
+
+
+<div class="col-md-3">
+                    
+                </div>
+
+</div>
+</div>
+
+<c-caa-message-broker></c-caa-message-broker>
+</template>

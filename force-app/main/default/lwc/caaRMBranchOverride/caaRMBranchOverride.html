@@ -1,0 +1,73 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="panel-body">
+        <template if:true={showDetails}>
+            <div><!-- ng-show="{!Not(IsGuest)} && isBranch"-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="SectionBreak"></div>
+                        <div class="SectionTitle">Customer Application - Further Information</div>
+                        <div>
+                            <div style="margin-top:5px;">
+                                <div>
+                                    <label class="control-label">Please advise your branch manager that this application needs approval to continue:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:5px;">
+                            <template if:true={showApproved}>
+                                <div class="row" ><!--ng-show="ManagerAuthorisors.Authorisors.length > 0"-->
+                                    <div class="col-sm-4 text-right">
+                                        <label>Approved User:</label>
+                                    </div>
+                                    <div class="col-sm-4 col-md-3">
+                                        <!-- <select class="form-control" ng-model="ManagerAuthorisors.selectedAuthorisor" ng-options="item.Name for item in ManagerAuthorisors.Authorisors" ng-disabled="ManagerAuthorisors.selectedAuthorisor!=''">
+                                            <option>{{item.Name}}</option>
+                                        </select>-->
+                                        <select  class="form-control" name="selectedAuthorisor" id="selectedAuthorisor" onchange={onchangeDropDown} disabled={disableAuthorized}>
+                                            <template for:each={ManagerAuthorisors.Authorisors} for:item="option">  
+                                                <template if:true={option.selected}>
+                                                    <option value={option.Key} key={option.Value} selected>{option.Name}</option>     
+                                                </template>
+                                                <template if:false={option.selected}>
+                                                    <option value={option.Key} key={option.Value}>{option.Name}</option>     
+                                                </template>
+                                                 
+                                            </template>
+                                        </select>
+                                        <template if:true={showClear}>
+                                        <!--ng-show="ManagerAuthorisors.selectedAuthorisor.Verified!=true"-->
+                                            <a onclick={updateClear} >Clear</a>
+                                        </template>
+                                        
+                                        <template if:true={showVerified}>
+                                            <label style="color:rgb(26, 205, 69)">Verified</label><!-- ng-show="ManagerAuthorisors.selectedAuthorisor.Verified==true"-->
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:true={showPasswordSection}>
+                                <div class="row" ><!--ng-show="(ManagerAuthorisors.Authorisors.length > 0) && (ManagerAuthorisors.selectedAuthorisor!='') && (ManagerAuthorisors.selectedAuthorisor.Verified!=true)"-->
+                                    <div class="col-sm-4 text-right">
+                                        <label>Password:</label>
+                                    </div>
+                                    <div class="col-sm-4 col-md-3">
+                                        <input class="form-control" type="password" value={ManagerAuthorisors.selectedAuthorisor.Password}  onchange={capturePassword}/><br/><!--ng-model="ManagerAuthorisors.selectedAuthorisor.Password" ng-show="ManagerAuthorisors.selectedAuthorisor!=''"-->
+                                        <button onclick={passwordVerify}>Verify</button><!--ng-click="PasswordVerification(ManagerAuthorisors.selectedAuthorisor)"-->
+                                        <label style="color:red" >Incorrect Password</label><!--ng-show="ManagerAuthorisors.selectedAuthorisor.IncorrectPassword==true"-->
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

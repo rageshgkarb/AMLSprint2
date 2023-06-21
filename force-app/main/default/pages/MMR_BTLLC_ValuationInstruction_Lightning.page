@@ -1,0 +1,176 @@
+<apex:page controller="MMR_BTLLC_ValuationInstruction" lightningStyleSheets="true" sidebar="false" showheader="false" title="Valuation Instructed" action="{!autoRun}"><!-- C0644 -->
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:KendoResource ></c:KendoResource>
+        <style>
+            #content .contentheader {
+                background-color: #000;
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                color: #fff;
+                font-family: 'Optima LT W01 Medium', Arial, sans-serif;
+                font-weight: 500;
+                font-size: 18px;
+            }
+
+            #content input[type=checkbox] {
+                transform: scale(2);
+            }
+
+            #content a {
+                text-decoration: underline;
+                font-weight: bold;
+            }
+            th.labelCol.vfLabelColTextWrap.first {
+    font-weight: 500!important;
+}
+      th.labelCol.vfLabelColTextWrap {
+    font-weight: 500 !important;
+}
+    
+        </style>
+    </head>
+    <body>
+     <div class="slds-scope">
+        <apex:form >
+            <div id="formWrapper">
+                <!-- C00095-->
+                <c:HPPSummary_Lightning objacc="{!Accounts[0]}" objopp="{!opp}" objexopp="{!ExOpp}" product="{!Prod}" />
+                <div id="container">
+                    <table width="100%">
+                        <tr>
+                            <td valign="top" id="sidebar">
+                                <c:HPPBOMenu_Lightning oppid="{!Opp.Id}" directorid="{!Opp.ProductEventDirector__c}" />
+                            </td>
+                            <td valign="top" id="contenttd">
+                                <div id="content">
+                                    <div class="contentheader">
+                                        <h1>Valuation Instruction</h1>
+                                    </div>
+                                    <apex:outputpanel id="mainPageBlock">
+                                        <div style="padding:20px;">
+                                            <!-- content -->
+                                            <apex:pagemessages ></apex:pagemessages>
+
+                                            <apex:pageblock >
+                                                <apex:pageblocksection >
+                                                    <apex:outputfield value="{!exOpp.Valuation_Table_Type__c }" styleclass="slds-output-field" style="font-weight: 500 !important;"/>
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Valuation Fee" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:inputfield value="{!exOpp.ValuationPrice__c}" styleclass="slds-input" />
+                                                    </apex:pageblocksectionitem>       
+                                                        <apex:outputfield value="{!opp.Finance_Required__c}" styleclass="slds-output-field" style="font-weight: 500 !important;"/>
+                                                
+                                           
+                                                         <apex:outputfield value="{!opp.Purchase_price_market_value__c}" styleclass="slds-output-field" style="font-weight: 500 !important;" />
+                                                 
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Address 1" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:outputfield value="{!opp.New_property_street__c}" styleclass="slds-output-field" />
+                                                    </apex:pageblocksectionitem>
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Access Name" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:inputfield required="true" value="{!exOpp.Estate_agent_contact_name__c}" styleclass="slds-input"/>
+                                                    </apex:pageblocksectionitem>
+
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Address 2" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:outputfield value="{!opp.New_property_city__c}" styleclass="slds-output-field" />
+                                                    </apex:pageblocksectionitem>
+                                                    
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Access Telephone Number" style="font-size: 12px !important; font-weight: 500;" />
+                                                        <apex:inputfield required="true" value="{!exOpp.Estate_agent_contact_telephone_number__c}" styleclass="slds-input"/>
+                                                    </apex:pageblocksectionitem>
+
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Address 3" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:outputfield value="{!opp.New_property_postcode__c}" styleclass="slds-output-field"  />
+                                                    </apex:pageblocksectionitem>
+                                                    
+                                                      
+                                                        <apex:outputfield value="{!exOpp.Property_Type__c}" styleclass="slds-output-field" style="font-weight: 500 !important;" />
+                                                    
+                                                         <apex:outputfield value="{!exOpp.Tenure__c}" styleclass="slds-output-field"  style="font-weight: 500 !important;" />
+                                                    
+                                                        <apex:outputfield value="{!exOpp.Property_details__c}" styleclass="slds-output-field" style="font-weight: 500 !important;" />
+                                                    
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Organisation Name"  style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:outputfield value="{!acc.Name}" styleclass="slds-output-field" />
+                                                    </apex:pageblocksectionitem>
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Current/Expected Rent" style="font-size: 12px !important; font-weight: 500;" />
+                                                        <apex:inputfield value="{!opp.Estimated_actual_monthly_rental_income__c}" styleclass="slds-input"/>
+                                                    </apex:pageblocksectionitem>
+
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Trading Address Street" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:outputfield value="{!acc.TradingAddressStreet__c}" styleclass="slds-output-field"  />
+                                                    </apex:pageblocksectionitem>
+                                                    <apex:pageblocksectionitem >
+                                                    </apex:pageblocksectionitem>
+
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Trading Address City" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:outputfield value="{!acc.TradingAddressCity__c}" styleclass="slds-output-field" />
+                                                    </apex:pageblocksectionitem>
+                                                    <apex:pageblocksectionitem ></apex:pageblocksectionitem>
+
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Trading Address Post Code" style="font-size: 12px !important; font-weight: 500;" />
+                                                        <apex:outputfield value="{!acc.TradingPostCode__c}" styleclass="slds-output-field" />
+                                                    </apex:pageblocksectionitem>
+                                                    <apex:pageblocksectionitem ></apex:pageblocksectionitem>
+
+                                                    <apex:pageblocksectionitem >
+                                                        <apex:outputlabel value="Telephone" style="font-size: 12px !important; font-weight: 500;"/>
+                                                        <apex:inputfield value="{!acc.Home_Telephone_No__c}" styleclass="slds-input"/>
+                                                    </apex:pageblocksectionitem>
+                                                    <apex:pageblocksectionitem ></apex:pageblocksectionitem>
+                                                </apex:pageblocksection>
+
+                                                <apex:pageblockbuttons location="bottom" id="page_block_buttons">
+                                                    <!--apex:commandButton onclick="ShowDocumentLoad()" oncomplete="HideDocumentLoad()"
+                                                         reRender="mainPageBlock" value="Instruct Valuation" action="{!instructValuation}" rendered="{!NOT(successfulCallout) && !NOT(IsCompleted)}" /-->
+                                                    <apex:commandbutton onclick="ShowDocumentLoad()" oncomplete="HideDocumentLoad()" styleclass="slds-button" style="width:100px"
+                                                                        rerender="mainPageBlock" value="Instruct Valuation" action="{!instructValuation}" rendered="{! (NOT(IsCompleted) || !NOT(successfulCallout)) && exopp.Manual_valuation_instructed__c =null  }" />
+                                                    <apex:commandbutton styleclass="slds-button" value="Complete Event" action="{!complete}" rendered="{!successfulCallout && !IsCompleted}" />
+                                                    <apex:commandbutton styleclass="slds-button" style="width:100px" value="Manual Valuation Instruction" action="{!complete}" />
+                                                </apex:pageblockbuttons>
+                                            </apex:pageblock>
+
+                                            <div style="text-align: center;">
+                                                <apex:outputpanel id="take_payment_response" style="text-align: center; font-weight: bold;">
+                                                    <apex:outputtext value="{!calloutResponse}" styleclass="slds-output-field" />
+                                                </apex:outputpanel>
+                                            </div>
+                                        </div>
+                                    </apex:outputpanel>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="fade"></div>
+            <div id="overlay">
+                Instruct Valuation...
+                <br />
+                <br />
+                This may take a few seconds.
+                <div style="padding-top: 50px;">
+                    <!--  CPDR01
+                    <img src="{!URLFOR($Resource.ibbstyle, 'images/269.gif')}"></img>
+                        -->
+                    <img src="{!URLFOR($Resource.ibbstyleexternal, 'graphics/logos/circular-timer.gif')}"></img>
+                </div>
+            </div>
+        </apex:form>
+    </div>
+    </body>
+</apex:page>

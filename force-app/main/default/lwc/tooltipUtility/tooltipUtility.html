@@ -1,0 +1,14 @@
+<template>
+<span onclick={onHelpText} class="borderCircle" style="
+    float: right;
+" >?</span>
+<template if:true={isHelpTextShow}>
+<div class="popover fade left in" role="tooltip" 
+style="position: relative !important; margin-left: -295px !important; margin-top: -25px; display: inline-block;">
+    <div class="arrow"></div>
+    <h3 class="popover-title" style="display: none;">
+    </h3>
+    <div class="popover-content">{helptext}</div>
+    </div>
+</template>
+</template>

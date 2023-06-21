@@ -1,0 +1,22 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" >
+
+    <head>
+        <base href="/"></base>
+        <c:BAA_Resource_Lightning ></c:BAA_Resource_Lightning>
+    </head>
+
+    <body>
+         <apex:includeLightning />    
+    <div id="LightningComponentid" class="container" />    
+     <script>
+        $Lightning.use("c:NPAA_VF_Pages", function() {
+            $Lightning.createComponent("c:baaMandates",
+            { 
+            
+            },"LightningComponentid", function(cmp) {
+               
+            });
+        });
+    </script>
+    </body>
+</apex:page>

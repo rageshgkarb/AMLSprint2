@@ -1,0 +1,62 @@
+<!--
+  @description       : Included in BAA_Summary_Lightning VF page to display application form and welcome letter
+  @author            : Anuradha Dabhadkar
+  @group             : 
+  @last modified on  : 06-02-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <c-baa-header-cmp  title="Summary"></c-baa-header-cmp>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <c-baa-menu-cmp ></c-baa-menu-cmp>
+            </div>            
+            <div class="col-md-8 col-lg-9">
+                <div class="row">
+                    <div class="col-xs-12">
+                    </div>
+                </div>
+                
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Summary: Documents</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div>
+                                    Summary
+                                </div>
+                                <table class="table" width="50%">
+                                    <tbody>
+                                        <template if:true={completed}>
+                                            <tr>
+                                                <td class="dataCol">
+                                                    <template if:true={showApplicationForm}>
+                                                        <a target="_blank" href={initWrapper.ApplicationForm}><label>>>ApplicationForm</label></a>
+                                                    </template>
+                                                    <template if:false={showApplicationForm}>
+                                                        <label>Could not find document</label>
+                                                    </template>
+                                                </td> 
+                                            </tr>
+                                            <tr>
+                                                <td class="dataCol">
+                                                    <template if:true={showWelcomeLetter}>
+                                                        <a target="_blank" href={initWrapper.WelcomeLetter}><label>>>WelcomeLetter</label></a>
+                                                    </template>
+                                                    <template if:false={showWelcomeLetter}>
+                                                        <label>Could not find document</label>
+                                                    </template>
+                                                </td> 
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

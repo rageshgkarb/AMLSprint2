@@ -1,0 +1,29 @@
+<apex:page standardController="Case" extensions="CaseInformationClass" tabStyle="Case" lightningStylesheets="true" id="mainPage" title="Close Case">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" />  
+    <style>
+    	span.slds-form-element__label {
+    		max-width: max-content !important;
+        	font-weight: bold;
+		}
+        label.slds-form-element__label {
+    		font-weight: bold;
+		}
+    </style>
+    <script>
+    $Lightning.use("c:CloseCaseApp", function() {
+        $Lightning.createComponent("c:closeCase",
+          { 
+              recordId : '{!currentRecordId}',
+              fieldSet : '{!closeCaseFieldSet}',
+              recordtype : '{!recordtype}'
+          },
+          "LightningComponentid",
+          function(cmp) {
+             console.log('LWC Componenet added in VF page');
+          });
+    });
+    </script>
+    
+
+</apex:page>

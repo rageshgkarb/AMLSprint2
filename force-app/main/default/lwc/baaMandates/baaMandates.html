@@ -1,0 +1,464 @@
+<template>
+    <!--<c-baa-header-cmp title="Mandates"></c-baa-header-cmp>-->
+    <!-- <c:BAA_Header objOpp="{!BaseOpportunity}" title="Mandates"></c:BAA_Header> -->
+    <template if:true={loading}>
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </template>
+    <c-baa-header-cmp title="Mandates"></c-baa-header-cmp>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <span>
+                    <c-baa-menu-cmp> </c-baa-menu-cmp>
+                </span>
+            </div>
+
+            <div class="col-md-8 col-lg-9">
+                <template if:true={view}>
+                    <div id="MandateView">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Signatories</h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="" style=" overflow: auto;">
+                                    <table class="table-hover table table-bordered" id="Signatories"
+                                        style="margin-top:0px; width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10%; background: #A9A9A9;">EBS id</th>
+
+                                                <th style="width: 15%; background: #A9A9A9;">Primary Account Holder</th>
+
+                                                <th style="width: 20%; background: #A9A9A9;">Customer Name</th>
+
+                                                <th style="width: 20%; background: #A9A9A9;">Relationship to Primary
+                                                    Applicant</th>
+
+                                                <th style="width: 20%; background: #A9A9A9;">Relationship Type</th>
+
+                                                <th style="width: 10%; background: #A9A9A9;">Signatory Group</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <template if:true={response}>
+                                                <template for:each={response.signatories} for:item="item">
+                                                    <tr style="padding:5px;margin:0px;" key={item.CustomerName}>
+                                                        <td>
+                                                            <a href={item.ProspectCustomerId} target="_blank">{item.CustomerEBSId}</a>
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            {item.PrimaryAccountHolder}
+                                                        </td>
+                                                        <td>
+                                                            {item.CustomerName}
+                                                        </td>
+                                                        <td>
+                                                            {item.RelationshipToPrimaryApplicant}
+                                                        </td>
+                                                        <td>
+                                                            {item.RelationshipType}
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            {item.SignatoryGroup}
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                    <template if:false={IsCompleted}>
+                                        <div class="col-xs-1.5" style="padding: 10px;">
+                                            <button class="btn-lg btn btn-success" style=" padding: 10px; margin:3px;" onclick={updateSigGrp}>Update Signatory Groups</button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Mandates</h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div>
+                                    <table class="table-hover table table-bordered" id="Mandates" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 20%; background: #A9A9A9;">Limit</th>
+                                                <th style="background: #A9A9A9;">Mandate Rule</th>
+                                                <th style="background: #A9A9A9;"></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <template if:true={mandates}>
+                                                <template for:each={mandates} for:item="item">
+                                                    <tr style="padding:5px;margin:0px;" key={item}>
+                                                        
+                                                        <td>{item.CcySymbol}{item.MandateLimit}</td>
+                                                        <td>{item.Grouping}</td>
+                                                        <td>
+                                                            <template if:false={IsCompleted}>
+                                                                <button data-id={item.MandateId} class="btn btn-success mybtn"
+                                                                    style="float:right;"
+                                                                    onclick={GotoMandateEdit}>Edit</button>
+                                                                <button data-id={item.MandateId} class="btn btn-success mybtn"
+                                                                    style="float:right;margin: 3px;"
+                                                                    onclick={DeleteMandate}>Delete</button>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                    <template if:false={IsCompleted}>
+                                        <button class="col-xs-1 btn-lg btn btn-success" style="padding:10px;"
+                                            onclick={newMandate}>New Mandate</button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="functionfooter">
+                            <div class="panel">
+                                <div>
+                                    <template if:false={IsCompleted}>
+                                        <button data-id="hello" class="col-xs-1 btn-lg btn btn-success mybtn" style="padding:10px;"
+                                            onclick={save}>Save</button>
+                                        <button class="col-xs-1.5 btn-lg btn btn-success mybtn" style="padding:10px;"
+                                            onclick={onComplete}>Complete</button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+
+                <template if:true={edit}>
+                    <div id="MandateEdit">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">New Mandate</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <form id="mandateHeader" name="mandateHeaderFrom" class="form-inline" role="form"
+                                        style="padding: 10px; padding-bottom: 20px;">
+                                        <div class="form-group" style="margin-right: 20px;">
+                                            <label class="control-label">Currency</label>
+                                            <template if:true={responseMandate}>
+                                                <input class="form-control currency" data-id="AccountCurrency" value={responseMandate.Ccy} onchange={handleChange} disabled type="text"></input>
+                                            </template>
+                                            <template if:false={responseMandate}>
+                                                <input class="form-control currency" data-id="AccountCurrency" disabled type="text"></input>
+                                            </template>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Limit</label>
+                                            <template if:true={responseMandate}>
+                                                <input class="form-control limit" data-id="MandateLimitid" value={responseMandate.MandateLimit} required onchange={handleChange} type="number" min="1"></input>
+                                            </template>
+                                            <template if:false={responseMandate}>
+                                                <input class="form-control limit" data-id="MandateLimitid" required onchange={handleChange} type="number" min="1"></input>
+                                            </template>
+                                            <template if:true={limitreq}>
+                                                <span class="req">Please fill out this field</span>
+                                            </template>
+                                        </div>
+                                    </form>
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">Add a Mandate Rule</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-4">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="MandateRuleType" value="signatory"
+                                                                onchange={handleChange} checked={signatory}/>Signatory
+                                                            {mandateRuleForm.isSignatory}
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="MandateRuleType"
+                                                                value="signatoryGroup" onchange={handleChange} checked={signatoryGroup} />Signatory Group
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="MandateRuleType"
+                                                                value="relationship" checked={relationship}
+                                                                onchange={handleChange}/>Relationship Type
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="col-xs-12" style="height:20px;"></div>
+
+                                                    <div id="SignatoryEntry">
+                                                        <template if:true={signatory}>
+                                                            <div class="form-group">
+                                                                <label class="col-md-4 control-label">Signatory</label>
+                                                                <div class="col-md-8">
+                                                                    <select data-id="signatoryInput"
+                                                                        class="form-control signatory"  required={signatory}
+                                                                        onchange={handleChange} disabled={relationship}>
+                                                                        <option value=""></option>
+                                                                        <template if:true={SignatoryTypes}>
+                                                                            <template for:each={SignatoryTypes} for:item='type'>
+                                                                                <option value={type.Value} label={type.Label} key={type.Value} selected={type.selected}>
+                                                                                </option>
+                                                                            </template>
+                                                                        </template>
+                                                                    </select>
+                                                                    <template if:true={sigreq}>
+                                                                        <span class="req">Please fill out this field</span>
+                                                                    </template>
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+
+                                                    <div id="SignatoryGroupEntry">
+                                                        <template if:true={signatoryGroup}>
+                                                            <div class="form-group">
+                                                                <label class="col-md-4 control-label">Signatory
+                                                                    Group</label>
+                                                                <div class="col-md-8">
+                                                                    <select data-id="signatoryGroupInput"
+                                                                        class="form-control signatorygrp" required={signatoryGroup}
+                                                                        onchange={handleChange}>
+                                                                        <option value=""></option>
+                                                                        <template if:true={SignatoryGroupTypes}>
+                                                                            <template for:each={SignatoryGroupTypes} for:item='type'>
+                                                                                <option value={type.Value} key={type} selected={type.selected}>{type.Label}
+                                                                                </option>
+                                                                            </template>
+                                                                        </template>
+                                                                    </select>
+                                                                    <template if:true={siggrpreq}>
+                                                                        <span class="req">Please fill out this field</span>
+                                                                    </template>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-4 control-label">No from
+                                                                    Group</label>
+                                                                <div class="col-md-8">
+                                                                    <template if:true={nofromgroup}>
+                                                                        <input data-id="noFromGroupInput" type="number"
+                                                                        min="1" class="form-control nofromdata" name="nofromgroup" value={nofromgroup}
+                                                                        required={signatoryGroup} onchange={handleChange} />
+                                                                    </template>
+                                                                    <template if:false={nofromgroup}>
+                                                                        <input data-id="noFromGroupInput" type="number"
+                                                                        min="1" class="form-control nofromdata" name="nofromgroup"
+                                                                        required={signatoryGroup} onchange={handleChange} />
+                                                                    </template>
+                                                                    <template if:true={nofromdatareq}>
+                                                                        <span class="req">Please fill out this field</span>
+                                                                    </template>
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+
+                                                    <template if:true={relationship}>
+                                                        <div id="RelationshipTypeEntry">
+                                                            <div class="form-group">
+                                                                <label class="col-md-4 control-label">Relationship
+                                                                    Type</label>
+                                                                <div class="col-md-8">
+                                                                    <select data-id="relationshipTypeInput" onchange={handleChange}
+                                                                        class="form-control relationship" required={relationship}>
+                                                                        <option value=""></option>
+                                                                        <template if:true={RelationshipTypes}>
+                                                                            <template
+                                                                            for:each={RelationshipTypes}
+                                                                            for:item='type'>
+                                                                            <option value={type.Value} key={type.Value} selected={type.selected}>{type.Label}
+                                                                            </option>
+                                                                            </template>
+                                                                        </template>
+                                                                    </select>
+                                                                    <template if:true={relreq}>
+                                                                        <span class="req">Please fill out this field</span>
+                                                                    </template>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-4 control-label">No from
+                                                                    Group</label>
+                                                                <div class="col-md-8">
+                                                                    <template if:true={nofromgroup}>
+                                                                        <input data-id="noFromGroupInput" type="number" min="1" value={nofromgroup}
+                                                                        class="form-control relnofromdata" name="nofromgroup" onchange={handleChange}
+                                                                        required={relationship} />
+                                                                    </template>
+                                                                    <template if:false={nofromgroup}>
+                                                                        <input data-id="noFromGroupInput" type="number" min="1"
+                                                                        class="form-control relnofromdata" name="nofromgroup" onchange={handleChange}
+                                                                        required={relationship} />
+                                                                    </template>
+                                                                    <template if:true={relnoformdatareq}>
+                                                                        <span class="req">Please fill out this field</span>
+                                                                    </template>    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <button type="button" onclick={AddMandateRule} value="Add"
+                                                                class="btn btn-success pull-right">Add</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div style="overflow:auto;">
+                                                    <table class="table-hover table table-bordered">
+                                                        <thead>
+                                                            <th style="background: #A9A9A9; width:30%;">Signatory</th>
+                                                            <th style="background: #A9A9A9;">Signatory Group</th>
+                                                            <th style="background: #A9A9A9;">Relationship Type</th>
+                                                            <th style="background: #A9A9A9;">No from Group</th>
+                                                            <th style="background: #A9A9A9;"></th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <template if:true={MandateItems}>
+                                                                <template for:each={MandateItems}
+                                                                for:item="mi" for:index="i">
+                                                                <tr key={mi} data-id={i}>
+                                                                    <td>{mi.Signatory}</td>
+                                                                    <td>{mi.SignatoryGroup}</td>
+                                                                    <td>{mi.RelationshipType}</td>
+                                                                    <td>{mi.NoFromGroup}</td>
+                                                                    <td>
+                                                                        <input class="btn btn-success" data-id={i}
+                                                                            onclick={RemoveMandateRule} type="button"
+                                                                            value="Remove"></input>
+                                                                    </td>
+                                                                </tr>
+                                                                </template>
+                                                            </template>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="functionfooter">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <button class="btn btn-success mybtn" style="padding:10px;"
+                                                    onclick={cancel}>Cancel</button>
+                                                <button form="mandateHeader" type="submit" class="btn btn-success mybtn"
+                                                    onclick={SaveMandateRule} style="padding:10px;">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={AccountEdit}>
+                    <div id="MandateAccountHolderEdit">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Update Signatory Groups</h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div style=" overflow: auto;">
+                                    <table class="table-hover table table-bordered" id="Signatories1"
+                                        style="margin-top:0px;">
+                                        <thead>
+                                            <tr>
+                                                <th style="background: #A9A9A9;">
+                                                    EBS id
+                                                </th>
+                                                <th style="background: #A9A9A9;">
+                                                    Primary Account Holder
+                                                </th>
+                                                <th style="background: #A9A9A9;">
+                                                    Customer Name
+                                                </th>
+                                                <th style="background: #A9A9A9;">
+                                                    Relationship to Primary Applicant
+                                                </th>
+                                                <th style="background: #A9A9A9;">
+                                                    Relationship Type
+                                                </th>
+                                                <th style="background: #A9A9A9;">
+                                                    Signatory Group
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template if:true={SignatoryList}>
+                                                <template for:each={SignatoryList} for:item="item" for:index='index'>
+                                                <tr class="itemRow" key={item.ProspectCustomerid}
+                                                    style="padding:5px;margin:0px;">
+                                                    <td>
+                                                        <a href={item.ProspectCustomerId}
+                                                            target="_blank">{item.CustomerEBSId}</a>
+                                                    </td>
+                                                    <td>
+                                                        {item.PrimaryAccountHolder}
+                                                    </td>
+                                                    <td>
+                                                        {item.CustomerName}
+                                                    </td>
+                                                    <td>
+                                                        {item.RelationshipToPrimaryApplicant}
+                                                    </td>
+                                                    <td>
+                                                        {item.RelationshipType}
+                                                    </td>
+                                                    <td>
+                                                        <select data-id={index} class="dropdown siggrplist"
+                                                            onchange={handleChange}>
+                                                            <option value=""></option>
+                                                            <template for:each={item.SignatoryGroupList}
+                                                                for:item='sig'>
+                                                                <option value={sig.Value} key={sig.Value} selected={sig.selected}>{sig.Label}
+                                                                </option>
+                                                            </template>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                            </template>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="functionfooter">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <button id="CancelButton" class="btn btn-success mybtn" style="padding: 10px;"
+                                                onclick={cancel}>Cancel</button>
+                                            <button id="SaveButton" class="btn btn-success mybtn" style="padding: 10px;"
+                                                onclick={SaveSignatories}>Save Account Holders</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+
+</template>

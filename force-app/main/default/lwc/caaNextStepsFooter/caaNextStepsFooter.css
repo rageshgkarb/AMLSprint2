@@ -1,0 +1,39 @@
+.next-steps{
+	color : black;
+	background-color: white;
+}
+.SectionTitle{
+	color: rgb(179,153,93);
+    font-size: 20px;
+	font-family: Arial;
+    font-weight: bold;
+	line-height: 1.42857143;
+	padding-top: 20px;
+    padding-bottom: 10px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.border-right
+{
+border-right: solid 1px rgb(200,200,200);		
+}
+.fa-stack-1x{
+    line-height: inherit;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.col-xs-2{
+	width: 16.66666667%;
+	float: left;
+    position: relative;
+    min-height: 1px;
+    padding-left: 25px;
+	padding-right: 15px;
+    
+}
+.margin0{
+padding:0px;
+margin:0px;
+}

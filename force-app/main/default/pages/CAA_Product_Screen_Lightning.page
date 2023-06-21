@@ -1,0 +1,47 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-23-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page showHeader="false" sidebar="false"  docType="html-5.0" standardStylesheets="false" controller="CAA_Core_Controller" action="{!Product_Screen_Init}">
+    
+    <apex:includeLightning />    
+    <div id="LightningComponentid" style="background-color: rgb(237,237,237);"/> 
+     
+
+    <!--<apex:composition template="CAA_Template_Lightning"/>  -->
+    <apex:composition template="CAA_Template_Lightning"/>
+<!-- the Id of div tag which will be used to render your LWC component  -->
+    <script>
+        console.log('Before Calling');
+        $Lightning.use("c:LigtningOutApp", function() {
+            $Lightning.createComponent("c:caaProductSelection",
+            { 
+               gaCampaignSource: '{!gaCampaignSource}',
+               gaCampaignMedium: '{!gaCampaignMedium}',
+               gaCampaignTerm:  '{!gaCampaignTerm}',
+               gaCampaignContent:  '{!gaCampaignContent}',
+               gaCampaignName:  '{!gaCampaignName}',
+               gaUniqueID: '{!gaUniqueID}',
+               ProductType:  '{!ProductType}',
+               ProductAccess:  '{!ProductAccess}',
+               oppId :  '{!OpportunityId}',
+               m_SessionId: '{!m_SessionId}',
+               isYPSA:'{!isYPSAAccount}',
+               accountid :'{!AccountId}',
+               m_AccountId:'{!m_AccountId}',
+               IsGuest:{!IsGuest},
+               showProduct : {!showProduct},//Case - 02071241 ;to show the product for customer
+               JsonMap : {!JsonMap},
+               valuePass:true 
+            },
+            "LightningComponentid", // the Id of div tag where your component will be rendered
+            function(cmp) {
+                console.log('Calling the LWC Component');
+            });
+        });
+        
+    </script>
+</apex:page>

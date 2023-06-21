@@ -1,0 +1,33 @@
+<apex:page showHeader="false" sidebar="false"  docType="html-5.0" standardStylesheets="false" controller="CAA_Core_Controller_Lightning" action="{!Declaration_Init}">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" style="background-color: rgb(237,237,237);"/>   
+<!-- the Id of div tag which will be used to render your LWC component  
+   {!EventLogId} {!DeResponse} {!SessionId} {!applicantNames.size} {!isISA} {!IsYPSA}  guest{!IsGuest} Product:{!Product.name} applicantNames:{!appicantNamesStr}
+    {!showYPSATC} {!showYPNATC} {!showSavingText} {!showCurrentAccountTC}-->
+    <!--<apex:composition template="CAA_Template_Lightning"/>  -->
+    <apex:composition template="CAA_Template_Lightning"/>
+    <script>
+        $Lightning.use("c:LigtningOutApp", function() {
+            $Lightning.createComponent("c:LC_CAA_Declaration",
+            { 
+               "EventLogId" : '{!EventLogId}',
+               "Decision" : '{!DeResponse}',
+               "SessionId" : '{!SessionId}',
+               "numOfApplicants" : '{!applicantNames.size}',
+               "isISA" : {!isISA},
+               "isYPSA" : {!IsYPSA},
+               "IsGuest" : {!IsGuest},
+               "Product" :'{!JSENCODE(Product.name)}',
+               "showYPSATC" : {!showYPSATC},
+               "showYPNATC" :{!showYPNATC},
+               "showSavingText" :{!showSavingText},
+               "showCurrentAccountTC" :{!showCurrentAccountTC},
+               "applicantNamesListStr" : '{!JSENCODE(appicantNamesStr)}'// changes for escaping quotes for applicant names-RG
+            },
+            "LightningComponentid", // the Id of div tag where your component will be rendered
+            function(cmp) {
+                console.log('Calling the aura Component');
+            });
+        });
+    </script>
+</apex:page>

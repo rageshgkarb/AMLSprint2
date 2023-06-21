@@ -1,0 +1,18 @@
+.radio input[type="radio"] {
+    margin-top: 0.7%;
+    }
+    .btnArb{
+        background-image: none !important;
+        padding: 8px 12px !important;
+        background-color: rgb(179,153,93) !important;
+        color: #fff !important;
+    }
+    hr{
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    .input-validation .alert{
+        max-width:250px;
+        padding:5px;
+        margin-top:5px;
+    }

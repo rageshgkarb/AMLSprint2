@@ -1,0 +1,44 @@
+<!-- C00233 new page -->
+
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" controller="BAA_WelcomeLetterController" applyBodyTag="">
+   <style>
+   .slds-scope .slds-has-error,.slds-scope .slds-form-element__help, .slds-scope .slds-form-element__helper{
+   font-size:12px !important;
+   }
+    .slds-scope .slds-checkbox [type=checkbox]:checked~.slds-checkbox--faux:after, .slds-scope .slds-checkbox [type=checkbox]:checked+.slds-checkbox__label .slds-checkbox_faux:after, .slds-scope .slds-checkbox [type=checkbox]:checked+.slds-checkbox__label .slds-checkbox--faux:after{
+    height: 0.35rem !important;
+    width: 0.75rem !important;
+ }
+ .slds-scope .slds-checkbox .slds-checkbox_faux, .slds-scope .slds-checkbox .slds-checkbox--faux{
+    width: 1.3rem !important;
+    height: 1.3rem !important;
+ }
+ label.slds-checkbox__label {
+    border-left: solid 5px red;
+}
+   </style>
+     <head>       
+        <c:BAA_Resource_Lightning ></c:BAA_Resource_Lightning>
+         <link rel="stylesheet" type="text/css" href="//services.postcodeanywhere.co.uk/css/address-3.40.css" />
+        <script type="text/javascript" src="//services.postcodeanywhere.co.uk/js/address-3.40.js"></script>       
+    </head>
+   
+    
+    <body>    
+        
+         <apex:includeLightning />   
+    <div id="LightningComponentid" class="container" style="font-size : 14px;margin: auto;"/> 
+     <script>
+        $Lightning.use("c:NPAA_APP", function() {
+            $Lightning.createComponent("c:baaWelcomeLetterlwc",
+            { 
+                 EventId:'{!EventId}',
+                   oppId: '{!Opp}',
+            
+            },"LightningComponentid", function(cmp) {
+                console.log('Calling the LWC Component');
+            });
+        });
+    </script>
+    </body>
+</apex:page>

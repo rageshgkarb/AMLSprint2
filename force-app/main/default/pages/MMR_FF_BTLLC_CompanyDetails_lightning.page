@@ -1,0 +1,455 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 08-29-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page showheader="false" sidebar="false" lightningStylesheets="true" controller="MMR_FF_BTLLC_CompanyDetails" action="{!Setup}"><!-- C0644 -->
+<apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:MMR_PageHeader ></c:MMR_PageHeader>
+        <apex:include pagename="pca__Component" />
+        <script>
+        pca_Settings.DisableFieldRearrange = true;
+        </script>
+    </head>
+    <body style="background-color:#ededed;">
+        <style>
+        
+            .q1show {
+                display: none;
+            }
+
+            .q2show {
+                display: none;
+            }
+
+            .popover {
+                max-width: 500px;
+            }
+
+            .statement {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+
+            .modal {
+                text-align: center;
+            }
+
+            @media screen and (min-width: 768px) {
+                .modal:before {
+                    display: inline-block;
+                    vertical-align: middle;
+                    content: " ";
+                    height: 100%;
+                }
+            }
+
+            .modal-dialog {
+                display: inline-block;
+                text-align: left;
+                vertical-align: middle;
+            }
+        </style>
+        <c:MMR_Header title="Company Details" numapps="{!numapplying}" opp="{!bopp}" hide="{!IsCredit}" />
+        <div class="slds-scope">
+            <div class="container">
+                <c:MMR_FF_BTLLC_Nav eventid="{!eventid}" active="0" activesection="F" rendered="{!!IsCredit && !IsCompleted}" />
+                <c:MMR_FF_BTLLC_Nav_Links_Lightning eventid="{!eventid}" active="0" activesection="F" rendered="{!!IsCredit && IsCompleted}" />
+                <c:MMR_FF_BTLLC_Credit_Nav_Lightning eventid="{!eventid}" active="0" activesection="F" rendered="{!IsCredit}" />
+                <apex:form id="aForm" styleclass="form-horizontal">
+                    <apex:pagemessages ></apex:pagemessages>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Organisation Details</div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Organisation Name</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Name}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Organisation Type</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Organisation_Type__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q2" class="col-sm-5 control-label slds-label">Organisation Sub-Type</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Organisation_sub_type__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Business Type</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Business_Type__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Nature of Business</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputtext value="{!Accounts[0].Nature_of_Business_NPAA__c}" required="true" styleclass="form-control slds-input" html-readonly="true" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Registration Date</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Registration_date__c}" required="true" styleclass="form-control slds-input" style="width:100% !important"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Registration Number</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Registered_number__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">VAT Number</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].VAT_number__c}" required="false" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Company Anticipated Turnover</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Company_anticipated_turnover__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Size of Business</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Size_of_business__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Layers of Ownership</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Layers_of_Ownership__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Length of Establishment</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Length_of_Establishment__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Balance Sheet (£'000s)</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Balance_Sheet_000s__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">High risk, prohibited, sanctioned country of residence for significant controllers</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].High_risk_prohibited_sanctioned_countr__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">High risk, prohibited, sanctioned country of residence for Ultimate Beneficial Owners or IBO's</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].HR_Prohibited_sanctioned_COR_for_UBOs_I__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Source of Funds</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Source_of_Funds__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Face to face contact with significant controller or UBO</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Face_to_face_Contact__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Politically Exposed Company</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield value="{!Accounts[0].Politically_Exposed_Company__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">Organisation Current Account Details  </div>
+                                    <div class="panel-body">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-sm-5 control-label slds-label" for="">Name of main bank</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputfield required="false" value="{!Accounts[0].Existing_Business_Bank_Name__c}" styleclass="form-control slds-input" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-sm-5 control-label slds-label" for="">Current account number</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputfield required="false" value="{!Accounts[0].Existing_Business_Bank_Account_Number__c}" styleclass="form-control slds-input" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-sm-5 control-label slds-label" for="">Current account sort code</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputfield required="false" value="{!Accounts[0].Existing_Business_Bank_Sort_Code__c}" styleclass="form-control slds-input" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Organisation Addresses</div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Business Email Address</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield required="true" value="{!Accounts[0].Business_email_address__c}" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Registered Address Postcode</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield required="true" value="{!Accounts[0].RegisteredAddressPostCode__c}" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Registered Address Street</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield required="true" value="{!Accounts[0].RegisteredAddressStreet__c}" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Registered Address City</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield required="true" value="{!Accounts[0].RegisteredAddressCity__c}" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="q1" class="col-sm-5 control-label slds-label">Registered Address Country</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield required="true" value="{!Accounts[0].RegisteredAddressCountry__c}" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label slds-label">Organisation Domicile</label>
+                                            <div class="col-sm-6">
+                                                <apex:inputfield required="true" value="{!Accounts[0].Organisation_Domicile__c}" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label slds-label">Is the Registered Address the same as the Trading Address?</label>
+                                            <div class="col-sm-3" style="padding-top:8px;width :200px">
+                                                <apex:inputfield id="isRegistered" value="{!Accounts[0].Is_trading_address_registered_address__c}" required="true" styleclass="form-control slds-input"/>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id="isRegisteredItem">
+                                            <div class="panel-heading">Trading Address</div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label class="slds-label">Street</label>
+                                                            </div>
+                                                            <div class="col-sm-9">
+                                                                <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].TradingAddressStreet__c}" id="emp2addr1" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label class="slds-label">City</label>
+                                                            </div>
+                                                            <div class="col-sm-9">
+                                                                <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].TradingAddressCity__c}" id="emp2addr2" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label class="slds-label">Country</label>
+                                                            </div>
+                                                            <div class="col-sm-9">
+                                                                <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].TradingAddressCountry__c}" id="emp2Country" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label class="slds-label">Postcode</label>
+                                                            </div>
+                                                            <div class="col-sm-9">
+                                                                <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].TradingPostCode__c}" id="emp2PCode" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="vertical-align:middle;">
+                                            <label class="col-sm-5 control-label slds-label">Is the Correspondence Address the same as the Registered Address?</label>
+                                            <div class="col-sm-3" style="padding-top:8px;width : 200px">
+                                                <apex:inputfield id="isCorrespondenceRegistered" value="{!Accounts[0].Is_registered_addr_correspondenceaddr__c}" required="true" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                        <div id="isCorrespondenceItem">
+                                        <div class="form-group" style="vertical-align:middle;">
+                                            <label class="col-sm-5 control-label slds-label">Is the Correspondence Address the same as the Trading Address?</label>
+                                            <div class="col-sm-3" style="padding-top:8px;">
+                                                <apex:inputfield id="isCorrespondenceTrading" value="{!Accounts[0].Is_trading_address_correspondenceaddress__c}" required="{!Accounts[0].Is_registered_addr_correspondenceaddr__c=='No'}" styleclass="form-control slds-input" />
+                                            </div>
+                                        </div>
+                                            <div class="panel panel-info" id="isCorrespondenceTradingItem">
+                                                <div class="panel panel-heading">Correspondence Address</div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="slds-label">Street</label>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].CorrespondenceAddressStreet__c}" id="emp3addr1" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="slds-label">City</label>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].CorrespondenceAddressCity__c}" id="emp3addr2" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- -->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="slds-label">Country</label>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].CorrespondenceAddressCountry__c}" id="emp3Country" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="slds-label">Postcode</label>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <apex:inputfield styleclass="form-control slds-input" value="{!Accounts[0].CorrespondenceAddressPostCode__c}" id="emp3PCode" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"/>
+                    </div>
+                    <div class="row" style="margin-top:30px;padding-bottom:20px;padding-left:30px">
+                        <apex:commandbutton id="btnPrev" styleclass=" btn btn-danger slds-button" value="Previous" action="{!PrevLightning}" rendered="{!!IsCredit && !IsCompleted}" />
+                        <apex:commandbutton styleclass="btn btn-danger slds-button" value="Save" action="{!Save}" rendered="{!!IsCompleted || IsCredit }" />
+                        <apex:commandbutton id="btnNext" styleclass=" btn btn-danger slds-button" value="Next" action="{!NextLightning}" rendered="{!!IsCredit && !IsCompleted}" />
+                    </div>
+                    <script type="text/javascript">
+                        function RegisteredAddress()
+                            {
+                                var sel = $("[id$='isRegistered").val();
+
+                                if(sel != 'No')
+                                {
+                                    $('#isRegisteredItem').hide();
+                                }
+                                else
+                                {
+                                    $('#isRegisteredItem').show();
+                                }
+                            }
+
+                        function CorrespondenceAddress()
+                        {
+                            var sel = $("[id$='isCorrespondenceRegistered").val();
+
+                            if(sel != 'No')
+                            {
+                                $('#isCorrespondenceItem').hide();
+                            }
+                            else
+                            {
+                                $('#isCorrespondenceItem').show();
+                            }
+                        }
+
+                        function CorrespondenceTradingAddress()
+                        {
+                            var sel = $("[id$='isCorrespondenceTrading").val();
+
+                            if(sel != 'No')
+                            {
+                                $('#isCorrespondenceTradingItem').hide();
+                            }
+                            else
+                            {
+                                $('#isCorrespondenceTradingItem').show();
+                            }
+                        }
+
+                        $(function (){
+                            $("[id$='isRegistered").change(function(){
+                                RegisteredAddress();
+                            });
+
+                            $("[id$='isCorrespondenceRegistered").change(function(){
+                                CorrespondenceAddress();
+                            });
+
+                            $("[id$='isCorrespondenceTrading").change(function(){
+                                CorrespondenceTradingAddress();
+                            });
+                            RegisteredAddress();
+                            CorrespondenceAddress();
+                            CorrespondenceTradingAddress();
+                        });
+                    </script>
+
+                    </apex:form>
+            </div>
+        </div>
+        <c:MMR_PageFooter ></c:MMR_PageFooter>
+        <span id="pca_status" style="display:none;" />
+    </body>
+</apex:page>

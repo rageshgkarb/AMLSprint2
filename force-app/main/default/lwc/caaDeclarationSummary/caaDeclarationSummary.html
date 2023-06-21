@@ -1,0 +1,116 @@
+<!--
+  @description       : 
+  @author            : Rishitha
+  @group             : 
+  @last modified on  : 04-08-2022
+  @last modified by  : Rishitha
+-->
+<template>
+	<div class="row">
+		<div class="col-md-9">
+			<template if:true={IsGuest}>
+				<div class="SectionHeader" style="margin-bottom:18px;">
+					<div class="numberCircleReverse">4</div>
+					<div>Next Steps</div>
+				</div>
+			</template>
+				<template if:false={IsGuest}>
+				<div class="SectionHeader" style="margin-bottom:18px;">
+					<div class="numberCircleReverse">4</div>
+					<div>Summary</div>
+				</div>
+				</template>
+	
+			<template if:false={IsGuest}>
+				<div class="PanelContents">
+					<!--
+		INTERNAL USER START
+	-->
+					<div class="SectionTitle">
+						Cases
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Case Number</th>
+								<th>Subject</th>
+								<th>Referral Decision</th>
+							</tr>
+						</thead>
+						<tbody>
+								<template for:each={Cases} for:item="c">
+								<tr key={c.Id}>
+									<td><a  name={c.Id} onclick={navigateToCase}>{c.CaseNumber}</a></td>
+									<td>{c.Subject}</td>
+									<td>{c.Referral_Decision__c}</td>
+								</tr>
+								</template>
+						</tbody>
+					</table>
+	
+						<template if:true={AllowComplete}>
+						<button class="btn btnArb" onclick={CompleteSummary}>Next</button>
+						
+						</template>
+		
+					</div>    
+				</template>
+	
+	
+	<div class="PanelContents">
+	
+	
+	
+	<!--
+		EXTERNAL USER START
+	-->
+					<template if:true={isResponse}>
+						<c-caa-next-steps-refer-f-c-u  productname={ibbProductName}></c-caa-next-steps-refer-f-c-u >
+					</template>
+					
+					
+					<template if:true={isDecline}>
+						<c-caa-next-step-decline  product={Product}></c-caa-next-step-decline>
+					</template>
+	
+					<template if:true={isDOCS}>
+						<c-caa-next-steps-refer-docs  productname={ibbProductName} oppreference={OppLibRef} ></c-caa-next-steps-refer-docs> 
+						 <c-caa-next-step-documents stage={DeResponse} eventlogid={EventLogId} sessionid={SessionId}></c-caa-next-step-documents >
+					</template>
+	
+					<template if:true={isSIG}>
+					<c-caa-next-steps-refer-sig productname={ibbProductName} oppreference={OppLibRef}></c-caa-next-steps-refer-sig> 
+					<c-caa-next-step-documents  stage={DeResponse} eventlogid={EventLogId} sessionid={SessionId}></c-caa-next-step-documents >>
+					</template>
+	
+					</br>
+						
+					<template if:true={IsGuest}> 
+						<c-caa-next-steps-footer></c-caa-next-steps-footer>
+					</template>
+	
+							
+		
+	<!--
+		EXTERNAL USER END
+	-->
+	
+	</div>
+	
+	</div>
+	<div class="col-md-3">
+	<div class="rightcol visible-md visible-lg" id="sidebar" >
+	<template if:true={IsGuest}> 
+			<c-caa-progress ></c-caa-progress> 
+	</template>
+	
+	<template if:false={IsGuest}> 
+		<c-caa-event-menu></c-caa-event-menu>
+	</template> 
+	
+	</div>
+	</div>
+	</div> <!-- row -->	
+	
+	<c-caa-message-broker></c-caa-message-broker>
+	</template>

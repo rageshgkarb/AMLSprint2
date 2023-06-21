@@ -1,0 +1,17 @@
+<template>
+    <div class="input-validation" >
+    <template if:true={isRequired}>
+        <p class="alert alert-danger">This field is required</p>
+     </template>
+     <template if:true={isMinLength}>
+        <p class="alert alert-danger">This field is too short</p>
+     </template>
+     <template if:true={isMaxLength}>
+        <p class="alert alert-danger">This field is too long</p>
+     </template>
+     <template if:true={isEmail}>
+        <p class="alert alert-danger">Enter a valid email address</p>
+     </template>
+    </div>
+  
+</template>

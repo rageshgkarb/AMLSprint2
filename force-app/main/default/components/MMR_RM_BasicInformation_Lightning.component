@@ -1,0 +1,85 @@
+<apex:component >
+    <apex:attribute name="Model" type="String" description="" />
+    <apex:attribute name="ApplicantNo" type="String" description="" />
+    <apex:attribute name="FirstName" type="String" description="" />
+    <apex:attribute name="LastName" type="String" description="" />
+    <!-- C0592 -->
+    <div class="col-md-8" ng-show="!RMAlertText">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 ng-show="Data && Data.Applicants[{!ApplicantNo}]">{!FirstName}&nbsp;{!LastName}</h3>
+            </div>
+            <div class="panel-body">
+                <div ng-show="Data.Applicants[{!ApplicantNo}].EDD_Data_Missing" >
+                    <div class="col-md-12 col-sm-12">                        
+                        <!-- Garnet - Start  -->                            
+                        <div style="margin-top:5px;" ng-class="{ 'has-error':( myform.optCountryOfExpCredits{!ApplicantNo}.$touched|| Submitted) && myform.optCountryOfExpCredits{!ApplicantNo}.$invalid }">
+                            <div>
+                                <label rel="popover" data-placement="right" data-trigger="hover" data-html="true" data-content="">
+                                    <label class="control-label slds-label">Countries of Expected Transaction Activity (Credits)?</label>                                    
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <select id="noKendo" ng-model="Data.Applicants[{!ApplicantNo}].Country_of_Expected_Transactions_Credits_c" class="form-control" name="optCountryOfExpCredits{!ApplicantNo}y" ng-disabled="DisableControl" ng-required="Data.Applicants[{!ApplicantNo}].EDD_Data_Missing && !Data.Applicants[{!ApplicantNo}].Country_of_Expected_Transactions_Credits_c"
+                                            ng-options="option.Key as option.Value  for option in Data.CountryOfExpCredits"></select>
+                                    <c:CAA_InputError field="optCountryOfExpCredits" />
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                        
+                        <div style="margin-top:5px;" ng-class="{ 'has-error':( myform.optCountryOfExpDebits{!ApplicantNo}.$touched|| Submitted) && myform.optCountryOfExpDebits{!ApplicantNo}.$invalid }">
+                            <div>
+                                <label rel="popover" data-placement="right" data-trigger="hover" data-html="true" data-content="">
+                                    <label class="control-label slds-label">Countries of Expected Transaction Activity (Debits)?</label>                                    
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <select id="noKendo" ng-model="Data.Applicants[{!ApplicantNo}].Country_of_Expected_Transactions_Debits_c" class="form-control" name="optSourceOfFundsCountr{!ApplicantNo}y" ng-disabled="DisableControl" ng-required="Data.Applicants[{!ApplicantNo}].EDD_Data_Missing && !Data.Applicants[{!ApplicantNo}].Country_of_Expected_Transactions_Debits_c"
+                                            ng-options="option.Key as option.Value  for option in Data.CountryOfExpDebits"></select>
+                                    <c:CAA_InputError field="optCountryOfExpDebits" />
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                        
+                        <div style="margin-top:5px;" ng-class="{ 'has-error':( myform.optCurrenciesOfExpDenomination{!ApplicantNo}.$touched|| Submitted) && myform.optCurrenciesOfExpDenomination{!ApplicantNo}.$invalid }">
+                            <div>
+                                <label rel="popover" data-placement="right" data-trigger="hover" data-html="true" data-content="">
+                                    <label class="control-label slds-label">Currencies of Expected Transaction Activity (Denominations)?</label>                                    
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <select id="noKendo" ng-model="Data.Applicants[{!ApplicantNo}].Currencies_of_Expected_Transactions_c" class="form-control" name="optSourceOfFundsCountr{!ApplicantNo}y" ng-disabled="DisableControl" ng-required="Data.Applicants[{!ApplicantNo}].EDD_Data_Missing && !Data.Applicants[{!ApplicantNo}].Currencies_of_Expected_Transactions_c"
+                                            ng-options="option.Key as option.Value  for option in Data.CurrenciesOfExpDenomination"></select>
+                                    <c:CAA_InputError field="optCurrenciesOfExpDenomination" />
+                                </div>
+                            </div>
+                            <hr />
+                        </div>                                                
+                        <!-- Garnet - END -->
+                        
+                        <div style="margin-top:5px;" ng-class="{ 'has-error':( myform.optSourceOfWealth{!ApplicantNo}.$touched|| Submitted) && myform.optSourceOfWealth{!ApplicantNo}.$invalid }">
+                            <div>
+                                <label rel="popover" data-placement="right" data-trigger="hover" data-html="true" data-content="">
+                                    <label class="control-label slds-label">How did you generate or acquire your wealth?</label>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <select id="noKendo" ng-model="Data.Applicants[{!ApplicantNo}].Source_of_Wealth_c" class="form-control" name="optSourceOfWealth{!ApplicantNo}" ng-disabled="DisableControl" ng-required="Data.Applicants[{!ApplicantNo}].EDD_Data_Missing && !Data.Applicants[{!ApplicantNo}].Source_of_Wealth_c"
+                                            ng-options="option.Key as option.Value  for option in Data.SourceOfWealth"></select>
+                                    <c:CAA_InputError field="optSourceOfWealth" />        
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:component>

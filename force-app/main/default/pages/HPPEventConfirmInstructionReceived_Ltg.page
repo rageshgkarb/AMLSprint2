@@ -1,0 +1,93 @@
+<apex:page controller="HPPConfirmInstructionReceivedController" lightningStylesheets="true" sidebar="false" showHeader="false" title="Confirmation from Solicitor of instruction received">
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:KendoResource ></c:KendoResource> 
+    </head>
+    <style>
+    .k-block, .k-widget, .k-popup, .k-content, .k-dropdown .k-input 
+	  	{
+			padding-bottom: 22px !important;
+            width : auto !important;
+	  	} 
+    body .lookupInput input[type="text"], .slds-vf-scope .lookupInput input[type="text"] 
+    {
+    margin-bottom: 21px !important;
+    }
+     .slds-button {
+		width: auto !important;
+        padding-right: 7px !important;
+		padding-left: 7px !important;
+       }
+     .slds-button:hover {
+        background-color: rgb(30,30,30) !important;
+        color: #fff !important;
+        }
+     .slds-input-inline
+      {
+      	width: 32px !important;
+      	height: 26px !important;
+      }
+      body .dateInput input[type="text"], .slds-vf-scope .dateInput input[type="text"] 
+      {
+        width: 100px !importanat;
+      }
+    </style>
+    <body>
+     <div class="slds-scope">
+        <apex:form >
+            <div id="formWrapper">
+                <!-- C00095--> 
+                <c:HPPSummary_Lightning objAcc="{!Accounts[0]}" objOpp="{!opp}" objExOpp="{!ExOpp}" Product="{!Prod}" />
+                <div id="container" >
+                    <table width="100%">
+                        <tr>
+                            <td valign="top" id="sidebar">
+                                <c:HPPBOMenu_Lightning oppId="{!Opp.Id}"  DirectorId="{!Opp.ProductEventDirector__c}" />
+                            </td>
+                            <td valign="top" id="contenttd">
+                                <div id="content">
+                                    <h1>Confirmation from Solicitor of instruction received</h1>
+                                
+                                    <apex:outputPanel id="mainPageBlock">
+                                    <div style="padding:20px;">
+                                        <!-- content -->
+                                        
+                                        <apex:pageBlock >
+                                            <apex:pageBlockSection >
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="Date instruction received" />
+                                                    <apex:inputField value="{!exOpp.Instruction_Received_from_IBB__c}" required="true" />
+                                                    </apex:pageBlockSectionItem>
+                                            </apex:pageBlockSection>
+                                            
+                                                <apex:pageBlockSection >
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="SGH Martineau case reference" />
+                                                    <apex:inputField styleclass="slds-input-inline" value="{!Opp.SGH_Martineau_case_ref__c}" required="false" />
+                                                    </apex:pageBlockSectionItem>
+                                            </apex:pageBlockSection>
+                                           
+                                            <apex:pageBlockSection >
+                                                <apex:pageBlockSectionItem >
+                                                    <apex:outputLabel styleClass="slds-label" value="SGH Martineau case owner" />
+                                                    <apex:inputField value="{!Opp.SGH_Martineau_case_owner__c}" required="false" />
+                                                </apex:pageBlockSectionItem>
+                                            </apex:pageBlockSection>
+                                            
+                                            <apex:pageBlockButtons location="bottom">
+                                                <apex:commandButton value="Instruction Received" styleclass="slds-button" action="{!complete}" rendered="{!!IsCompleted}" />
+                                            </apex:pageBlockButtons>
+                                        </apex:pageBlock> 
+                                    </div>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </apex:form>
+        </div>
+        </body>
+</apex:page>

@@ -1,0 +1,66 @@
+<apex:page controller="HPP_BTLLC_ApplicationSignedController" lightningStylesheets="true" sidebar="false" showheader="false" title="Submit to decison engine" action="{!Setup}">
+   <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:KendoResource ></c:KendoResource>
+    </head>
+    <body>
+         <div class="slds-scope">
+                <apex:form >
+            <div id="formWrapper">
+                <!-- C00095-->
+                <c:HPPSummary_Lightning objacc="{!Accounts[0]}" objopp="{!opp}" objexopp="{!ExOpp}" product="{!Prod}" />
+                <div id="container">
+                    <table width="100%">
+                        <tr>
+                            <td valign="top" id="sidebar">
+                                <c:HPPBOMenu_Lightning oppid="{!Opp.Id}" directorid="{!Opp.ProductEventDirector__c}" />
+                            </td>
+                            <td valign="top" id="contenttd">
+                                <div id="content">
+                                    <h1>Affordability and Credit Search</h1>
+                                    <apex:pagemessages ></apex:pagemessages>
+                                    <apex:outputpanel id="mainPageBlock">
+                                        <div style="padding:20px;">
+                                            <!-- content -->
+                                            <apex:outputpanel rendered="{!!IsCompleted && !DeResponse && !ShowDeButton }">
+                                                <apex:inputhidden value="{!Opp.Number_of_People_Applying__c }" />
+                                            </apex:outputpanel>
+                                            <div style="text-align:right;">
+                                                <apex:commandbutton value="Run Affordability" styleclass="redBtn slds-button" action="{!DoAffordibility}" rendered="{!!IsCompleted && !DeResponse && !ShowDeButton}" />
+                                                <apex:commandbutton value="Submit to decision engine" onclick="ShowDocumentLoad();" oncomplete="HideDocumentLoad();" styleclass="redBtn slds-button" action="{!SubmitToDe}" rerender="mainPageBlock" rendered="{!!IsCompleted && !DeResponse && ShowDeButton }" />
+                                            </div>
+                                            <apex:pagemessages ></apex:pagemessages>
+                                            <br /><br />
+                                            <div style="text-align:right;">
+                                                <apex:commandbutton value="Complete Event" styleclass="redBtn slds-button" action="{!Complete}" rendered="{!!IsCompleted && DeResponse}" />
+                                            </div>
+                                        </div>
+                                    </apex:outputpanel>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div id="fade"></div>
+            <div id="overlay">
+                Doing credit search...
+                <br />
+                <br />
+                This may take a few seconds.
+
+                <div style="padding-top: 50px;">
+                    <img src="{!URLFOR($Resource.ibbstyleexternal, 'graphics/logos/circular-timer.gif')}"></img>
+                </div>
+
+            </div>
+
+        </apex:form>
+
+            </div>
+        
+
+    </body>
+</apex:page>

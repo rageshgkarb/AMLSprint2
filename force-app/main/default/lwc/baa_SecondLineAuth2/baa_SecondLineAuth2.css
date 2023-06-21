@@ -1,0 +1,18 @@
+.outputValue {
+    font-family: Arial,Helvetica,sans-serif;
+    color: #222;
+    font-size: 12px;
+}
+
+td .slds-scope .slds-form-element__static {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    display: inline-block;
+    color: rgb(24, 24, 24) !important;
+    width: 100%;
+    font-size: 13px !important;
+}
+.THIS .slds-button_brand {
+    color:red;
+}

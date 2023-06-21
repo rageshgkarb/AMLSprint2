@@ -1,0 +1,184 @@
+<template>
+    <div class="container">
+        <c-baa-header-cmp  title="Product"></c-baa-header-cmp>
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                
+                <!--<c:BAA_Menu oppId="{!BaseOpportunity.Id}"  DirectorId="{!BaseOpportunity.ProductEventDirector__c}" />-->
+                <c-baa-menu-cmp > </c-baa-menu-cmp>
+            </div>
+            <div class="col-md-8 col-lg-9">
+                <div class="row" style="color: green;font-size: larger;">
+                    <template if:true={showSuccessMessage}>
+                        {successMessage}
+                    </template>          
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Mandate Details</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                               <div class="form-group">
+                                   <div class="col-sm-6">
+                                       <label>Signatures required</label>
+                                   </div>
+                                    <div class="col-sm-6">
+                                        <!--<apex:inputField styleClass="form-control sigRequired" required="true"   value="{!Opp.Mandate_Signature__c}"/>-->
+                                        <div class="requiredInput">
+                                            <select class="selectListClass" data-id="mandatesignfield" onchange={handleMandateSelection}>
+                                                <template for:each={mandateSignList} for:item="mandateSign" for:index="index">
+                                                    <template if:true={mandateSign.selected}>
+                                                        <option selected="selected" key={mandateSign} value ={mandateSign.value}> {mandateSign.value}</option>
+                                                    </template>
+                                                    <template if:false={mandateSign.selected}>
+                                                        <option key={mandateSign} value ={mandateSign.value}> {mandateSign.value}</option>
+                                                    </template>
+                                                </template>
+                                            </select>
+                                            </div>
+                                     </div>
+                                   
+                               </div>
+                           </div> 
+                           <div class="col-md-6">
+                            <template if:true={showHowManyField}>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <label>Please specify how many</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" name="howmanysignfield"  data-id="howmanysignfield"></input>
+                                    </div>
+                                </div>
+                            </template>
+                            
+                        </div> 
+                       </div>
+
+                       <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                               <div class="col-sm-6">
+                                   <label>Do you require a compulsory signature</label>
+                               </div>
+                               <div class="col-sm-6">
+                                   <!-- required="true" value="{!Opp.Mandate_Compulsory_Signature__c}
+                                   <input class="form-control sigIsCompulsory" />-->
+                                   
+                                    <div class="requiredInput">
+                                        <select class="selectListClass" data-id="mandateCmpsignfield" onchange={handleMandateCmpSelection}>
+                                            <template for:each={mandateCompulSignList} for:item="mandateCmp" for:index="index">
+                                                <template if:true={mandateCmp.selected}>
+                                                    <option selected="selected" key={mandateCmp} value ={mandateCmp.value}> {mandateCmp.value}</option>
+                                                </template>
+                                                <template if:false={mandateCmp.selected}>
+                                                    <option key={mandateCmp} value ={mandateCmp.value}> {mandateCmp.value}</option>
+                                                </template>
+                                            </template>
+                                        </select>
+                                        </div>
+                                   
+                                   
+                               </div>
+                           </div>
+                       </div>                  
+                        <div class="col-md-6">
+                            <template if:true={showCompulSign}>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <label>If yes, please select name</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                         <!-- {!Opp.Mandate_Compulsory_Signature_Account__c} -->
+                                         <select class="selectListClass" data-id="selectedaccountfield" onchange={handleAccountSelection}>
+                                            <option value ="--None--"> --None--</option>
+                                             <template for:each={accountList} for:item="account" for:index="index">
+                                                <template if:true={account.selected}>
+                                                    <option selected="selected" key={account} value ={account.value}> {account.label}</option>
+                                                </template>
+                                                <template if:false={account.selected}>
+                                                    <option selected="selected" key={account} value ={account.value}> {account.label}</option>
+                                                </template>
+                                             </template>
+                                         </select>
+                                     
+                                         </div>
+                                 
+                                </div>
+                            </template>
+                           
+                       </div> 
+                   </div>
+
+
+                    </div>
+                    
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading"></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Mandate</th>
+                                        <th>Mandate Limit</th>
+                                        <th>Unlimited</th>
+                                        <template if:true={showCardSection}>
+                                            <th class="showCard">Card</th>
+                                            <th class="showCard">Name on Card</th>
+                                        </template>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={applicantList} for:item="applicant" for:index="index">
+										
+										<tr key ={applicant}>
+											<td>{applicant.firstName}</td>
+											<td>{applicant.lastName}</td>
+											<!-- value="{!a.Has_Mandate__c}"-->
+											<td><input data-index={index} type="checkbox" checked={applicant.HasMandate} class="form-control" data-id="hasmandatefield" onchange={handleHasMandateChange} ></input></td>
+											<!-- value="{!a.Mandate_Limit__c}"-->
+											<td>
+                                                <template if:true={applicant.MandateLimit}>
+                                                    <input data-index={index} class="form-control" data-id="mandatelimitfield" value={applicant.MandateLimit} onchange={handleMandateLimitChange} ></input>
+                                                </template>
+                                                <template if:false={applicant.MandateLimit}>
+                                                    <input data-index={index} class="form-control" data-id="mandatelimitfield" onchange={handleMandateLimitChange} ></input>
+                                                </template>
+
+                                                
+                                            </td>
+											<!-- value="{!a.Mandate_Unlimited__c}"-->
+											<td><input data-index={index} type="checkbox" checked={applicant.MandateUnlimited} class="form-control" data-id="mandateunlimitedfield" onchange={handleMandateUnlimitedChange}></input></td>
+											
+                                            <template if:true={showCardSection}>
+                                                <!-- value="{!a.Has_Card__c}"-->
+                                                <td class="showCard"><input type="checkbox" checked={applicant.HasCard} data-index={index} data-id="hasCardField" class="form-control" onchange={handleHasCardChange}/></td>
+                                                <!-- value="{!a.Prospect_Customer__r.Card_Name__c}"-->
+                                                <td class="showCard"><input data-index={index} data-id="cardNameField" class="form-control" onchange={handleHasCardNameChange}/></td>
+                                            </template>
+											
+										</tr>
+									</template>
+                                </tbody>
+                            </table>                          
+                            <!--<apex:commandButton styleClass="btn btn-danger" value="Save" action="{!Save}"/>-->
+                            <button class="btn btn-danger" onclick={handleSaveButton}> Save </button>
+                            <button class="btn btn-danger" disabled={disableCompleteButton} onclick={handleCompleteButton}> Complete </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+        <template if:true={showLoadingSpinner}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,5 @@
+.regionWaitMessage.text-center {
+    top: calc((100% - 40%)/2) !important;
+    margin-left: calc((100% - 40%)/2) !important;
+    margin-right: calc((100% - 40%)/2) !important;
+}

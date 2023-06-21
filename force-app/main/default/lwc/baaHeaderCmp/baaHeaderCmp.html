@@ -1,0 +1,98 @@
+<template >
+    <template if:true={showheader}>
+  <template if:false={hide}>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header" style="width:100%;">
+                <a class="navbar-brand" href="#"><span style="color:#FFFFFF;">
+                        <h2>{opp.Name} - {title}</h2>
+                    </span></a>
+
+
+                <div style="text-align: right;padding-right:10px;padding-top:5px;color:#fff;">
+                    <div>
+                        <template if:true={opp.IsPreRewind__c}>
+                        <b>Pre Submission Rewind</b>
+                        </template>
+                    </div>
+                    <div>
+                        <template if:true={opp.IsPostRewind__c}>
+                            <b>Post Submission Rewind</b>
+                           
+                        </template> </div>
+                    <div>
+                        <template if:true={LatestRewind}>
+                            <a style="color:#fff;text-decoration:bold;" onclick={navigateTorewind}>Last rewind by
+                                {LatestRewind.CreatedBy.Name} - {LatestRewind.Name}
+                            </a>
+                            </template> 
+                        </div>
+
+                </div>
+
+            </div>
+        </nav>
+    </template>
+
+
+
+    <template if:true={isOppAvailable}>
+        
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="container">
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <label>Organisation Name</label>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            {opp.Account.Name}
+                           
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <label>Organisation Type</label>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            {opp.Account.Organisation_type__c} 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <label>Product</label>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            {opp.IBB_Product__r.Name}
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <label>Contact Name</label>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            {opp.Account.Contact_Name__c} 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <label></label>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <label>Stage</label>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                           {opp.StageName} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      
+        
+    </template>
+
+
+</template>
+
+</template>

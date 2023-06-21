@@ -1,0 +1,54 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-05-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page showHeader="false" sidebar="false" lightningStylesheets="true" controller="MMR_FF_PersonalDetails" docType="html-5.0">
+    <apex:stylesheet value="{!URLFOR($Resource.HPP_SLDS, 'lightning-styling.css')}" />
+    <head>
+        <c:MMR_PageHeader ></c:MMR_PageHeader>
+        <apex:include pageName="pca__Component"/>
+        <script>
+            pca_Settings.DisableFieldRearrange = true;
+        </script>    
+    </head>
+    <body style="background-color:#ededed;">
+        <style> .q1show{display:none;}.q2show{display:none;}  .hideLabel{display:none;} </style>
+
+        <c:MMR_Header title="Personal Details" numapps="{!numapplying}" opp="{!bopp}" hide="{!IsCredit}"/>
+        <div class="slds-scope">
+            <div class="container">
+                <c:MMR_FF_Nav EventId="{!eventid}" active="1" activesection="B" rendered="{!!IsCredit && !IsCompleted}"/>
+                <c:MMR_FF_Nav_Links_Lightning EventId="{!eventid}" active="1" activesection="B" rendered="{!!IsCredit && IsCompleted}"/>
+
+                <c:MMR_Credit_Nav_Lightning EventId="{!eventid}" active="1" activesection="B" rendered="{!IsCredit}"/>
+
+                <apex:form id="aForm" styleClass="form-horizontal">
+                <apex:pagemessages ></apex:pagemessages>
+                <div class="row" Style="padding-left:15px" >
+                    <!-- C0644 Added Type Param -->
+                    <c:MMR_PersonalDetails_Lightning panelclass="panel-warning" applicantno="1" appno="1" acc="{!Accs[0]}" rendered="{!NumApplying >0}" type="Applicant" />
+                    <c:MMR_PersonalDetails_Lightning panelclass="panel-success" applicantno="1" appno="2" acc="{!Accs[1]}" rendered="{!NumApplying >1}" type="Applicant" />
+
+                    <div class="clearfix"/>
+
+                    <c:MMR_PersonalDetails_Lightning panelclass="panel-info" applicantno="1" appno="3" acc="{!Accs[2]}" rendered="{!NumApplying >2}" type="Applicant" />
+                    <c:MMR_PersonalDetails_Lightning panelclass="panel-danger" applicantno="1" appno="4" acc="{!Accs[3]}" rendered="{!NumApplying >3}" type="Applicant" />
+
+                    <div class="clearfix"/>
+                </div>      
+
+                <apex:commandButton styleclass="btn-danger slds-button" value="Previous" action="{!GoPropertyLightning}" rendered="{!!IsCredit && !IsCompleted}" /> 
+                <apex:commandButton styleClass="btn btn-danger slds-button"  value="Save" action="{!Save}" rendered="{!!IsCompleted || IsCredit }"/>
+                <apex:commandButton styleClass="btn-danger slds-button" value="Next" action="{!GoAddressesLightning}" rendered="{!!IsCredit && !IsCompleted}"/>     
+
+                </apex:form>        
+            </div>
+        </div>
+        <c:MMR_PageFooter ></c:MMR_PageFooter>
+
+        <span id="pca_status" style="display:none;" />
+    </body>
+</apex:page>

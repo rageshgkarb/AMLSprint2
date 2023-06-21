@@ -1,0 +1,72 @@
+.THIS .SectionHeader {
+    padding: 20px;
+    background-color: rgb(179,153,93);
+    color: rgb(255,255,255);
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+.THIS .numberCircleReverse {
+    border-radius: 50%;
+    behavior: url(PIE.htc);
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-right: 7px;
+    background: #fff;
+    color: rgb(179,153,93);
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+.THIS .headerBack {
+background-color: rgb(179,153,93);
+}
+.THIS .SectionSubHeader {
+    background-color: rgb(255 255 255) !important;
+    --slds-c-accordion-summary-color-background:#ffffff;
+    --slds-c-accordion-heading-font-size:18px;
+    --slds-c-accordion-heading-line-height:2;    
+    
+}
+.THIS .SectionContent {
+font-family: Arial !important;
+font-size: 16px !important;
+color: #666666 !important;
+margin:0px 0px 10px !important;
+padding:0px 0px 0px 40px !important;
+font-weight:normal !important;    
+}
+    
+.THIS .goldbutton {
+    background-color: rgb(179,153,93);
+    color: #fff;
+}
+    
+.THIS .blackbutton {
+    background-color: rgb(30,30,30);
+    color: #fff;
+}
+.THIS .changeMe {
+    background-color:yellow;
+    width:200px;
+}
+.THIS .btnArb {
+        text-shadow: none;
+        background-color: rgb(179,153,93);
+        color: #fff;
+}
+.THIS .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    }

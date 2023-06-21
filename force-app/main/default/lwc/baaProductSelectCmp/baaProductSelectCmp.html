@@ -1,0 +1,276 @@
+<template>
+    
+    <div class="row">
+        <template if:true={isErrorMessage}>
+               <div class="alert alert-danger" >    
+                   {validationMessage}
+              </div>
+               </template>
+   </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Company</div>
+        <div class="panel-body">
+    <div class="row">
+            <div class="form-group">
+            <div class="col-sm-6">
+                <label>Organisation Name</label>
+            </div>
+            <div class="col-sm-6">
+
+                <!--<apex:inputText styleClass="form-control" value="{!Name}" html-ng-model="Name"/>-->
+                <input type="text" data-id="orgnamefield" class="form-control" name="OrgName" onkeyup={handleOrgNameChange}/>
+             
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group">
+        </div>
+    </div>
+    
+    <div class="row">
+            <div class="form-group">
+            <div class="col-sm-6">
+                <label>Organisation Type</label>
+            </div>
+            <div class="col-sm-6">
+               <!-- <apex:inputField styleClass="form-control" value="{!Acc.Organisation_type__c}" html-ng-model="OrgType" /> -->
+               <select class="selectListClass" data-id="organisationfield" onchange={handleOrganisationTypeChange} >
+                                         
+                <template for:each={organisationTypeList} for:item="orgtype" for:index="index">
+                    <template if:true={orgtype.selected}>
+                        <option selected="selected" key={orgtype} value ={orgtype.value}> {orgtype.value}</option>
+                    </template>
+                    <template if:false={orgtype.selected}>
+                        <option key={orgtype} value ={orgtype.value}> {orgtype.value}</option>
+                    </template>
+                    
+
+                </template>
+            </select>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group">
+        </div>
+    </div>
+        
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-6">
+                <label>Organisation Sub-Type</label>
+            </div>
+            <div class="col-sm-6">
+                <!-- <apex:inputField styleClass="form-control" value="{!Acc.Organisation_type__c}" html-ng-model="OrgType" /> -->
+                <select class="selectListClass" data-id="organisationsubfield" onchange={handleOrgSubTypeChange} >
+                    
+                                            
+                 <template for:each={organisationSubList} for:item="orgSubtype" for:index="index">
+                    <template if:true={orgSubtype.selected}>
+                        <option selected="selected" key={orgSubtype} value ={orgSubtype.value}> {orgSubtype.value}</option>
+                    </template>
+                    <template if:false={orgSubtype.selected}>
+                        <option key={orgSubtype} value ={orgSubtype.value}> {orgSubtype.value}</option>
+                    </template>
+                 </template>
+             </select>
+             </div>
+        </div>        
+    </div>
+    
+   <div class="row">
+        <div class="form-group">
+        </div>
+    </div>
+    
+    <!-- C0056 start -->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-6">
+                <label>Business Type</label>
+            </div>
+            <div class="col-sm-6">
+               <!-- <apex:inputField styleClass="form-control" value="{!Acc.Business_Type__c}" html-ng-model="BusType"/> -->
+               <select class="selectListClass" data-id="businessTypefield" onchange={handleBusinessTypeChange} >
+                                        
+                <template for:each={businessTypeList} for:item="busType" for:index="index">
+                    <template if:true={busType.selected}>
+                        <option selected="selected" key={busType} value ={busType.value}> {busType.value}</option>
+                    </template>
+                    <template if:false={busType.selected}>
+                        <option key={busType} value ={busType.value}> {busType.value}</option>
+                    </template>
+                </template>
+            </select>
+            </div>
+        </div>        
+    </div>
+</div>
+</div>
+    <!-- C0056 end -->
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Product</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Type of account</label>
+                        </div>
+                        <div class="col-sm-6">
+                        
+                            <select class="selectListClass" data-id="typeofaccount" onchange={handleAccountTypeChange} >
+                                        
+                                <template for:each={accountTypeList} for:item="accountType" for:index="index">
+                                    <option key={accountType} value ={accountType}> {accountType}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>        
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>When will you want to withdraw your money?</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="selectListClass" data-id="typeofaccess" onchange={handleAccessChange}>
+                                        
+                                <template for:each={accessList} for:item="accessType" for:index="index">
+                                    <option key={accessType} value ={accessType}> {accessType}</option>
+                                </template>
+                            </select>
+                        
+                        
+                        
+                                       <!--- <apex:inputhidden id="accessHidden" value="{!accessToFunds}" /> -->
+                        </div>
+                    </div>        
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Deposit amount</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input data-id="depositfield" class="form-control" style="width: 200px" type="number" onkeyup={handleDepositChange}></input>
+                        </div>
+                    </div>        
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Select product</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="selectListClass" data-id="productlistid" onchange={handleProductSelection}>
+                                        
+                                <template for:each={filteredProductList} for:item="productItem" for:index="index">
+                                    <option key={productItem} value ={productItem.Id}> {productItem.Name}</option>
+                                </template>
+                            </select>
+                            
+                            
+                        </div>
+                    </div>        
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                    </div>
+                </div>
+
+                <table class="table" width="100%" id="grid1">
+                    <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Access</th>                              
+                                    <th>Min Deposit</th>                               
+                                </tr>
+                            </thead>
+                            <template if:true={showProductTable}>
+                                <template for:each={validProductList} for:item="productItem" for:index="index">
+                                    <tr key={productItem.Name} data-id={productItem.Name} class="redStyleClass" >
+                                        <td key={productItem.Name}>{productItem.Name}</td>
+                                        <td key={productItem.Name}>{productItem.Access}</td>
+                                        <td key={productItem.Name}>{productItem.showCurrency}</td> 
+                                    </tr>
+                                </template>
+                            </template>
+                            <tbody>
+
+                            </tbody>
+                  </table>
+
+
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Marketing</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Campaign Source</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="selectListClass" data-id="campaignlistid" onchange={handleCampaignSelection}>
+                                <option key={noneOptionValue} value ={noneOptionValue}> {noneOptionValue}</option>        
+                                <template for:each={campaignList} for:item="campaignItem" for:index="index">
+                                    <option key={campaignItem} value ={campaignItem.Id}> {campaignItem.Name}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>        
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>How did you hear about Al Rayan Bank?</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="selectListClass" data-id="howdidhearfield" onchange={handleHowHearSelection}>
+                                <template for:each={howDidHearList} for:item="howItem" for:index="index">
+                                    <option key={howItem} value ={howItem.value}> {howItem.value}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-right">
+           <template if:true={showNextButton}>
+                <button data-id="knockoutClick" class="btn btn-danger" onclick={handleNextButton} > Next </button>
+            </template>
+        </div>
+
+        <template if:true={showLoadingSpinner}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+        
+   
+    
+</template>

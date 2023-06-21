@@ -1,0 +1,15 @@
+<!--
+  @description       : 
+  @author            : Rishitha
+  @group             : 
+  @last modified on  : 05-24-2022
+  @last modified by  : Rishitha
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	 <aura:attribute name="accountid" type="String"/>  
+
+
+  <c:caaANC accountid = "{!v.accountid}" 
+         
+                  />
+</aura:component>
